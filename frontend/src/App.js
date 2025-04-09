@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 function App() {
-  const [mensagem, setMensagem] = useState('');
-
-  useEffect(() => {
-    axios.get('/api/hello')
-      .then(response => {
-        setMensagem(response.data.message);
-      })
-      .catch(error => {
-        console.error('Erro ao buscar mensagem do backend:', error);
-      });
-  }, []);
-
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>{mensagem || 'Carregando mensagem...'}</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
