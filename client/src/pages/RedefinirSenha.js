@@ -1,0 +1,60 @@
+import React from 'react';
+import './Login.css';
+import { BsFillEnvelopeFill } from 'react-icons/bs';
+import folhaEsquerda from '../assets/folha-esquerda.png';
+import folhaDireita from '../assets/folha-direita.png';
+import logo from '../assets/logo.png';
+
+const RedefinirSenha = () => {
+  return (
+    <div className="pagina-login">
+      <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
+      <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+
+      <header className="header">
+        <div className="header-top">
+          <img src={logo} alt="Logo" className="logo" />
+          <div className="header-right">
+            <button className="toggle-theme">🌞</button>
+            <button className="btn-entrar">Entrar</button>
+          </div>
+        </div>
+      </header>
+
+      <div className="nav-bar">
+        <div className="nav-metade-esquerda">
+          <span className="nav-link">Início</span>
+        </div>
+        <div className="nav-metade-direita">
+          <span className="nav-link">Testes</span>
+        </div>
+      </div>
+
+      <main className="login-container">
+        <div className="login-box-wrapper">
+          <div className="login-box" style={{ justifyContent: 'center' }}>
+            <div className="login-section">
+              <h2 className="login-title">Redefinir Senha</h2>
+              <p style={{ color: '#999', textAlign: 'center', marginBottom: '20px' }}>
+                Digite o e-mail que você cadastrou:
+              </p>
+              <div className="login-form-box">
+                <div className="form-group">
+                  <BsFillEnvelopeFill className="icon" />
+                  <input type="email" placeholder="E-mail" />
+                </div>
+                <button className="btn-login">Enviar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="footer">
+        <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+      </footer>
+    </div>
+  );
+};
+
+export default RedefinirSenha;
