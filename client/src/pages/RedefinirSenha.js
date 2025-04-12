@@ -31,20 +31,20 @@ const RedefinirSenha = () => {
       </div>
 
       <main className="login-container">
-        <div className="login-box-wrapper">
+        <div className="vivi">
           <div className="login-box" style={{ justifyContent: 'center' }}>
             <div className="login-section">
               <h2 className="login-title">Redefinir Senha</h2>
               <p style={{ color: '#999', textAlign: 'center', marginBottom: '20px' }}>
                 Digite o e-mail que você cadastrou:
               </p>
-              <div className="login-form-box">
+              
                 <div className="form-group">
                   <BsFillEnvelopeFill className="icon" />
                   <input type="email" placeholder="E-mail" />
                 </div>
-                <button className="btn-login">Enviar</button>
-              </div>
+                <button className="btn-enviar">Enviar</button>
+              
             </div>
           </div>
         </div>

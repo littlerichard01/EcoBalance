@@ -3,6 +3,7 @@ import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
+import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
 
 const NovaSenha = () => {
   return (
@@ -30,19 +31,21 @@ const NovaSenha = () => {
       </div>
 
       <main className="login-container">
-        <div className="login-box-wrapper">
+        <div className="vivi">
           <div className="login-box" style={{ justifyContent: 'center' }}>
             <div className="login-section">
               <h2 className="login-title">Redefinir Senha</h2>
-              <div className="login-form-box">
+              <p style={{ color: '#999', marginRight: '80px', marginBottom: '5px' }}>Defina a nova senha:</p>
                 <div className="form-group">
-                  <input type="password" placeholder="Nova senha" />
+                <BsFillLockFill className="icon" />
+                <input type="password" placeholder="Senha" />
                 </div>
+                <p style={{ color: '#999', marginRight: '60px', marginBottom: '5px' }}>Confirme a nova senha:</p>
                 <div className="form-group">
+                <BsFillLockFill className="icon" />
                   <input type="password" placeholder="Confirmar nova senha" />
                 </div>
-                <button className="btn-login">Redefinir</button>
-              </div>
+                <button className="btn-enviar">Redefinir</button>
             </div>
           </div>
         </div>
