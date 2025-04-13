@@ -4,8 +4,15 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const NovaSenha = () => {
+
+    const navigate = useNavigate();
+    const handleLoginClick = () => {
+      navigate('/login');
+    };  
+
   return (
     <div className="pagina-login">
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
@@ -16,7 +23,7 @@ const NovaSenha = () => {
           <img src={logo} alt="Logo" className="logo" />
           <div className="header-right">
             <button className="toggle-theme">🌞</button>
-            <button className="btn-entrar">Entrar</button>
+            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
         </div>
       </header>

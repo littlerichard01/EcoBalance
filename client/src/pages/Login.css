@@ -423,3 +423,19 @@ html, body {
     padding: 8px 0;
   }
 }
+
+.mensagem-senha {
+  font-size: 0.85rem;
+  margin-top: -30px;
+  margin-bottom: -6px;
+  display: flex;
+}
+
+.mensagem-senha.erro {
+  color: red;
+}
+
+.mensagem-senha.sucesso {
+  color: green;
+}
+
