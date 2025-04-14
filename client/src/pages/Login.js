@@ -15,6 +15,9 @@ const Login = () => {
   const handleLoginClick = () => {
     navigate('/login');
   };  
+  const handleRecuperarClick = () => {
+    navigate('/redefinir-senha')
+  };
 
   const [nome, setNome] = useState("");
 
@@ -119,7 +122,7 @@ const Login = () => {
                   <BsFillLockFill className="icon" />
                   <input type="password" placeholder="Senha" />
                 </div>
-                <a href="#" className="forgot-password">Esqueci minha senha</a>
+                <a href="#" className="forgot-password" onClick={handleRecuperarClick}>Esqueci minha senha</a>
                 <button className="btn-login">Login</button>
               </div>
             </div>
