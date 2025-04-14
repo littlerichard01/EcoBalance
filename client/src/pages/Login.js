@@ -17,19 +17,30 @@ const Login = () => {
   };  
 
   const [nome, setNome] = useState("");
-  const [emailCadastro, setEmailCadastro] = useState("");
+
   const [senhaCadastro, setSenhaCadastro] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [mensagemSenha, setMensagemSenha] = useState("");
   const [senhaValida, setSenhaValida] = useState(false);
+  const [mensagemConfirmacao, setMensagemConfirmacao] = useState("");
+  const [senhasCoincidem, setSenhasCoincidem] = useState(false);
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
-
+  const [emailCadastro, setEmailCadastro] = useState("");
+  const [mensagemEmail, setMensagemEmail] = useState("");
+  const [emailValido, setEmailValido] = useState(false);
 
   const handleCadastro = async () => {
     if (senhaCadastro !== confirmarSenha) {
       alert("As senhas não coincidem!");
       return;
     }
+
+    if (!emailValido) {
+      alert("Por favor, insira um e-mail válido.");
+      return;
+    }    
   
     try {
       const resposta = await fetch("http://localhost:3001/api/register", {
@@ -58,6 +69,12 @@ const Login = () => {
     if (!/[@$!%*#?&]/.test(senha)) return "A senha deve conter símbolos (@$!%*#?&).";
     return "Senha válida!";
   };  
+
+  const validarEmailTexto = (email) => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(email) ? "E-mail válido!" : "E-mail inválido. Ex: exemplo@dominio.com";
+  };
+  
 
   return (
     <div className="pagina-login">
@@ -119,8 +136,9 @@ const Login = () => {
                 </div>
                 <div className="form-group">
                   <BsFillEnvelopeFill className="icon" />
-                  <input type="email" placeholder="E-mail" value={emailCadastro} onChange={e => setEmailCadastro(e.target.value)}/>
+                  <input type="email" placeholder="E-mail" value={emailCadastro} onChange={e => { const novoEmail = e.target.value; setEmailCadastro(novoEmail); const mensagem = validarEmailTexto(novoEmail); setMensagemEmail(mensagem); setEmailValido(mensagem === "E-mail válido!");}}/>
                 </div>
+                {mensagemEmail && (<small className={`mensagem-senha ${emailValido ? "sucesso" : "erro"}`}>   {mensagemEmail}  </small>)}
                 <div className="form-group">
                   <BsFillLockFill className="icon" />
                   <input type="password" placeholder="Senha" value={senhaCadastro} onChange={e => { const novaSenha = e.target.value; setSenhaCadastro(novaSenha); const mensagem = validarSenhaTexto(novaSenha); setMensagemSenha(mensagem);setSenhaValida(mensagem === "Senha válida!"); }}/>
@@ -128,8 +146,9 @@ const Login = () => {
                 {mensagemSenha && (<small className={`mensagem-senha ${senhaValida ? "sucesso" : "erro"}`}>{mensagemSenha}</small>)}
                 <div className="form-group">
                   <BsFillLockFill className="icon" />
-                  <input type="password" placeholder="Confirmação de senha" value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)}/>
+                  <input type="password" placeholder="Confirmação de senha" value={confirmarSenha} onChange={e => { const confirmacao = e.target.value;setConfirmarSenha(confirmacao); const senhasIguais = confirmacao === senhaCadastro; setSenhasCoincidem(senhasIguais); setMensagemConfirmacao(senhasIguais ? "Senhas coincidem!" : "As senhas não coincidem");}}/>
                 </div>
+                {mensagemConfirmacao && (<small className={`mensagem-senha ${senhasCoincidem ? "sucesso" : "erro"}`}>{mensagemConfirmacao}</small>)}
                 <button className="btn-cadastrar" onClick={handleCadastro}>Cadastrar</button>
               </div>
             </div>
