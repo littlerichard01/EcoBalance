@@ -104,7 +104,7 @@ html, body {
   font-size: 16px;
 }
 .nav-metade-esquerda {
-  background-color: #659E43;
+  background-color: #76AF53;
 }
 .nav-metade-direita {
   background-color: #76AF53;
@@ -313,6 +313,105 @@ html, body {
   display: block;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+/*Home*/
+.home-content {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #fff;
+  padding: 20px;
+  margin: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.carousel-box {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 15px; /* Posiciona as bolinhas no fundo do slide */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #2ecc71; /* cor verde igual ao botão */
+}
+
+
+.btn-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.faq-section details {
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.faq-section summary {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.faq-section p {
+  margin-top: 10px;
+}
+.nav-bar-home {
+  display: flex;
+  height: 50px;
+  z-index: 2;
+}
+.nav-metade-esquerda, .nav-metade-direita {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+}
+.nav-metade-esquerda {
+  background-color: #659E43;
+}
+.nav-metade-direita {
+  background-color: #76AF53;
+}
+
 
 /* Responsivo (Mobile até 768px) */
 @media (max-width: 768px) {
