@@ -18,6 +18,9 @@ const Login = () => {
   const handleRecuperarClick = () => {
     navigate('/redefinir-senha')
   };
+  const handleInicioClick = () => {
+    navigate('/');
+  };
 
   const [nome, setNome] = useState("");
 
@@ -27,8 +30,6 @@ const Login = () => {
   const [senhaValida, setSenhaValida] = useState(false);
   const [mensagemConfirmacao, setMensagemConfirmacao] = useState("");
   const [senhasCoincidem, setSenhasCoincidem] = useState(false);
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
   const [emailCadastro, setEmailCadastro] = useState("");
   const [mensagemEmail, setMensagemEmail] = useState("");
@@ -99,7 +100,7 @@ const Login = () => {
       {/* Nav bar */}
       <div className="nav-bar">
   <div className="nav-metade-esquerda">
-    <span className="nav-link">Início</span>
+    <span className="nav-link" onClick={handleInicioClick}>Início</span>
   </div>
   <div className="nav-metade-direita">
     <span className="nav-link">Testes</span>

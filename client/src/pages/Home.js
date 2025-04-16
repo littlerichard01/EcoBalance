@@ -4,8 +4,17 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import fotoHome from '../assets/fotoHome.png';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  const handleInicioClick = () => {
+    navigate('/');
+  };
+
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome, fotoHome, fotoHome];
   return (
@@ -18,14 +27,14 @@ const Home = () => {
           <img src={logo} alt="Logo" className="logo" />
           <div className="header-right">
             <button className="toggle-theme">🌞</button>
-            <button className="btn-entrar">Entrar</button>
+            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
         </div>
       </header>
 
       <div className="nav-bar-home">
         <div className="nav-metade-esquerda-home">
-          <span className="nav-link">Início</span>
+          <span className="nav-link" onClick={handleInicioClick}>Início</span>
         </div>
         <div className="nav-metade-direita-home">
           <span className="nav-link">Testes</span>

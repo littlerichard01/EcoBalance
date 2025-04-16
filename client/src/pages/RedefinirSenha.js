@@ -12,6 +12,9 @@ const navigate = useNavigate();
     const handleLoginClick = () => {
       navigate('/login');
     };
+    const handleInicioClick = () => {
+      navigate('/');
+    };
 
   return (
     <div className="pagina-login">
@@ -30,7 +33,7 @@ const navigate = useNavigate();
 
       <div className="nav-bar">
         <div className="nav-metade-esquerda">
-          <span className="nav-link">Início</span>
+          <span className="nav-link" onClick={handleInicioClick}>Início</span>
         </div>
         <div className="nav-metade-direita">
           <span className="nav-link">Testes</span>
