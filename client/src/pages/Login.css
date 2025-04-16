@@ -10,7 +10,10 @@ html, body {
   height: 100%;
   font-family: 'Jost', sans-serif;
   background-color: #E9E9E9;
-}
+ 
+  }
+  
+
 
 .pagina-login {
   display: flex;
@@ -21,19 +24,26 @@ html, body {
 }
 
 /* Folhas */
-.folha {
-  position: absolute;
-  bottom: 1%;
-  top: 1%;
-  width: 20vh;
-  max-width: 55px;
-  z-index: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.folha-esquerda {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 55px;
+  height: 100%; /* Preencherá toda a altura */
+ 
+  background-size: contain; /* Ajusta o tamanho da imagem */
+  z-index: 0; /* Certifique-se de que fique atrás do conteúdo */
 }
-.folha-esquerda { left: 0; }
-.folha-direita { right: 0; }
+
+.folha-direita {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 55px;
+  height: 100%; /* Preencherá toda a altura */
+  background-size: contain;
+  z-index: 0;
+}
 
 /* Header */
 .header {
@@ -276,7 +286,7 @@ html, body {
   transform: scale(1.05);
 }
 
-/* Footer */
+/*footer*/
 .footer {
   background-color: #2D462E;
   color: white;
@@ -284,7 +294,11 @@ html, body {
   padding: 10px 0;
   font-size: 14px;
   z-index: 2;
+  position: fixed; 
+  bottom: 0;
+  width: 100%; 
 }
+
 
 /*Recuperação de Senha*/
 
@@ -375,6 +389,22 @@ html, body {
   margin-top: 20px;
 }
 
+.btn-calcular {
+  background-color: #73CC3D;
+  color: #fff;
+  margin-top: 15px;
+  padding: 7px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 17px;
+  width: 15%;
+  max-width: 200px;
+  margin: 20px auto 0;
+  display: block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
 .faq-section details {
   background: #f9f9f9;
   margin-bottom: 10px;
@@ -396,7 +426,7 @@ html, body {
   height: 50px;
   z-index: 2;
 }
-.nav-metade-esquerda, .nav-metade-direita {
+.nav-metade-esquerda-home, .nav-metade-direita-home {
   flex: 1;
   display: flex;
   align-items: center;
@@ -405,12 +435,77 @@ html, body {
   font-weight: 400;
   font-size: 16px;
 }
-.nav-metade-esquerda {
+.nav-metade-esquerda-home {
   background-color: #659E43;
 }
-.nav-metade-direita {
+.nav-metade-direita-home {
   background-color: #76AF53;
 }
+/* Ajuste de alinhamento e espaçamento */
+.login-title {
+  text-align: left;
+}
+.info-section {
+  text-align: left;
+  padding: 40px 60px; /* aumenta o espaçamento lateral */
+  margin-top: 2px;   /* dá um respiro maior abaixo do carrossel */
+}
+
+.info-section h2 {
+  margin-top: 30px;
+}
+
+.info-section p {
+  margin-top: 10px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.faq-item {
+  background-color: #fff !important; /* força branco */
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item summary {
+  padding: 18px 24px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '▾';
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.faq-item p {
+  padding: 0 24px 18px;
+  margin: 0;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 
 
 /* Responsivo (Mobile até 768px) */
@@ -457,18 +552,12 @@ html, body {
     transition: background-color 0.3s ease;
   }
   
-  .nav-metade-esquerda {
+  .nav-metade-esquerda-home {
     background-color: #659E43;
-  }
-  .nav-metade-esquerda:hover {
-    background-color: #558C3A;
   }
   
   .nav-metade-direita {
     background-color: #76AF53;
-  }
-  .nav-metade-direita:hover {
-    background-color: #679944;
   }
   
   .nav-link {
@@ -517,10 +606,6 @@ html, body {
     max-width: 100%;
   }
 
-  .footer {
-    font-size: 12px;
-    padding: 8px 0;
-  }
 }
 
 .mensagem-senha {
