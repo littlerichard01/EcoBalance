@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
@@ -35,6 +35,28 @@ const Login = () => {
   const [mensagemEmail, setMensagemEmail] = useState("");
   const [emailValido, setEmailValido] = useState(false);
 
+  useEffect(() => {
+      const updateNavbarPosition = () => {
+        const navBar = document.querySelector('.nav-bar');
+        const headerHeight = document.querySelector('.header').offsetHeight;
+    
+        if (window.scrollY > headerHeight) {
+          navBar.classList.add('fixed-nav');
+          navBar.style.top = '0';
+        } else {
+          navBar.classList.remove('fixed-nav');
+          navBar.style.top = `${headerHeight}px`;
+        }
+      };
+    
+      // Atualiza a posição da navbar ao carregar a página
+      updateNavbarPosition();
+    
+      // Adiciona o evento de scroll
+      window.addEventListener('scroll', updateNavbarPosition);
+      return () => window.removeEventListener('scroll', updateNavbarPosition);
+    }, []);
+  
   const handleCadastro = async () => {
     if (senhaCadastro !== confirmarSenha) {
       alert("As senhas não coincidem!");

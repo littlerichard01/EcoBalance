@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -15,6 +15,28 @@ const NovaSenha = () => {
     const handleInicioClick = () => {
       navigate('/');
     };
+
+    useEffect(() => {
+          const updateNavbarPosition = () => {
+            const navBar = document.querySelector('.nav-bar');
+            const headerHeight = document.querySelector('.header').offsetHeight;
+        
+            if (window.scrollY > headerHeight) {
+              navBar.classList.add('fixed-nav');
+              navBar.style.top = '0';
+            } else {
+              navBar.classList.remove('fixed-nav');
+              navBar.style.top = `${headerHeight}px`;
+            }
+          };
+        
+          // Atualiza a posição da navbar ao carregar a página
+          updateNavbarPosition();
+        
+          // Adiciona o evento de scroll
+          window.addEventListener('scroll', updateNavbarPosition);
+          return () => window.removeEventListener('scroll', updateNavbarPosition);
+        }, []);
 
   return (
     <div className="pagina-login">

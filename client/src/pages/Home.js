@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -17,6 +17,29 @@ const Home = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome, fotoHome, fotoHome];
+  
+  useEffect(() => {
+    const updateNavbarPosition = () => {
+      const navBar = document.querySelector('.nav-bar-home');
+      const headerHeight = document.querySelector('.header').offsetHeight;
+  
+      if (window.scrollY > headerHeight) {
+        navBar.classList.add('fixed-nav');
+        navBar.style.top = '0';
+      } else {
+        navBar.classList.remove('fixed-nav');
+        navBar.style.top = `${headerHeight}px`;
+      }
+    };
+  
+    // Atualiza a posição da navbar ao carregar a página
+    updateNavbarPosition();
+  
+    // Adiciona o evento de scroll
+    window.addEventListener('scroll', updateNavbarPosition);
+    return () => window.removeEventListener('scroll', updateNavbarPosition);
+  }, []);
+  
   return (
     <div className="pagina-login">
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
