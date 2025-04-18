@@ -49,7 +49,7 @@ html, body {
 .header {
   background-color: #2D462E;
   padding: 10px 20px 0;
-  z-index: 2;
+  z-index: 1;
   position: relative;
 }
 .header-top {
@@ -106,12 +106,12 @@ html, body {
   width: 100%;
   display: flex;
   height: 50px;
-  z-index: 5; 
+  z-index: 3; 
 }
 .nav-bar.fixed-nav {
     position: fixed; 
     top: 0;
-    z-index: 5;
+    z-index: 3;
   }
 .nav-metade-esquerda, .nav-metade-direita {
   flex: 1;
@@ -521,6 +521,109 @@ html, body {
   font-size: 0.95rem;
   line-height: 1.5;
 }
+
+/*InfoCadastro*/
+/* Área principal com painel lateral + conteúdo */
+.icone-sino {
+  font-size: 22px;
+  color: #4CAF50; /* Verde fixo */
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.avatar-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc; /* Círculo cinza */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.icone-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.subnav-bar {
+  background-color: #6AA84F; /* Verde claro */
+  color: white;
+  text-align: center;
+  padding: 8px 0;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: inset 0 -1px 0 #4f7839;
+  z-index: 2;
+  top: 100px;
+  position: relative;
+}
+
+.fixed-subnav {
+  position: fixed;
+  width: 100%;
+  
+  z-index: 2; /* logo abaixo da nav-bar */
+}
+
+/*Sidebar*/
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #77ba63;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  z-index: 1; 
+  margin-top: 1px; /* Para não ficar atrás da nav-bar */
+}
+
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-icon {
+  font-size: 60px;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.user-name {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+.menu-option {
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+}
+
+.menu-option:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-option.active {
+  background-color: #335c2f;
+  font-weight: bold;
+}
+
+
 
 
 
