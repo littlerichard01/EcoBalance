@@ -7,30 +7,22 @@ import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
 import folhaSidebar from '../assets/folha-esquerda.png';
 
-
 const InfoCadastro = () => {
     useEffect(() => {
         const updateNavbarPosition = () => {
             const navBar = document.querySelector('.nav-bar');
-            const subNavBar = document.querySelector('.subnav-bar');
+
             const headerHeight = document.querySelector('.header').offsetHeight;
 
             if (window.scrollY > headerHeight) {
                 navBar.classList.add('fixed-nav');
                 navBar.style.top = '0';
 
-                if (subNavBar) {
-                    subNavBar.classList.add('fixed-subnav');
-                    subNavBar.style.top = `${navBar.offsetHeight}px`;
-                }
             } else {
                 navBar.classList.remove('fixed-nav');
                 navBar.style.top = `${headerHeight}px`;
 
-                if (subNavBar) {
-                    subNavBar.classList.remove('fixed-subnav');
-                    subNavBar.style.top = '0';
-                }
+
             }
         };
 
@@ -41,7 +33,6 @@ const InfoCadastro = () => {
 
     return (
         <div className="pagina-login">
-            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
             <header className="header">
@@ -64,22 +55,11 @@ const InfoCadastro = () => {
                     <span className="nav-link">Testes</span>
                 </div>
             </div>
-
-            <div className="subnav-bar">
-                <span>Informações de cadastro</span>
-            </div>
-
             <div style={{ display: 'flex' }}>
-                {/* SIDEBAR INTEGRADO */}
-                <div
-                    className="sidebar"
-                    style={{
-                        backgroundImage: `url(${folhaSidebar})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'right bottom',
-                        backgroundSize: 'contain'
-                    }}
-                >
+                {/* SIDEBAR */}
+
+                <div className="sidebar">
+
                     <div className="profile-section">
                         <BsPersonFill className="profile-icon" />
                         <p className="user-name">Nome</p>
@@ -87,29 +67,41 @@ const InfoCadastro = () => {
                     <div className="menu-option active">Informações de cadastro</div>
                     <div className="menu-option">Suas rotinas</div>
                     <div className="menu-option">Gráficos e Conquistas</div>
+                    <img
+                    src={folhaSidebar}
+                    alt="Folha entre sidebar e main"
+                    className="folha folha-sidebar"
+                />
+                
                 </div>
-
+               
                 {/* CONTEÚDO PRINCIPAL */}
-                <main className="login-container" style={{ flex: 1 }}>
-                    <div className="vivi">
-                        <div className="login-box" style={{ justifyContent: 'center' }}>
-                            <div className="login-section">
-                                <h2 className="login-title">Redefinir Senha</h2>
-                                <p style={{ color: '#999', marginRight: '80px', marginBottom: '5px' }}>Defina a nova senha:</p>
+                <main
+                    className="login-container"
+                    style={{
+                    }}
+                >
+
+
+                    <div className='subnav-bar'><p>Informações de Cadastro</p></div>
+                    <div className="info-usuario">
+                        <div className="login-box" >
+                            <div className="login-section-alterar-informacoes">
+                                <h2 className="login-title">Informações de Usuário</h2>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
                                 <div className="form-group">
-                                    <BsFillLockFill className="icon" />
-                                    <input type="password" placeholder="Senha" />
+                                    <input type="text" placeholder="Insira o nome" />
                                 </div>
-                                <p style={{ color: '#999', marginRight: '60px', marginBottom: '5px' }}>Confirme a nova senha:</p>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
                                 <div className="form-group">
-                                    <BsFillLockFill className="icon" />
-                                    <input type="password" placeholder="Confirmar nova senha" />
+                                    <input type="email" placeholder="Insira o e-mail" />
                                 </div>
-                                <button className="btn-enviar">Redefinir</button>
+                                <button className="btn-alterar-informacoes">Alterar Informações</button>
                             </div>
                         </div>
                     </div>
                 </main>
+               
             </div>
 
             <footer className="footer">
