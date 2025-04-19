@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import RedefinirSenha from "./pages/RedefinirSenha";
 import NovaSenha from "./pages/NovaSenha";
 import InfoCadastro from "./pages/InfoCadastro.js";
+import SuasRotinas from "./pages/SuasRotinas.js"
+import GraficosEConquistas from "./pages/GráficosEConquistas.js";
 
 function App() {
   return (
@@ -15,9 +17,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         <Route path="/nova-senha" element={<NovaSenha />} />
-        <Route path="/cadastro" element={<InfoCadastro />} />
+        <Route path="/info-cadastro" element={<InfoCadastro />} />
+        <Route path="/suas-rotinas" element={<SuasRotinas/>} />
+        <Route path="/graficos-conquistas" element={<GraficosEConquistas/>} />
       </Routes>
-    </Router>
+    </Router> 
   );
 }
 

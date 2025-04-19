@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 import './Login.css';
 import { BsFillLockFill, BsBellFill, BsPersonFill } from 'react-icons/bs';
-import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
 import folhaSidebar from '../assets/folha-esquerda.png';
+import { useNavigate } from 'react-router-dom';
 
-const InfoCadastro = () => {
+    const InfoCadastro = () => {
+        const navigate = useNavigate();
+      
+        const handleInicioClick = () => {
+          navigate('/');
+        };
     useEffect(() => {
         const updateNavbarPosition = () => {
             const navBar = document.querySelector('.nav-bar');
@@ -49,7 +54,7 @@ const InfoCadastro = () => {
 
             <div className="nav-bar">
                 <div className="nav-metade-esquerda">
-                    <span className="nav-link">Início</span>
+                <span className="nav-link" onClick={handleInicioClick}>Início</span>
                 </div>
                 <div className="nav-metade-direita">
                     <span className="nav-link">Testes</span>
@@ -64,9 +69,9 @@ const InfoCadastro = () => {
                         <BsPersonFill className="profile-icon" />
                         <p className="user-name">Nome</p>
                     </div>
-                    <div className="menu-option active">Informações de cadastro</div>
-                    <div className="menu-option">Suas rotinas</div>
-                    <div className="menu-option">Gráficos e Conquistas</div>
+                    <div className="menu-option active"onClick={() => navigate('/info-cadastro')}>Informações de cadastro</div>
+                    <div className="menu-option"onClick={() => navigate('/suas-rotinas')}>Suas rotinas</div>
+                    <div className="menu-option" onClick={() => navigate('/graficos-conquistas')}>Gráficos e Conquistas</div>
                     <img
                     src={folhaSidebar}
                     alt="Folha entre sidebar e main"
@@ -89,12 +94,11 @@ const InfoCadastro = () => {
                             <div className="login-section-alterar-informacoes">
                                 <h2 className="login-title">Informações de Usuário</h2>
                                 <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Insira o nome" />
+                                <div className="form-group-cadastro">
                                 </div>
                                 <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
-                                <div className="form-group">
-                                    <input type="email" placeholder="Insira o e-mail" />
+                                <div className="form-group-cadastro">
+                                    
                                 </div>
                                 <button className="btn-alterar-informacoes">Alterar Informações</button>
                             </div>
