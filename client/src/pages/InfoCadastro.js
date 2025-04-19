@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './Login.css';
-import { BsFillLockFill, BsBellFill, BsPersonFill } from 'react-icons/bs';
+import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';

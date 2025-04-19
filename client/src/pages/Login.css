@@ -847,7 +847,7 @@ body {
   margin-bottom: 2rem;
 }
 
-.container-rotinas {
+.container-grafico {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
@@ -873,7 +873,7 @@ body {
   margin-left: 10px;
 }
 
-.rotina-circle {
+.grafico-circle {
   min-width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -884,7 +884,7 @@ body {
   font-weight: bold;
 }
 
-.rotina-circle-wrapper {
+.grafico-circle-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -892,7 +892,7 @@ body {
   flex-shrink: 0;
 }
 
-.rotina-label {
+.grafico-label {
   margin-top: 5px;
   font-size: 0.85rem;
   color: #2D462E;

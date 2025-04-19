@@ -93,7 +93,7 @@ const GraficosEConquistas = () => {
                     <div className="menu-option active"  onClick={() => navigate('/graficos-conquistas')}>
                         Gráficos e Conquistas
                         </div>
-                        
+
                     <img src={folhaSidebar} alt="Folha entre sidebar e main" className="folha folha-sidebar" />
                 </div>
 
@@ -107,26 +107,26 @@ const GraficosEConquistas = () => {
                                 <h2 className="login-title-Graficos">Gráficos</h2>
                                 <div className="scroll-container">
                                     <button className="scroll-btn left" onClick={() => scrollContainer('graficos', 'left')}>&lt;</button>
-                                    <div className="container-rotinas" id="graficos">
-                                        <div className="rotina-circle-wrapper">
-                                            <div className="rotina-circle">📊</div>
-                                            <span className="rotina-label">17/04/2025</span>
+                                    <div className="container-grafico" id="graficos">
+                                        <div className="grafico-circle-wrapper">
+                                            <div className="grafico-circle">📊</div>
+                                            <span className="grafico-label">17/04/2025</span>
                                         </div>
-                                        <div className="rotina-circle-wrapper">
-                                            <div className="rotina-circle">📊</div>
-                                            <span className="rotina-label">19/04/2025</span>
+                                        <div className="grafico-circle-wrapper">
+                                            <div className="grafico-circle">📊</div>
+                                            <span className="grafico-label">19/04/2025</span>
                                         </div>
-                                        <div className="rotina-circle-wrapper">
-                                            <div className="rotina-circle">📊</div>
-                                            <span className="rotina-label">20/04/2025</span>
+                                        <div className="grafico-circle-wrapper">
+                                            <div className="grafico-circle">📊</div>
+                                            <span className="grafico-label">20/04/2025</span>
                                         </div>
-                                        <div className="rotina-circle-wrapper">
-                                            <div className="rotina-circle">📊</div>
-                                            <span className="rotina-label">22/04/2025</span>
+                                        <div className="grafico-circle-wrapper">
+                                            <div className="grafico-circle">📊</div>
+                                            <span className="grafico-label">22/04/2025</span>
                                         </div>
-                                        <div className="rotina-circle-wrapper">
-                                            <div className="rotina-circle">📊</div>
-                                            <span className="rotina-label">23/04/2025</span>
+                                        <div className="grafico-circle-wrapper">
+                                            <div className="grafico-circle">📊</div>
+                                            <span className="grafico-label">23/04/2025</span>
                                         </div>
                                     </div>
                                     <button className="scroll-btn right" onClick={() => scrollContainer('graficos', 'right')}>&gt;</button>
@@ -134,11 +134,11 @@ const GraficosEConquistas = () => {
                                 <h2 className="login-title-Graficos">Conquistas</h2>
                                 <div className="scroll-container">
                                     <button className="scroll-btn left" onClick={() => scrollContainer('conquistas', 'left')}>&lt;</button>
-                                    <div className="container-rotinas" id="conquistas">
-                                        <div className="rotina-circle">🏆</div>
-                                        <div className="rotina-circle">🥇</div>
-                                        <div className="rotina-circle">🎖️</div>
-                                        <div className="rotina-circle">🏅</div>
+                                    <div className="container-grafico" id="conquistas">
+                                        <div className="grafico-circle">🏆</div>
+                                        <div className="grafico-circle">🥇</div>
+                                        <div className="grafico-circle">🎖️</div>
+                                        <div className="grafico-circle">🏅</div>
                                     </div>
                                     <button className="scroll-btn right" onClick={() => scrollContainer('conquistas', 'right')}>&gt;</button>
                                 </div>
