@@ -7,6 +7,8 @@ import fotoHome01 from '../assets/fotoHome01.jpeg';
 import fotoHome02 from '../assets/fotoHome02.jpeg';
 import fotoHome03 from '../assets/fotoHome03.jpeg';
 import { useNavigate } from 'react-router-dom';
+import { BsBellFill } from 'react-icons/bs';
+import avatar from '../assets/avatar.png';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -56,14 +58,16 @@ const Home = () => {
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
       <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="header-right">
-            <button className="toggle-theme">🌞</button>
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
-          </div>
-        </div>
-      </header>
+                <div className="header-top">
+                    <img src={logo} alt="Logo" className="logo" />
+                    <div className="header-right">
+                        <BsBellFill className="icone-sino" />
+                        <div className="avatar-container">
+                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" />
+                        </div>
+                    </div>
+                </div>
+            </header>
 
       <div className="nav-bar-home">
         <div className="nav-metade-esquerda-home">

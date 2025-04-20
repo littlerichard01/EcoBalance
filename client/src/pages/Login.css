@@ -182,6 +182,65 @@ body {
   width: 100%;
 }
 
+.image-container {
+  position: relative; /* Define posição relativa para permitir o posicionamento absoluto dentro dela */
+  width: 100%;
+  height: 100%;
+}
+
+.content-overlay {
+
+  flex-direction: row;
+  position: absolute;
+  top: 50px;
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+
+  justify-content: center; 
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+  color: white; 
+  text-align: center;
+}
+
+
+.overlay-button {
+  background-color: #73CC3D;
+  color: #fff;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 25px;
+  width: 100%;
+  max-width: 200px;
+  align-self: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+
+.overlay-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+.overlay-content-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+  gap: 10px;
+  margin-top: 200px;
+}
+
+.overlay-content-btn {
+  margin-left: 50px;
+  margin-top: 200px;
+  display: flex;
+  justify-content: right;
+}
 
 .login-box {
   display: flex;
@@ -361,7 +420,7 @@ body {
   color: #fff;
   padding: 10px;
   bottom: px;
-  border: none;
+  border:z none;
   border-radius: 40px;
   font-weight: bold;
   font-size: 20px;
@@ -383,16 +442,21 @@ body {
 }
 
 .carousel-box {
+
   position: relative;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  height: 500px; 
+  width: auto; 
 }
 
 .carousel-image {
-  width: 100%;
-  height: auto;
-  display: block;
+  border-radius: 10px;
+  margin-top: 50px;
+  width: 100%; /* Ajusta à largura do container */
+  height: 100%; /* Ajusta à altura do container */
+  object-fit: cover; /* Faz com que a imagem cubra todo o espaço sem distorção */
 }
 
 .carousel-caption {
