@@ -8,35 +8,35 @@ import { useNavigate } from 'react-router-dom';
 
 const RedefinirSenha = () => {
 
-const navigate = useNavigate();
-    const handleLoginClick = () => {
-      navigate('/login');
-    };
-    const handleInicioClick = () => {
-      navigate('/');
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  const handleInicioClick = () => {
+    navigate('/');
+  };
+
+  useEffect(() => {
+    const updateNavbarPosition = () => {
+      const navBar = document.querySelector('.nav-bar');
+      const headerHeight = document.querySelector('.header').offsetHeight;
+
+      if (window.scrollY > headerHeight) {
+        navBar.classList.add('fixed-nav');
+        navBar.style.top = '0';
+      } else {
+        navBar.classList.remove('fixed-nav');
+        navBar.style.top = `${headerHeight}px`;
+      }
     };
 
-    useEffect(() => {
-              const updateNavbarPosition = () => {
-                const navBar = document.querySelector('.nav-bar');
-                const headerHeight = document.querySelector('.header').offsetHeight;
-            
-                if (window.scrollY > headerHeight) {
-                  navBar.classList.add('fixed-nav');
-                  navBar.style.top = '0';
-                } else {
-                  navBar.classList.remove('fixed-nav');
-                  navBar.style.top = `${headerHeight}px`;
-                }
-              };
-            
-              // Atualiza a posição da navbar ao carregar a página
-              updateNavbarPosition();
-            
-              // Adiciona o evento de scroll
-              window.addEventListener('scroll', updateNavbarPosition);
-              return () => window.removeEventListener('scroll', updateNavbarPosition);
-            }, []);
+    // Atualiza a posição da navbar ao carregar a página
+    updateNavbarPosition();
+
+    // Adiciona o evento de scroll
+    window.addEventListener('scroll', updateNavbarPosition);
+    return () => window.removeEventListener('scroll', updateNavbarPosition);
+  }, []);
 
   return (
     <div className="pagina-login">
@@ -70,13 +70,13 @@ const navigate = useNavigate();
               <p style={{ color: '#999', textAlign: 'center', marginBottom: '20px' }}>
                 Digite o e-mail que você cadastrou:
               </p>
-              
-                <div className="form-group">
-                  <BsFillEnvelopeFill className="icon" />
-                  <input type="email" placeholder="E-mail" />
-                </div>
-                <button className="btn-enviar">Enviar</button>
-              
+
+              <div className="form-group">
+                <BsFillEnvelopeFill className="icon" />
+                <input type="email" placeholder="E-mail" />
+              </div>
+              <button className="btn-enviar">Enviar</button>
+
             </div>
           </div>
         </div>

@@ -1082,3 +1082,47 @@ body {
 .mensagem-senha.sucesso {
   color: green;
 }
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* maior que o Bootstrap modal (1040) */
+}
+
+.custom-modal-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-title {
+  margin-bottom: 1.5rem;
+}
+
+.modal-form-group {
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.feedback-error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  display: block;
+}

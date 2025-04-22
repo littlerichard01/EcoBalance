@@ -8,11 +8,24 @@ import folhaSidebar from '../assets/folha-esquerda.png';
 import { useNavigate } from 'react-router-dom';
 
 const GraficosEConquistas = () => {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
     const navigate = useNavigate();
     const [rotinas, setRotinas] = useState([]);
 
+    const [mostrarModalFrequencia, setMostrarModalFrequencia] = useState(false);
+    const [frequenciaSelecionada, setFrequenciaSelecionada] = useState('');
+
     const handleInicioClick = () => {
-        navigate('/');
+        navigate('/home');
+    };
+    const handleUsuarioAcesso = () => {
+        navigate('/info-cadastro')
+      };
+
+    const handleLogout = () => {
+        localStorage.removeItem("usuarioLogado"); // Remove o usuário
+        navigate("/login"); // Redireciona para a página de login
     };
 
     const adicionarRotina = () => {
@@ -32,6 +45,13 @@ const GraficosEConquistas = () => {
     };
 
     useEffect(() => {
+        // Verifica se o usuário está logado
+        const usuario = localStorage.getItem("usuarioLogado");
+        if (!usuario) {
+            navigate("/login");
+            return; // evita continuar o código se não estiver logado
+        }
+
         const updateNavbarPosition = () => {
             const navBar = document.querySelector('.nav-bar');
             const headerHeight = document.querySelector('.header').offsetHeight;
@@ -50,6 +70,24 @@ const GraficosEConquistas = () => {
         return () => window.removeEventListener('scroll', updateNavbarPosition);
     }, []);
 
+    useEffect(() => {
+        const buscarFrequencia = async () => {
+            try {
+                const response = await fetch(`http://localhost:3001/api/usuariosBuscar/${usuario._id}`);
+                const data = await response.json();
+                if (response.ok && data.frequencia) {
+                    setFrequenciaSelecionada(data.frequencia);
+                }
+            } catch (err) {
+                console.error("Erro ao buscar frequência:", err);
+            }
+        };
+
+        if (mostrarModalFrequencia) {
+            buscarFrequencia();
+        }
+    }, [mostrarModalFrequencia, usuario._id]);
+
     return (
         <div className="pagina-login">
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
@@ -58,9 +96,8 @@ const GraficosEConquistas = () => {
                 <div className="header-top">
                     <img src={logo} alt="Logo" className="logo" />
                     <div className="header-right">
-                        <BsBellFill className="icone-sino" />
-                        <div className="avatar-container">
-                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" />
+                    <BsBellFill className="icone-sino" onClick={() => setMostrarModalFrequencia(true)} style={{ cursor: 'pointer' }} />                        <div className="avatar-container">
+                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +117,7 @@ const GraficosEConquistas = () => {
                 <div className="sidebar">
                     <div className="profile-section">
                         <BsPersonFill className="profile-icon" />
-                        <p className="user-name">Nome</p>
+                        <p className="user-name">{usuario?.nome}</p>
                     </div>
                     <div className="menu-option" onClick={() => navigate('/info-cadastro')}>
                         Informações de cadastro
@@ -90,9 +127,11 @@ const GraficosEConquistas = () => {
                         Suas rotinas
                     </div>
 
-                    <div className="menu-option active"  onClick={() => navigate('/graficos-conquistas')}>
+                    <div className="menu-option active" onClick={() => navigate('/graficos-conquistas')}>
                         Gráficos e Conquistas
-                        </div>
+                    </div>
+
+                    <div className="menu-option" onClick={handleLogout}>Sair</div>
 
                     <img src={folhaSidebar} alt="Folha entre sidebar e main" className="folha folha-sidebar" />
                 </div>
@@ -145,6 +184,64 @@ const GraficosEConquistas = () => {
                             </div>
                         </div>
                     </div>
+                    {mostrarModalFrequencia && (
+                        <div className="custom-modal-overlay">
+                            <div className="custom-modal-content">
+                                <h2 className="modal-title">Frequência dos Testes</h2>
+
+                                <div className="modal-form-group">
+                                    <label>Escolha com que frequência deseja realizar seus testes:</label>
+                                    <select
+                                        className="form-control"
+                                        value={frequenciaSelecionada}
+                                        onChange={(e) => setFrequenciaSelecionada(e.target.value)}
+                                    >
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="mensalmente">Mensalmente</option>
+                                        <option value="semestralmente">Semestralmente</option>
+                                        <option value="anualmente">Anualmente</option>
+                                    </select>
+                                </div>
+
+                                <div className="modal-buttons">
+                                    <button className="btn btn-secondary" onClick={() => setMostrarModalFrequencia(false)}>Cancelar</button>
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={async () => {
+                                            if (frequenciaSelecionada) {
+                                                try {
+                                                    const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}/frequencia`, {
+                                                        method: 'PUT',
+                                                        headers: {
+                                                            'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify({ frequencia: frequenciaSelecionada })
+                                                    });
+
+                                                    const data = await response.json();
+
+                                                    if (response.ok) {
+                                                        alert(`Frequência salva: ${data.frequencia}`);
+                                                        localStorage.setItem("frequenciaTestes", data.frequencia);
+                                                        setMostrarModalFrequencia(false);
+                                                    } else {
+                                                        alert(data.error || "Erro ao salvar frequência");
+                                                    }
+                                                } catch (err) {
+                                                    console.error(err);
+                                                    alert("Erro de rede");
+                                                }
+                                            } else {
+                                                alert("Por favor, selecione uma frequência.");
+                                            }
+                                        }}
+                                    >
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </main>
             </div>
 
