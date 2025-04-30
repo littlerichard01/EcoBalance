@@ -9,6 +9,7 @@ import InfoCadastro from "./pages/InfoCadastro.js";
 import SuasRotinas from "./pages/SuasRotinas.js"
 import GraficosEConquistas from "./pages/GráficosEConquistas.js";
 import HomeLogado from "./pages/HomeLogado.js";
+import Rotinas from "./pages/Rotinas.js"; 
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/suas-rotinas" element={<SuasRotinas/>} />
         <Route path="/graficos-conquistas" element={<GraficosEConquistas/>} />
         <Route path="/home" element={<HomeLogado/>} />
+        <Route path="/rotinas" element={<Rotinas/>} />
       </Routes>
     </Router> 
   );

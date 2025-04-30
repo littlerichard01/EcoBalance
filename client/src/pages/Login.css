@@ -1144,3 +1144,76 @@ body {
   margin-top: 4px;
   display: block;
 }
+
+/*Rotinas*/
+.pagina-rotina {
+  background-color: #E9E9E9;
+  min-height: 100vh;
+  position: relative;
+  padding-top: 120px;
+}
+
+.rotina-container {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.progresso-bolinhas {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.bolinha {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: black;
+  opacity: 0.4;
+}
+
+.bolinha.ativa {
+  background-color: #73CC3D;
+  opacity: 1;
+}
+
+.titulo-topico {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2D462E;
+  margin-bottom: 20px;
+}
+
+.pergunta {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 500;
+}
+
+.input-texto {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+.btn-proximo {
+  background-color: #73CC3D;
+  color: white;
+  font-weight: bold;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+}
