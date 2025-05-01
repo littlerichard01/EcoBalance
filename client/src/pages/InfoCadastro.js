@@ -7,6 +7,8 @@ import avatar from '../assets/avatar.png';
 import folhaSidebar from '../assets/folha-esquerda.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const InfoCadastro = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -58,7 +60,7 @@ const InfoCadastro = () => {
 
         // Se o usuário quer trocar a senha mas não informou a antiga
         if (novaSenha && !senhaAntiga) {
-            alert("Digite sua senha atual para alterar a senha.");
+            toast.warning("Digite sua senha atual para alterar a senha.");
             return;
         }
 
@@ -76,7 +78,7 @@ const InfoCadastro = () => {
 
         // Verifica se os campos estão vazios
         if (!novoNome && !novoEmail && !novaSenha && !senhaAntiga) {
-            alert("Nenhuma alteração foi feita.");
+            toast.warning("Nenhuma alteração foi feita.");
             return;
         }
 
@@ -115,14 +117,14 @@ const InfoCadastro = () => {
                 setSenhaAntiga('');
                 setMostrarModal(false);
 
-                alert("Informações atualizadas com sucesso.");
+                toast.success("Informações atualizadas com sucesso.");
                 window.location.reload();
             }
         } catch (error) {
             if (error.response && error.response.data?.error === "Senha antiga incorreta") {
-                alert("Senha atual incorreta. Tente novamente.");
+                toast.error("Senha atual incorreta. Tente novamente.");
             } else {
-                alert("Erro ao atualizar as informações.");
+                toast.error("Erro ao atualizar as informações.");
             }
             console.error(error);
         }
@@ -178,6 +180,8 @@ const InfoCadastro = () => {
 
     return (
         <div className="pagina-login">
+                    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
             <header className="header">
