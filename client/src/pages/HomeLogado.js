@@ -45,7 +45,7 @@ const Home = () => {
   }, [images.length]);
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     const updateNavbarPosition = () => {
       const navBar = document.querySelector('.nav-bar-home');
       const headerHeight = document.querySelector('.header').offsetHeight;
@@ -65,7 +65,7 @@ const Home = () => {
     // Adiciona o evento de scroll
     window.addEventListener('scroll', updateNavbarPosition);
     return () => window.removeEventListener('scroll', updateNavbarPosition);
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     const buscarFrequencia = async () => {
@@ -93,23 +93,26 @@ const Home = () => {
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          <div className="header-right">
-          <BsBellFill className="icone-sino" onClick={() => setMostrarModalFrequencia(true)} style={{ cursor: 'pointer' }} />
-            <div className="avatar-container">
-              <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
-            </div>
           </div>
-        </div>
+
+          <div className="header-right">
+
+
+            
+          <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink">Testes</span>
+            </div>
+
+
+
+            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
+          </div>
+       
+       
       </header>
 
-      <div className="nav-bar-home">
-        <div className="nav-metade-esquerda-home">
-          <span className="nav-link" onClick={handleInicioClick}>Início</span>
-        </div>
-        <div className="nav-metade-direita-home">
-          <span className="nav-link">Testes</span>
-        </div>
-      </div>
+     
 
       <main className="login-container">
         <div className="home-content">

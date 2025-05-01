@@ -43,15 +43,7 @@ const RedefinirSenha = () => {
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
-      <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="header-right">
-            <button className="toggle-theme">🌞</button>
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
-          </div>
-        </div>
-      </header>
+      
 
       <div className="nav-bar">
         <div className="nav-metade-esquerda">

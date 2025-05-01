@@ -28,9 +28,9 @@ const Home = () => {
   }, [images.length]);
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     const updateNavbarPosition = () => {
-      const navBar = document.querySelector('.nav-bar-home');
+      //const navBar = document.querySelector('.nav-bar-home');
       const headerHeight = document.querySelector('.header').offsetHeight;
 
       if (window.scrollY > headerHeight) {
@@ -40,15 +40,15 @@ const Home = () => {
         navBar.classList.remove('fixed-nav');
         navBar.style.top = `${headerHeight}px`;
       }
-    };
+    };*/
 
-    // Atualiza a posição da navbar ao carregar a página
-    updateNavbarPosition();
+  // Atualiza a posição da navbar ao carregar a página
+  /*updateNavbarPosition();
 
-    // Adiciona o evento de scroll
-    window.addEventListener('scroll', updateNavbarPosition);
-    return () => window.removeEventListener('scroll', updateNavbarPosition);
-  }, []);
+  // Adiciona o evento de scroll
+  window.addEventListener('scroll', updateNavbarPosition);
+  return () => window.removeEventListener('scroll', updateNavbarPosition);
+}, []);*/
 
   return (
     <div className="pagina-login">
@@ -58,21 +58,24 @@ const Home = () => {
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
+          </div>
+
           <div className="header-right">
-            <button className="toggle-theme">🌞</button>
+
+            <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink">Testes</span>
+            </div>
+
+
+
             <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
-        </div>
+       
+       
       </header>
 
-      <div className="nav-bar-home">
-        <div className="nav-metade-esquerda-home">
-          <span className="nav-link" onClick={handleInicioClick}>Início</span>
-        </div>
-        <div className="nav-metade-direita-home">
-          <span className="nav-link">Testes</span>
-        </div>
-      </div>
+
 
       <main className="login-container">
         <div className="home-content">

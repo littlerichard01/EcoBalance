@@ -51,26 +51,34 @@ body {
 
 /* Header */
 .header {
+  height: 100px;
   background-color: #2D462E;
-  padding: 10px 20px 0;
-  z-index: 1;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1
+  
 }
 
 .header-top {
+  margin-left: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo {
-  height: 100px;
+  display: fixed;
+  height: 80px;
 }
 
 .header-right {
+
+  margin-right: 20px;
   display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: 100px;
+  align-items: right;
+  justify-content: right; 
 }
 
 .toggle-theme {
@@ -91,11 +99,11 @@ body {
 .btn-entrar {
   background-color: #73CC3D;
   color: #fff;
-  width: 100px;
+  width:100px;
   height: 55px;
   border: none;
   border-radius: 50px;
-  padding: 10px, 24px;
+  padding: 10px, 20px;
   font-weight: bold;
   font-size: 20px;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -125,7 +133,7 @@ body {
   z-index: 3;
 }
 
-.nav-metade-esquerda,
+/*.nav-metade-esquerda,
 .nav-metade-direita {
   flex: 1;
   display: flex;
@@ -142,25 +150,38 @@ body {
 
 .nav-metade-direita {
   background-color: #76AF53;
+}*/
+
+
+.navlink {
+ margin: 40px;
 }
 
-.nav-link {
-  color: #fff;
-  font-weight: 400;
-  cursor: pointer;
-  font-size: 16px;
-  transition: color 0.3s ease;
-}
 
-.nav-link:hover {
+
+.navlink:hover {
   text-decoration: underline;
   color: #d4f5c0;
+}
+
+.header-links{
+  flex: fixed;
+  margin-top: 10px;
+
+  align-content: right;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 22px;
+
+
 }
 
 /* Central */
 .login-container {
   flex: 1;
   /* Ocupa o espaço entre header/nav e footer */
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -493,6 +514,7 @@ body {
 }
 
 
+
 .btn-wrapper {
   text-align: center;
   margin-top: 20px;
@@ -663,10 +685,13 @@ body {
 }
 
 .icone-avatar {
-  width: 34px;
-  height: 34px;
+  margin-right: auto;
+  margin-top: 1px;
+  width: 50px;
+  height: 50x;
   border-radius: 50%;
   object-fit: cover;
+  background-color: #EEEEEE;
 }
 
 .subnav-bar {
@@ -853,12 +878,13 @@ body {
   }
 }
 
-/*Tela de Rotinas*/
+/*Suas Rotinas*/
 .login-section-alterar-rotinas {
   padding: 0,25px;
   align-items: center;
   margin-top: 50px;
   padding: auto;
+  
 }
 
 .container-rotinas {
@@ -1036,18 +1062,7 @@ body {
     background-color: #76AF53;
   }
 
-  .nav-link {
-    color: #fff;
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-
-  .nav-link:hover {
-    text-decoration: underline;
-    color: #d4f5c0;
-  }
+  
 
   .login-box {
 
@@ -1145,75 +1160,141 @@ body {
   display: block;
 }
 
-/*Rotinas*/
-.pagina-rotina {
-  background-color: #E9E9E9;
+/* Rotinas */ 
+.rotinas-container {
+  display: flex;
+  flex-direction: column;;
   min-height: 100vh;
+  width: 100%;
   position: relative;
-  padding-top: 120px;
-}
-
-.rotina-container {
-  width: 90%;
-  max-width: 800px;
-  margin: auto;
-  background-color: #d9d9d9;
-  border-radius: 20px;
-  padding: 40px;
-  position: relative;
-  z-index: 1;
+  background-color: #E9E9E9;
+  
 }
 
 .progresso-bolinhas {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
-  gap: 20px;
+  top: 0;
+  
+ 
 }
 
 .bolinha {
-  width: 20px;
-  height: 20px;
+ 
+  display: inline-block;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  margin-left: 25px;
   border-radius: 50%;
-  background-color: black;
-  opacity: 0.4;
+  background-color: #000000;
+  transition: background-color 0.3s;
+
 }
 
 .bolinha.ativa {
-  background-color: #73CC3D;
-  opacity: 1;
+  background-color: #4CAF50;
 }
 
-.titulo-topico {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2D462E;
-  margin-bottom: 20px;
+.conteudo-rotinas {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  background-color: #E9E9E9;
+  width: 50%;
+  margin: auto;
+  z-index: 1;
+  background: #D9D9D9;;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+  margin-top: 10px;
+
 }
 
 .pergunta {
-  font-size: 1rem;
-  margin-bottom: 8px;
   display: block;
-  font-weight: 500;
+  font-weight: bold;
 }
 
-.input-texto {
-  width: 100%;
-  padding: 10px 15px;
-  border-radius: 8px;
+.input-texto,
+.spinner {
+  width: 75%;
+  padding: 8px;
+  margin-top: 10px;
   border: 1px solid #ccc;
-  font-size: 1rem;
-  margin-bottom: 30px;
+  border-radius: 5px;
 }
 
-.btn-proximo {
+.radio-group {
+  display: flex;
+  gap: 1px;
+  
+}
+
+.linha-porcao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1px;
+}
+
+.spinner.pequeno {
+  width: 80px;
+}
+
+.botoes-navegacao {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.botao {
+  height: 50px;
+  width: 150px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
   background-color: #73CC3D;
   color: white;
-  font-weight: bold;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1rem;
+}
+.botao:hover {
+  background-color: #5fb12e;
+  transform: scale(1.05);
+}
+
+.botao.primario {
+  background-color: #73CC3D;
+  color: white;
+  margin-right: 150px;
+}
+.botao.primario:hover {
+  background-color: #5fb12e;
+  transform: scale(1.05);
+}
+
+.botao.secundario {
+  background-color: #73CC3D;
+  color: white;
+  margin-left: 200px;
+  
+}
+.botao.secundario:hover {
+  background-color: #5fb12e;
+  transform: scale(1.05);
+}
+
+.ajuda {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 5px;
 }

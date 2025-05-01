@@ -93,15 +93,26 @@ const GraficosEConquistas = () => {
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
             <header className="header">
-                <div className="header-top">
-                    <img src={logo} alt="Logo" className="logo" />
-                    <div className="header-right">
-                    <BsBellFill className="icone-sino" onClick={() => setMostrarModalFrequencia(true)} style={{ cursor: 'pointer' }} />                        <div className="avatar-container">
-                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
-                        </div>
-                    </div>
-                </div>
-            </header>
+        <div className="header-top">
+          <img src={logo} alt="Logo" className="logo" />
+          </div>
+
+          <div className="header-right">
+
+
+            
+          <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink">Testes</span>
+            </div>
+
+
+
+            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
+          </div>
+       
+       
+      </header>
 
             <div className="nav-bar">
                 <div className="nav-metade-esquerda">

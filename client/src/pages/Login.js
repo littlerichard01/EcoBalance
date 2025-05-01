@@ -6,6 +6,8 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import avatar from '../assets/avatar.png'; 
+import axios from 'axios';// Importe o ícone do avatar
 
 const Login = () => {
 
@@ -21,6 +23,9 @@ const Login = () => {
   const handleInicioClick = () => {
     navigate('/');
   };
+  const handleUsuarioAcesso = () => {
+    navigate('/info-cadastro')
+};
 
   const [nome, setNome] = useState("");
 
@@ -38,6 +43,12 @@ const Login = () => {
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
   const [idLogin, setIdLogin] = useState("")
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [usuarioAcesso, setUsuarioAcesso] = useState(false);
+  const [usuarioNome, setUsuarioNome] = useState("");
+
+  
+
 
   useEffect(() => {
     const updateNavbarPosition = () => {
@@ -134,16 +145,28 @@ const Login = () => {
       {/* Folhas laterais */}
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
-
-      {/* Header */}
+      
+      
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          <div className="header-right">
-            <button className="toggle-theme">🌞</button>
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
-        </div>
+
+          <div className="header-right">
+
+
+            
+          <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink">Testes</span>
+            </div>
+
+
+
+            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
+          </div>
+       
+       
       </header>
 
       {/* Nav bar */}
