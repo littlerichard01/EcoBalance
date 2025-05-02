@@ -14,9 +14,6 @@ const Home = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
   const navigate = useNavigate();
-  const handleLoginClick = () => {
-    navigate('/login');
-  };
   const handleInicioClick = () => {
     navigate('/home');
   };
@@ -26,9 +23,6 @@ const Home = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03]; // Array com as imagens
-
-  const [mostrarModalFrequencia, setMostrarModalFrequencia] = useState(false);
-  const [frequenciaSelecionada, setFrequenciaSelecionada] = useState('');
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -44,46 +38,15 @@ const Home = () => {
     return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
   }, [images.length]);
 
-
-  /*useEffect(() => {
-    const updateNavbarPosition = () => {
-      const navBar = document.querySelector('.nav-bar-home');
-      const headerHeight = document.querySelector('.header').offsetHeight;
-
-      if (window.scrollY > headerHeight) {
-        navBar.classList.add('fixed-nav');
-        navBar.style.top = '0';
-      } else {
-        navBar.classList.remove('fixed-nav');
-        navBar.style.top = `${headerHeight}px`;
-      }
-    };
-
-    // Atualiza a posição da navbar ao carregar a página
-    updateNavbarPosition();
-
-    // Adiciona o evento de scroll
-    window.addEventListener('scroll', updateNavbarPosition);
-    return () => window.removeEventListener('scroll', updateNavbarPosition);
-  }, []);*/
-
-  useEffect(() => {
-    const buscarFrequencia = async () => {
-        try {
-            const response = await fetch(`http://localhost:3001/api/usuariosBuscar/${usuario._id}`);
-            const data = await response.json();
-            if (response.ok && data.frequencia) {
-                setFrequenciaSelecionada(data.frequencia);
-            }
-        } catch (err) {
-            console.error("Erro ao buscar frequência:", err);
+useEffect(() => {
+        // Verifica se o usuário está logado
+        const usuario = localStorage.getItem("usuarioLogado");
+        if (!usuario) {
+            navigate("/login");
+            return; // evita continuar o código se não estiver logado
         }
-    };
 
-    if (mostrarModalFrequencia) {
-        buscarFrequencia();
-    }
-}, [mostrarModalFrequencia, usuario._id]);
+    }, []);
 
   return (
     <div className="pagina-login">
@@ -199,64 +162,6 @@ const Home = () => {
             </details>
           </section>
         </div>
-        {mostrarModalFrequencia && (
-                        <div className="custom-modal-overlay">
-                            <div className="custom-modal-content">
-                                <h2 className="modal-title">Frequência dos Testes</h2>
-
-                                <div className="modal-form-group">
-                                    <label>Escolha com que frequência deseja realizar seus testes:</label>
-                                    <select
-                                        className="form-control"
-                                        value={frequenciaSelecionada}
-                                        onChange={(e) => setFrequenciaSelecionada(e.target.value)}
-                                    >
-                                        <option value="">Selecione uma opção</option>
-                                        <option value="mensalmente">Mensalmente</option>
-                                        <option value="semestralmente">Semestralmente</option>
-                                        <option value="anualmente">Anualmente</option>
-                                    </select>
-                                </div>
-
-                                <div className="modal-buttons">
-                                    <button className="btn btn-secondary" onClick={() => setMostrarModalFrequencia(false)}>Cancelar</button>
-                                    <button
-                                        className="btn btn-success"
-                                        onClick={async () => {
-                                            if (frequenciaSelecionada) {
-                                                try {
-                                                    const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}/frequencia`, {
-                                                        method: 'PUT',
-                                                        headers: {
-                                                            'Content-Type': 'application/json'
-                                                        },
-                                                        body: JSON.stringify({ frequencia: frequenciaSelecionada })
-                                                    });
-
-                                                    const data = await response.json();
-
-                                                    if (response.ok) {
-                                                        alert(`Frequência salva: ${data.frequencia}`);
-                                                        localStorage.setItem("frequenciaTestes", data.frequencia);
-                                                        setMostrarModalFrequencia(false);
-                                                    } else {
-                                                        alert(data.error || "Erro ao salvar frequência");
-                                                    }
-                                                } catch (err) {
-                                                    console.error(err);
-                                                    alert("Erro de rede");
-                                                }
-                                            } else {
-                                                alert("Por favor, selecione uma frequência.");
-                                            }
-                                        }}
-                                    >
-                                        Salvar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
       </main>
 
       <footer className="footer">

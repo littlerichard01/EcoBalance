@@ -5,6 +5,7 @@ const connectDB = require('./database');
 require('dotenv').config();
 const cors = require('cors');
 const User = require('./models/User');
+const Rotina = require('./models/Rotina');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -136,6 +137,109 @@ app.get("/api/usuariosBuscar/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao buscar usuário" });
+  }
+});
+
+// Rota para salvar uma nova rotina
+app.post("/api/rotinas", async (req, res) => {
+  const {
+    usuarioId,
+    nome,
+    dieta,
+    porcoes,
+    tipoGas,
+    tipoBotijao,
+    tempoDuracaoGas,
+    usaVeiculo,
+    possuiVeiculo,
+    combustivel,
+    litrosCombustivel,
+    kmEletrico,
+    transportesPublicos,
+    kmTransportes,
+    emissoes
+  } = req.body;
+
+  // Validação básica mínima
+  if (!usuarioId || !nome || !emissoes) {
+    return res.status(400).json({ error: "Retorne as questões e verifique se faltou alguma etapa" });
+  }
+
+  try {
+    // Verifica se já existe uma rotina com mesmo nome para o mesmo usuário
+    let rotinaExistente = await Rotina.findOne({ usuarioId, nome });
+
+    if (rotinaExistente) {
+      // Atualiza a rotina existente
+      rotinaExistente.set({
+        dieta,
+        porcoes,
+        tipoGas,
+        tipoBotijao,
+        tempoDuracaoGas,
+        usaVeiculo,
+        possuiVeiculo,
+        combustivel,
+        litrosCombustivel,
+        kmEletrico,
+        transportesPublicos,
+        kmTransportes,
+        emissoes
+      });
+
+      await rotinaExistente.save();
+      return res.status(200).json({ message: "Rotina atualizada com sucesso!", rotina: rotinaExistente });
+    }
+
+    // Cria uma nova rotina se não existir
+    const novaRotina = new Rotina({
+      usuarioId,
+      nome,
+      dieta,
+      porcoes,
+      tipoGas,
+      tipoBotijao,
+      tempoDuracaoGas,
+      usaVeiculo,
+      possuiVeiculo,
+      combustivel,
+      litrosCombustivel,
+      kmEletrico,
+      transportesPublicos,
+      kmTransportes,
+      emissoes
+    });
+
+    await novaRotina.save();
+    res.status(201).json({ message: "Rotina salva com sucesso!", rotina: novaRotina });
+  } catch (error) {
+    console.error("Erro ao salvar/atualizar rotina:", error);
+    res.status(500).json({ error: "Erro ao salvar/atualizar rotina no servidor." });
+  }
+});
+
+// Buscar rotinas de um usuário específico
+app.get("/api/rotinas/usuario/:usuarioId", async (req, res) => {
+  try {
+    const rotinas = await Rotina.find({ usuarioId: req.params.usuarioId });
+    res.status(200).json(rotinas);
+  } catch (err) {
+    console.error("Erro ao buscar rotinas:", err);
+    res.status(500).json({ error: "Erro ao buscar rotinas" });
+  }
+});
+
+// Deletar uma rotina pelo ID
+app.delete("/api/rotinas/:id", async (req, res) => {
+  try {
+    const rotina = await Rotina.findByIdAndDelete(req.params.id);
+    if (!rotina) {
+      return res.status(404).json({ error: "Rotina não encontrada" });
+    }
+    res.status(200).json({ message: "Rotina deletada com sucesso!" });
+  } catch (err) {
+    console.error("Erro ao deletar rotina:", err);
+    res.status(500).json({ error: "Erro ao deletar rotina" });
   }
 });
 

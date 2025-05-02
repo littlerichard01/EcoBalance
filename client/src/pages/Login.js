@@ -47,31 +47,6 @@ const Login = () => {
   const [usuarioAcesso, setUsuarioAcesso] = useState(false);
   const [usuarioNome, setUsuarioNome] = useState("");
 
-  
-
-
-  useEffect(() => {
-    const updateNavbarPosition = () => {
-      const navBar = document.querySelector('.nav-bar');
-      const headerHeight = document.querySelector('.header').offsetHeight;
-
-      if (window.scrollY > headerHeight) {
-        navBar.classList.add('fixed-nav');
-        navBar.style.top = '0';
-      } else {
-        navBar.classList.remove('fixed-nav');
-        navBar.style.top = `${headerHeight}px`;
-      }
-    };
-
-    // Atualiza a posição da navbar ao carregar a página
-    updateNavbarPosition();
-
-    // Adiciona o evento de scroll
-    window.addEventListener('scroll', updateNavbarPosition);
-    return () => window.removeEventListener('scroll', updateNavbarPosition);
-  }, []);
-
   const handleCadastro = async () => {
     if (senhaCadastro !== confirmarSenha) {
       alert("As senhas não coincidem!");
@@ -163,21 +138,11 @@ const Login = () => {
 
 
 
-            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
-          </div>
+            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+            </div>
        
        
       </header>
-
-      {/* Nav bar */}
-      <div className="nav-bar">
-        <div className="nav-metade-esquerda">
-          <span className="nav-link" onClick={handleInicioClick}>Início</span>
-        </div>
-        <div className="nav-metade-direita">
-          <span className="nav-link">Testes</span>
-        </div>
-      </div>
 
       {/* Conteúdo Central */}
       <main className="login-container">
