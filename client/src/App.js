@@ -10,6 +10,8 @@ import SuasRotinas from "./pages/SuasRotinas.js"
 import GraficosEConquistas from "./pages/GráficosEConquistas.js";
 import HomeLogado from "./pages/HomeLogado.js";
 import Rotinas from "./pages/Rotinas.js"; 
+import TesteLogado from "./pages/TesteLogado.js";
+import Teste from "./pages/Teste.js"; 
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/graficos-conquistas" element={<GraficosEConquistas/>} />
         <Route path="/home" element={<HomeLogado/>} />
         <Route path="/rotinas" element={<Rotinas/>} />
+        <Route path="/teste-logado" element={<TesteLogado/>} />
+        <Route path="/teste" element={<Teste/>} />
       </Routes>
     </Router> 
   );
