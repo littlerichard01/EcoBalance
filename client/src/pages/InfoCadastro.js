@@ -4,7 +4,7 @@ import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
-import folhaSidebar from '../assets/folha-esquerda.png';
+import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -85,7 +85,7 @@ const InfoCadastro = () => {
         }
 
         if (novaSenha && !validarSenha(novaSenha)) {
-            setMensagemErroSenha("A senha deve ter pelo menos 6 caracteres, com uma letra e um número.");
+            setMensagemErroSenha("A senha deve ter pelo menos 6 caracteres, com uma letra, um número e um caractere especial.");
             return;
         } else {
             setMensagemErroSenha('');
@@ -138,143 +138,104 @@ const InfoCadastro = () => {
     return (
         <div className="pagina-login">
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" /> {/* Adicione a folha da esquerda */}
 
             <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-          </div>
-
-          <div className="header-right">
-
-
-            
-          <div className="header-links">
-            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
-            </div>
-
-
-
-            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
-          </div>
-       
-       
-      </header>
-
-            <div style={{ display: 'flex' }}>
-                {/* SIDEBAR */}
-
-                <div className="sidebar">
-
-                    <div className="profile-section">
-                        <BsPersonFill className="profile-icon" />
-                        <p className="user-name">{usuario?.nome}</p>
-                    </div>
-                    <div className="menu-option active" onClick={() => navigate('/info-cadastro')}>Informações de cadastro</div>
-                    <div className="menu-option" onClick={() => navigate('/suas-rotinas')}>Suas rotinas</div>
-                    <div className="menu-option" onClick={() => navigate('/graficos-conquistas')}>Gráficos e Conquistas</div>
-                    <div className="menu-option" onClick={handleLogout}>Sair</div>
-                    <img
-                        src={folhaSidebar}
-                        alt="Folha entre sidebar e main"
-                        className="folha folha-sidebar"
-                    />
-
+                <div className="header-top">
+                    <img src={logo} alt="Logo" className="logo" />
                 </div>
 
-                {/* CONTEÚDO PRINCIPAL */}
-                <main
-                    className="login-container"
-                    style={{
-                    }}
-                >
+                <div className="header-right">
+                    <div className="header-links">
+                        <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+                        <span className="navlink">Testes</span>
+                    </div>
+                    <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+                </div>
+            </header>
 
-
-                    <div className='subnav-bar'><p>Informações de Cadastro</p></div>
-                    <div className="info-usuario">
-                        <div className="login-box" >
-                            <div className="login-section-alterar-informacoes">
-                                <h2 className="login-title">Informações de Usuário</h2>
-                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
-                                <div className="form-group-cadastro">{usuario?.nome}</div>
-                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
-                                <div className="form-group-cadastro">{usuario?.email}</div>
-                                <button className="btn-alterar-informacoes" onClick={() => setMostrarModal(true)}>
-                                    Alterar Informações
-                                </button>
-
-                            </div>
+            <main className="login-container">
+                <div className="info-usuario">
+                    <div className="login-box" >
+                        <div className="login-section-alterar-informacoes">
+                            <h2 className="login-title">Informações de Usuário</h2>
+                            <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
+                            <div className="form-group-cadastro">{usuario?.nome}</div>
+                            <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
+                            <div className="form-group-cadastro">{usuario?.email}</div>
+                            <button className="btn-alterar-informacoes" onClick={() => setMostrarModal(true)}>
+                                Alterar Informações
+                            </button>
                         </div>
                     </div>
-                    {mostrarModal && (
-                        <div className="custom-modal-overlay">
-                            <div className="custom-modal-content">
-                                <h2 className="modal-title">Alterar Informações</h2>
+                </div>
+                {mostrarModal && (
+                    <div className="custom-modal-overlay">
+                        <div className="custom-modal-content">
+                            <h2 className="modal-title">Alterar Informações</h2>
 
-                                <div className="modal-form-group">
-                                    <label>Nome:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={novoNome}
-                                        onChange={(e) => setNovoNome(e.target.value)}
-                                        placeholder="Novo nome"
-                                    />
-                                </div>
+                            <div className="modal-form-group">
+                                <label>Nome:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={novoNome}
+                                    onChange={(e) => setNovoNome(e.target.value)}
+                                    placeholder="Novo nome"
+                                />
+                            </div>
 
-                                <div className="modal-form-group">
-                                    <label>E-mail:</label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        value={novoEmail}
-                                        onChange={(e) => {
-                                            setNovoEmail(e.target.value);
-                                            setMensagemErroEmail('');
-                                        }}
-                                        placeholder="Novo e-mail"
-                                    />
-                                    {mensagemErroEmail && <small className="feedback-error">{mensagemErroEmail}</small>}
-                                </div>
+                            <div className="modal-form-group">
+                                <label>E-mail:</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={novoEmail}
+                                    onChange={(e) => {
+                                        setNovoEmail(e.target.value);
+                                        setMensagemErroEmail('');
+                                    }}
+                                    placeholder="Novo e-mail"
+                                />
+                                {mensagemErroEmail && <small className="feedback-error">{mensagemErroEmail}</small>}
+                            </div>
 
+                            <div className="modal-form-group">
+                                <label>Nova Senha:</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={novaSenha}
+                                    onChange={(e) => {
+                                        setNovaSenha(e.target.value);
+                                        setMensagemErroSenha('');
+                                    }}
+                                    placeholder="Nova senha"
+                                />
+                                {mensagemErroSenha && <small className="feedback-error">{mensagemErroSenha}</small>}
+                            </div>
+
+                            {novaSenha && (
                                 <div className="modal-form-group">
-                                    <label>Nova Senha:</label>
+                                    <label>Senha Antiga:</label>
                                     <input
                                         type="password"
                                         className="form-control"
-                                        value={novaSenha}
-                                        onChange={(e) => {
-                                            setNovaSenha(e.target.value);
-                                            setMensagemErroSenha('');
-                                        }}
-                                        placeholder="Nova senha"
+                                        value={senhaAntiga}
+                                        onChange={(e) => setSenhaAntiga(e.target.value)}
+                                        placeholder="Digite sua senha atual"
                                     />
-                                    {mensagemErroSenha && <small className="feedback-error">{mensagemErroSenha}</small>}
                                 </div>
+                            )}
 
-                                {novaSenha && (
-                                    <div className="modal-form-group">
-                                        <label>Senha Antiga:</label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            value={senhaAntiga}
-                                            onChange={(e) => setSenhaAntiga(e.target.value)}
-                                            placeholder="Digite sua senha atual"
-                                        />
-                                    </div>
-                                )}
-
-                                <div className="modal-buttons">
-                                    <button className="btn btn-secondary" onClick={() => setMostrarModal(false)}>Cancelar</button>
-                                    <button className="btn btn-success" onClick={handleSalvarAlteracoes}>Salvar</button>
-                                </div>
+                            <div className="modal-buttons">
+                                <button className="btn btn-secondary" onClick={() => setMostrarModal(false)}>Cancelar</button>
+                                <button className="btn btn-success" onClick={handleSalvarAlteracoes}>Salvar</button>
                             </div>
                         </div>
-                    )}
-                </main>
-
-            </div>
+                    </div>
+                )}
+            </main>
 
             <footer className="footer">
                 <p>© 2025 EcoBalance — Todos os direitos reservados</p>

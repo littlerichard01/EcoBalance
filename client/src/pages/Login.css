@@ -542,10 +542,10 @@ body {
 
 }
 
-.faq-section details {
+.-section details {
   background: #f9f9f9;
   margin-bottom: 10px;
-  padding: 10px 15px;
+  padding: 1faq0px 15px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -925,18 +925,31 @@ body {
   justify-content: center;
 }
 
-.icone-lixeira {
-  color: red;
-  cursor: pointer;
-  margin-top: 8px;
-}
-
 .login-title-rotina {
   color: #2D462E;
   text-align: center;
   font-weight: 700;
 }
 
+.icone-editar {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icone-editar:hover {
+  transform: scale(1.1);
+}
+
+.icone-lixeira {
+  color: red;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.icone-lixeira:hover {
+  color: darkred;
+  transform: scale(1.1);
+}
 /*Graficos e Conquistas*/
 .login-title-Graficos {
   color: #2D462E;
@@ -1298,3 +1311,84 @@ body {
   color: #666;
   margin-top: 5px;
 }
+
+/* Login.css */
+
+/* ... outros estilos ... */
+
+.avatar-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #EEEEEE; /* Círculo cinza */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer; /* Adiciona cursor para indicar interatividade */
+  position: relative; /* Necessário para posicionar o dropdown */
+}
+
+.icone-avatar {
+  margin-right: auto;
+  margin-top: 1px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #EEEEEE;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px); /* Posiciona abaixo do avatar */
+  right: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000;
+  min-width: 200px; /* Ajuste conforme necessário */
+  border-radius: 5px;
+  padding: 10px 0;
+  display: none; /* Inicialmente escondido */
+}
+
+/* Estilos para quando o dropdown estiver visível (a classe 'show' é adicionada dinamicamente com JavaScript) */
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu .profile-section {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu .profile-icon {
+  font-size: 1.5em;
+  color: #555;
+}
+
+.dropdown-menu .user-name {
+  margin: 0;
+  font-weight: bold;
+}
+
+.dropdown-menu .menu-option {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu .menu-option:hover {
+  background-color: #eee;
+}
+
+.dropdown-menu .menu-option.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* ... outros estilos ... */

@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Login.css';
 import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
-import folhaSidebar from '../assets/folha-esquerda.png';
+import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 
 const GraficosEConquistas = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
-
     const navigate = useNavigate();
 
     const handleInicioClick = () => {
         navigate('/home');
     };
     const handleUsuarioAcesso = () => {
-        navigate('/info-cadastro')
-      };
+        navigate('/info-cadastro');
+    };
 
     const handleLogout = () => {
-        localStorage.removeItem("usuarioLogado"); // Remove o usuário
-        navigate("/login"); // Redireciona para a página de login
+        localStorage.removeItem("usuarioLogado");
+        navigate("/login");
     };
 
     const scrollContainer = (id, direction) => {
@@ -36,123 +35,78 @@ const GraficosEConquistas = () => {
     };
 
     useEffect(() => {
-        // Verifica se o usuário está logado
         const usuario = localStorage.getItem("usuarioLogado");
         if (!usuario) {
             navigate("/login");
-            return; // evita continuar o código se não estiver logado
+            return;
         }
     }, []);
 
     return (
         <div className="pagina-login">
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" /> {/* Adicione a folha da esquerda */}
 
             <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-          </div>
-
-          <div className="header-right">
-
-
-            
-          <div className="header-links">
-            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
-            </div>
-
-
-
-            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
-          </div>
-       
-       
-      </header>
-
-            <div className="nav-bar">
-                <div className="nav-metade-esquerda">
-                    <span className="nav-link" onClick={handleInicioClick}>Início</span>
-                </div>
-                <div className="nav-metade-direita">
-                    <span className="nav-link">Testes</span>
-                </div>
-            </div>
-
-            <div style={{ display: 'flex' }}>
-                {/* SIDEBAR */}
-                <div className="sidebar">
-                    <div className="profile-section">
-                        <BsPersonFill className="profile-icon" />
-                        <p className="user-name">{usuario?.nome}</p>
-                    </div>
-                    <div className="menu-option" onClick={() => navigate('/info-cadastro')}>
-                        Informações de cadastro
-                    </div>
-
-                    <div className="menu-option" onClick={() => navigate('/suas-rotinas')}>
-                        Suas rotinas
-                    </div>
-
-                    <div className="menu-option active" onClick={() => navigate('/graficos-conquistas')}>
-                        Gráficos e Conquistas
-                    </div>
-
-                    <div className="menu-option" onClick={handleLogout}>Sair</div>
-
-                    <img src={folhaSidebar} alt="Folha entre sidebar e main" className="folha folha-sidebar" />
+                <div className="header-top">
+                    <img src={logo} alt="Logo" className="logo" />
                 </div>
 
-                {/* CONTEÚDO PRINCIPAL */}
-                <main className="login-container">
-                    <div className='subnav-bar'><p>Gráficos E Conquistas</p></div>
+                <div className="header-right">
+                    <div className="header-links">
+                        <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+                        <span className="navlink">Testes</span>
+                    </div>
+                    <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+                </div>
+            </header>
 
-                    <div className="info-usuario">
-                        <div className="login-box">
-                            <div className="login-section-GraficosEConquistas">
-                                <h2 className="login-title-Graficos">Gráficos</h2>
-                                <div className="scroll-container">
-                                    <button className="scroll-btn left" onClick={() => scrollContainer('graficos', 'left')}>&lt;</button>
-                                    <div className="container-grafico" id="graficos">
-                                        <div className="grafico-circle-wrapper">
-                                            <div className="grafico-circle">📊</div>
-                                            <span className="grafico-label">17/04/2025</span>
-                                        </div>
-                                        <div className="grafico-circle-wrapper">
-                                            <div className="grafico-circle">📊</div>
-                                            <span className="grafico-label">19/04/2025</span>
-                                        </div>
-                                        <div className="grafico-circle-wrapper">
-                                            <div className="grafico-circle">📊</div>
-                                            <span className="grafico-label">20/04/2025</span>
-                                        </div>
-                                        <div className="grafico-circle-wrapper">
-                                            <div className="grafico-circle">📊</div>
-                                            <span className="grafico-label">22/04/2025</span>
-                                        </div>
-                                        <div className="grafico-circle-wrapper">
-                                            <div className="grafico-circle">📊</div>
-                                            <span className="grafico-label">23/04/2025</span>
-                                        </div>
+            <main className="login-container">
+                <div className="info-usuario">
+                    <div className="login-box">
+                        <div className="login-section-GraficosEConquistas">
+                            <h2 className="login-title-Graficos">Gráficos</h2>
+                            <div className="scroll-container">
+                                <button className="scroll-btn left" onClick={() => scrollContainer('graficos', 'left')}>&lt;</button>
+                                <div className="container-grafico" id="graficos">
+                                    <div className="grafico-circle-wrapper">
+                                        <div className="grafico-circle">📊</div>
+                                        <span className="grafico-label">17/04/2025</span>
                                     </div>
-                                    <button className="scroll-btn right" onClick={() => scrollContainer('graficos', 'right')}>&gt;</button>
-                                </div>
-                                <h2 className="login-title-Graficos">Conquistas</h2>
-                                <div className="scroll-container">
-                                    <button className="scroll-btn left" onClick={() => scrollContainer('conquistas', 'left')}>&lt;</button>
-                                    <div className="container-grafico" id="conquistas">
-                                        <div className="grafico-circle">🏆</div>
-                                        <div className="grafico-circle">🥇</div>
-                                        <div className="grafico-circle">🎖️</div>
-                                        <div className="grafico-circle">🏅</div>
+                                    <div className="grafico-circle-wrapper">
+                                        <div className="grafico-circle">📊</div>
+                                        <span className="grafico-label">19/04/2025</span>
                                     </div>
-                                    <button className="scroll-btn right" onClick={() => scrollContainer('conquistas', 'right')}>&gt;</button>
+                                    <div className="grafico-circle-wrapper">
+                                        <div className="grafico-circle">📊</div>
+                                        <span className="grafico-label">20/04/2025</span>
+                                    </div>
+                                    <div className="grafico-circle-wrapper">
+                                        <div className="grafico-circle">📊</div>
+                                        <span className="grafico-label">22/04/2025</span>
+                                    </div>
+                                    <div className="grafico-circle-wrapper">
+                                        <div className="grafico-circle">📊</div>
+                                        <span className="grafico-label">23/04/2025</span>
+                                    </div>
                                 </div>
+                                <button className="scroll-btn right" onClick={() => scrollContainer('graficos', 'right')}>&gt;</button>
+                            </div>
+                            <h2 className="login-title-Graficos">Conquistas</h2>
+                            <div className="scroll-container">
+                                <button className="scroll-btn left" onClick={() => scrollContainer('conquistas', 'left')}>&lt;</button>
+                                <div className="container-grafico" id="conquistas">
+                                    <div className="grafico-circle">🏆</div>
+                                    <div className="grafico-circle">🥇</div>
+                                    <div className="grafico-circle">🎖️</div>
+                                    <div className="grafico-circle">🏅</div>
+                                </div>
+                                <button className="scroll-btn right" onClick={() => scrollContainer('conquistas', 'right')}>&gt;</button>
                             </div>
                         </div>
                     </div>
-                </main>
-            </div>
+                </div>
+            </main>
 
             <footer className="footer">
                 <p>© 2025 EcoBalance — Todos os direitos reservados</p>
