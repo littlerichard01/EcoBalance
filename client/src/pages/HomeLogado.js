@@ -12,6 +12,7 @@ import avatar from '../assets/avatar.png';
 
 const Home = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+  const [mostrarDropdown, setMostrarDropdown] = useState(false);
 
   const navigate = useNavigate();
   const handleInicioClick = () => {
@@ -19,6 +20,10 @@ const Home = () => {
   };
   const handleUsuarioAcesso = () => {
     navigate('/info-cadastro')
+  };
+
+  const handleTesteLogadoClick = () => {
+    navigate('/teste-logado');
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -29,6 +34,7 @@ const Home = () => {
     const usuario = localStorage.getItem("usuarioLogado");
     if (!usuario) {
       navigate("/login");
+      
       return; // evita continuar o código se não estiver logado
     }
 
@@ -64,7 +70,7 @@ useEffect(() => {
             
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTesteLogadoClick}>Testes</span>
             </div>
 
 

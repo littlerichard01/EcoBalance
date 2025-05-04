@@ -8,14 +8,20 @@ import fotoHome02 from '../assets/fotoHome02.jpeg';
 import fotoHome03 from '../assets/fotoHome03.jpeg';
 import { useNavigate } from 'react-router-dom';
 
+
 const Home = () => {
   const navigate = useNavigate();
   const handleLoginClick = () => {
     navigate('/login');
   };
+  const handleTesteClick = () => {
+    navigate('/teste');
+  };
   const handleInicioClick = () => {
     navigate('/');
   };
+
+  
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03]; // Array com as imagens
@@ -41,7 +47,7 @@ const Home = () => {
 
             <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTesteClick}>Testes</span>
             </div>
             <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>

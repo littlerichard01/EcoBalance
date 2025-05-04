@@ -237,20 +237,7 @@ const Teste = () => {
       conteudo: (
         <>
           <p className="pergunta">Clique em calcular para ver os resultados do seu teste!</p>
-          <button className="botao primario" onClick={() => {
-            // Aqui você pode calcular e exibir os resultados do teste com base nos dados coletados
-            console.log('Rotina Selecionada:', rotinaSelecionada);
-            console.log('KWh Conta Luz:', kwhContaLuz);
-            console.log('m³ Gás Natural:', m3GasNatural);
-            console.log('Fez Viagem:', fezViagem);
-            console.log('Viagem Internacional:', viagemInternacional);
-            console.log('Veículos Viagem:', veiculosViagem);
-            console.log('Km por Veículo Viagem:', kmPorVeiculoViagem);
-            alert('Cálculo dos resultados em desenvolvimento!');
-            // Aqui você provavelmente fará uma chamada para uma função de cálculo e/ou atualizará o estado para exibir os resultados.
-          }}>
-            Calcular
-          </button>
+
         </>
       ),
     },

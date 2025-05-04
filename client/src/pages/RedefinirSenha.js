@@ -23,14 +23,27 @@ const RedefinirSenha = () => {
 
       
 
-      <div className="nav-bar">
-        <div className="nav-metade-esquerda">
-          <span className="nav-link" onClick={handleInicioClick}>Início</span>
-        </div>
-        <div className="nav-metade-direita">
-          <span className="nav-link">Testes</span>
-        </div>
-      </div>
+      <header className="header">
+              <div className="header-top">
+                <img src={logo} alt="Logo" className="logo" />
+                </div>
+      
+                <div className="header-right">
+      
+      
+                  
+                <div className="header-links">
+                  <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+                  <span className="navlink">Testes</span>
+                  </div>
+      
+      
+      
+                  <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+                </div>
+             
+             
+            </header>
 
       <main className="login-container">
         <div className="vivi">

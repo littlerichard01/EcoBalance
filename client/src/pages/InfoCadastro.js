@@ -7,6 +7,7 @@ import avatar from '../assets/avatar.png';
 import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {PencilFill } from 'react-bootstrap-icons';
 
 const InfoCadastro = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -159,6 +160,13 @@ const InfoCadastro = () => {
                     <div className="login-box" >
                         <div className="login-section-alterar-informacoes">
                             <h2 className="login-title">Informações de Usuário</h2>
+                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar-info-usuario" />
+                            <PencilFill
+                                                    className="icone-editar"
+                                                    size={20}
+                                                    color="black"
+                                                   // onClick={() => handle()}
+                                                  />
                             <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
                             <div className="form-group-cadastro">{usuario?.nome}</div>
                             <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>

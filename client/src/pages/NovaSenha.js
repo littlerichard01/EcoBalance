@@ -47,14 +47,6 @@ const handleUsuarioAcesso = () => {
        
       </header>
 
-      <div className="nav-bar">
-        <div className="nav-metade-esquerda">
-          <span className="nav-link" onClick={handleInicioClick}>Início</span>
-        </div>
-        <div className="nav-metade-direita">
-          <span className="nav-link">Testes</span>
-        </div>
-      </div>
 
       <main className="login-container">
         <div className="vivi">
