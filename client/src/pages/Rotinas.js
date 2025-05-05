@@ -6,6 +6,8 @@ import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Rotinas = () => {
   const location = useLocation();
@@ -14,14 +16,14 @@ const Rotinas = () => {
   const navigate = useNavigate();
   const handleInicioClick = () => {
     navigate('/home');
-};
-const handleUsuarioAcesso = () => {
+  };
+  const handleUsuarioAcesso = () => {
     navigate('/info-cadastro')
-};
+  };
 
-const handleTestes = () => {
+  const handleTestes = () => {
     navigate('/teste-logado')
-}
+  }
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -80,17 +82,17 @@ const handleTestes = () => {
       if (!possuiVeiculo && etapaAtual == 3) {
         setMensagemErroRotina("Por favor, selecione uma opção.");
         return;
-      } else if (possuiVeiculo == 'proprio' && etapaAtual == 3){
-        if (!combustivel && etapaAtual == 3){
+      } else if (possuiVeiculo == 'proprio' && etapaAtual == 3) {
+        if (!combustivel && etapaAtual == 3) {
           setMensagemErroRotina("Por favor, selecione um tipo de combustível.");
           return;
-        } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual == 3){
+        } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual == 3) {
           setMensagemErroRotina("Por favor, digite quantos litros de combustível você abastece por mês.");
           return;
-        } else if (combustivel === 'Elétrico' && etapaAtual == 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual == 3){
+        } else if (combustivel === 'Elétrico' && etapaAtual == 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual == 3) {
           setMensagemErroRotina("Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.");
           return;
-        } 
+        }
       }
     }
 
@@ -321,15 +323,15 @@ const handleTestes = () => {
                 <>
                   <label className="pergunta">Tipo de combustível:</label>
                   <select
-  className="input-texto"
-  value={combustivel}
-  onChange={(e) => {
-    const novoCombustivel = e.target.value;
-    setCombustivel(novoCombustivel);
-    setLitrosCombustivel(0);
-    setKmEletrico(0);
-  }}
->
+                    className="input-texto"
+                    value={combustivel}
+                    onChange={(e) => {
+                      const novoCombustivel = e.target.value;
+                      setCombustivel(novoCombustivel);
+                      setLitrosCombustivel(0);
+                      setKmEletrico(0);
+                    }}
+                  >
                     <option value="">Selecione...</option>
                     <option value="Gasolina">Gasolina</option>
                     <option value="Diesel">Diesel</option>
@@ -448,17 +450,14 @@ const handleTestes = () => {
                   return res.json();
                 })
                 .then(data => {
-                  alert('Rotina salva com sucesso!\n\n' +
-                    `Alimentos: ${rotinaParaSalvar.alimentos} kg CO₂\n` +
-                    (rotinaParaSalvar.gas === null
-                      ? 'Gás encanado (não entra no cálculo)\n'
-                      : `Gás (botijão): ${rotinaParaSalvar.gas} kg CO₂\n`) +
-                    `Veículos: ${rotinaParaSalvar.veiculos} kg CO₂`);
-                  navigate("/suas-rotinas");
+                  toast.success("Rotina salva com sucesso!");
+                  setTimeout(() => {
+                    navigate('/suas-rotinas');
+                  }, 2000);
                 })
                 .catch(err => {
                   console.error(err);
-                  alert('Falha ao salvar rotina no banco de dados.');
+                  toast.error("Falha ao salvar rotina no banco de dados.");
                 });
             }}
           >
@@ -546,6 +545,8 @@ const handleTestes = () => {
 
   return (
     <div className="rotinas-container">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <header className="header">
@@ -558,8 +559,8 @@ const handleTestes = () => {
 
 
           <div className="header-links">
-          <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-          <span className="navlink" onClick={handleTestes}>Testes</span>
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
 
 

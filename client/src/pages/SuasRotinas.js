@@ -7,6 +7,8 @@ import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SuasRotinas = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
@@ -41,9 +43,11 @@ const handleTestes = () => {
       await fetch(`http://localhost:3001/api/rotinas/${rotinaParaDeletar}`, {
         method: 'DELETE',
       });
+      toast.success("Rotina deletada com sucesso!")
       setRotinas(rotinas.filter(rotina => rotina._id !== rotinaParaDeletar));
     } catch (error) {
       console.error("Erro ao deletar rotina:", error);
+      toast.error("Erro ao deletar rotina.")
     } finally {
       setMostrarModal(false);
       setRotinaParaDeletar(null);
@@ -73,9 +77,11 @@ const handleTestes = () => {
           setRotinas(data);
         } else {
           console.error("Resposta inesperada ao buscar rotinas:", data);
+          toast.warning("Resposta inesperada ao buscar rotina.")
         }
       } catch (err) {
         console.error("Erro ao buscar rotinas:", err);
+        toast.error("Erro ao buscar rotina.")
       }
     };
 
@@ -84,6 +90,8 @@ const handleTestes = () => {
 
   return (
     <div className="pagina-login">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
