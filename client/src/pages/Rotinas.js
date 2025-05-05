@@ -506,7 +506,7 @@ const Rotinas = () => {
     let alimentosTotal = 0;
     Object.entries(porcoes).forEach(([alimento, quantidade]) => {
       const fator = fatores.alimentos[alimento] || 0;
-      alimentosTotal += (quantidade * fator) * 4;
+      alimentosTotal += ((quantidade * fator) * 4);
     });
 
     // Gás
@@ -521,7 +521,7 @@ const Rotinas = () => {
     let veiculosTotal = 0;
     if (usaVeiculo === 'sim' && possuiVeiculo === 'proprio') {
       if (combustivel === 'Elétrico') {
-        veiculosTotal += kmEletrico * fatores.eletrico;
+        veiculosTotal += (kmEletrico * fatores.eletrico) * 4;
       } else {
         veiculosTotal += litrosCombustivel * (fatores.combustiveis[combustivel] || 0);
       }
@@ -531,6 +531,7 @@ const Rotinas = () => {
         const fator = fatores.transportes[tipo] || 0;
         veiculosTotal += km * fator;
       });
+      veiculosTotal = veiculosTotal * 4;
     }
 
     return {

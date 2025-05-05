@@ -6,6 +6,7 @@ require('dotenv').config();
 const cors = require('cors');
 const User = require('./models/User');
 const Rotina = require('./models/Rotina');
+const TesteDeUsuario = require('./models/TesteDeUsuario');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -240,6 +241,49 @@ app.delete("/api/rotinas/:id", async (req, res) => {
   } catch (err) {
     console.error("Erro ao deletar rotina:", err);
     res.status(500).json({ error: "Erro ao deletar rotina" });
+  }
+});
+
+// Rota para salvar um novo teste de usuário
+app.post("/api/testes", async (req, res) => {
+  const {
+    usuario,
+    rotina,
+    energiaEletrica,
+    gasNatural,
+    viagem,
+    emissaoTotal
+  } = req.body;
+
+  if (!usuario || !rotina || !energiaEletrica || typeof emissaoTotal !== 'number') {
+    return res.status(400).json({ error: "Dados obrigatórios ausentes ou inválidos." });
+  }
+
+  try {
+    const novoTeste = new TesteDeUsuario({
+      usuario,
+      rotina,
+      energiaEletrica,
+      gasNatural,
+      viagem,
+      emissaoTotal
+    });
+
+    await novoTeste.save();
+    res.status(201).json({ message: "Teste salvo com sucesso!", teste: novoTeste });
+  } catch (error) {
+    console.error("Erro ao salvar teste:", error);
+    res.status(500).json({ error: "Erro ao salvar teste no servidor." });
+  }
+});
+
+// Buscar testes de um usuário específico
+app.get('/api/testes/usuario/:id', async (req, res) => {
+  try {
+    const testes = await TesteDeUsuario.find({ usuario: req.params.id }).sort({ dataRealizacao: -1 }).populate('rotina');
+    res.json(testes);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar testes do usuário' });
   }
 });
 

@@ -5,6 +5,8 @@ import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TesteLogado = () => {
   const navigate = useNavigate();
@@ -22,10 +24,10 @@ const TesteLogado = () => {
 
   const handleInicioClick = () => {
     navigate('/home');
-};
-const handleTestes = () => {
-  navigate('/teste')
-}
+  };
+  const handleTestes = () => {
+    navigate('/teste-logado')
+  }
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -45,15 +47,37 @@ const handleTestes = () => {
           setRotinasCadastradas(data);
         } else {
           console.error('Erro ao carregar rotinas.');
-          // Aqui você pode adicionar uma mensagem de erro para o usuário
+          toast.error("Erro ao carregar rotinas.");
         }
       } catch (error) {
         console.error('Erro ao conectar com o servidor:', error);
+        toast.error("Erro ao conectar com o servidor.");
       }
     };
 
     carregarRotinas();
   }, [navigate]);
+
+  useEffect(() => {
+    if (fezViagem === 'nao') {
+      setVeiculosViagem({});
+      setKmPorVeiculoViagem({});
+      setViagemInternacional(null);
+    }
+  }, [fezViagem]);
+
+  useEffect(() => {
+    if (rotinaSelecionada) {
+      setEtapaAtual(0);
+      setMensagemErroTeste('');
+      setKwhContaLuz(0);
+      setM3GasNatural(0);
+      setFezViagem(null);
+      setViagemInternacional(null);
+      setVeiculosViagem({});
+      setKmPorVeiculoViagem({});
+    }
+  }, [rotinaSelecionada]);
 
   const avancarEtapa = () => {
     setMensagemErroTeste(''); // Limpa mensagens de erro
@@ -61,11 +85,6 @@ const handleTestes = () => {
     if (etapaAtual === 0) {
       if (!rotinaSelecionada) {
         setMensagemErroTeste('Por favor, selecione uma rotina.');
-        return;
-      }
-      const rotina = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
-      if (rotina?.tipoGas !== 'encanado') {
-        setEtapaAtual(3); // Pula para a etapa de viagens se não usa gás encanado
         return;
       }
     }
@@ -78,9 +97,12 @@ const handleTestes = () => {
     }
 
     if (etapaAtual === 2) {
-      if (isNaN(Number(m3GasNatural)) || Number(m3GasNatural) <= 0) {
-        setMensagemErroTeste('Por favor, digite um valor válido para o m³ da conta de gás natural.');
-        return;
+      const rotinaSelecionadaData = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
+      if (rotinaSelecionadaData?.tipoGas === 'encanado') {
+        if (isNaN(Number(m3GasNatural)) || Number(m3GasNatural) <= 0) {
+          setMensagemErroTeste('Por favor, digite um valor válido para o m³ da conta de gás natural.');
+          return;
+        }
       }
     }
 
@@ -89,9 +111,27 @@ const handleTestes = () => {
         setMensagemErroTeste('Por favor, selecione se você fez alguma viagem no último mês.');
         return;
       }
+
       if (fezViagem === 'nao') {
-        setEtapaAtual(etapasFiltradas.length - 1); // Pula para a etapa final se não fez viagem
+        setEtapaAtual((prev) => prev + 1); // Avança normalmente
         return;
+      }
+
+      if (viagemInternacional === null) {
+        setMensagemErroTeste('Por favor, selecione o tipo de viagem.');
+        return;
+      }
+
+      if (Object.keys(veiculosViagem).length === 0) {
+        setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado na viagem.');
+        return;
+      }
+
+      for (const veiculo in veiculosViagem) {
+        if (veiculosViagem[veiculo] && (isNaN(Number(kmPorVeiculoViagem[veiculo])) || Number(kmPorVeiculoViagem[veiculo]) <= 0)) {
+          setMensagemErroTeste(`Por favor, digite a distância percorrida para o veículo: ${veiculo}.`);
+          return;
+        }
       }
     }
 
@@ -124,14 +164,20 @@ const handleTestes = () => {
   const handleCadastroRotina = () => navigate('/rotinas');
 
   const toggleVeiculoViagem = (veiculo) => {
-    setVeiculosViagem((prev) => ({
-      ...prev,
-      [veiculo]: !prev[veiculo],
-    }));
-    setKmPorVeiculoViagem((prev) => ({
-      ...prev,
-      [veiculo]: prev[veiculo] || 0, // Inicializa com 0 se selecionado
-    }));
+    setVeiculosViagem((prev) => {
+      const novoEstado = { ...prev, [veiculo]: !prev[veiculo] };
+
+      // Se o veículo foi desmarcado, remove o campo de km correspondente
+      if (!novoEstado[veiculo]) {
+        setKmPorVeiculoViagem((prevKm) => {
+          const novoKm = { ...prevKm };
+          delete novoKm[veiculo];
+          return novoKm;
+        });
+      }
+
+      return novoEstado;
+    });
   };
 
   const etapas = [
@@ -221,59 +267,57 @@ const handleTestes = () => {
               /> Não.
             </label>
           </div>
-          {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
-        </>
-      ),
-    },
-    {
-      titulo: 'Viagens',
-      conteudo: (
-        <>
-          <label className="pergunta">Foi uma viagem internacional?</label>
-          <small className="ajuda pequeno">Selecione "Sim." se fez mais de uma viagem diferente no último mês.</small>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                value="sim"
-                checked={viagemInternacional === 'sim'}
-                onChange={(e) => setViagemInternacional(e.target.value)}
-              /> Sim.
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="nao"
-                checked={viagemInternacional === 'nao'}
-                onChange={(e) => setViagemInternacional(e.target.value)}
-              /> Não, foi uma viagem nacional.
-            </label>
-          </div>
 
-          <label className="pergunta">Qual (o quais) veículo(s) você utilizou para viajar?</label>
-          <div className="checkbox-group">
-            {['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'].map((veiculo) => (
-              <div key={veiculo} className="linha-checkbox-km">
+          {fezViagem === 'sim' && (
+            <>
+              <label className="pergunta">Foi uma viagem internacional?</label>
+              <small className="ajuda pequeno">Selecione "Sim." se fez mais de uma viagem diferente no último mês.</small>
+              <div className="radio-group">
                 <label>
                   <input
-                    type="checkbox"
-                    checked={veiculosViagem[veiculo] || false}
-                    onChange={() => toggleVeiculoViagem(veiculo)}
-                  /> {veiculo}
+                    type="radio"
+                    value="sim"
+                    checked={viagemInternacional === 'sim'}
+                    onChange={(e) => setViagemInternacional(e.target.value)}
+                  /> Sim.
                 </label>
-                {veiculosViagem[veiculo] && (
+                <label>
                   <input
-                    type="number"
-                    min="0"
-                    className="spinner pequeno"
-                    placeholder="Km"
-                    value={kmPorVeiculoViagem[veiculo] || ''}
-                    onChange={(e) => setKmPorVeiculoViagem((prev) => ({ ...prev, [veiculo]: e.target.value }))}
-                  />
-                )}
+                    type="radio"
+                    value="nao"
+                    checked={viagemInternacional === 'nao'}
+                    onChange={(e) => setViagemInternacional(e.target.value)}
+                  /> Não, foi uma viagem nacional.
+                </label>
               </div>
-            ))}
-          </div>
+
+              <label className="pergunta">Qual (ou quais) veículo(s) você utilizou para viajar?</label>
+              <div className="checkbox-group">
+                {['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'].map((veiculo) => (
+                  <div key={veiculo} className="linha-checkbox-km">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={veiculosViagem[veiculo] || false}
+                        onChange={() => toggleVeiculoViagem(veiculo)}
+                      /> {veiculo}
+                    </label>
+                    {veiculosViagem[veiculo] && (
+                      <input
+                        type="number"
+                        min="0"
+                        className="spinner pequeno"
+                        placeholder="Km"
+                        value={kmPorVeiculoViagem[veiculo] || ''}
+                        onChange={(e) => setKmPorVeiculoViagem((prev) => ({ ...prev, [veiculo]: e.target.value }))}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
           {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       ),
@@ -283,7 +327,7 @@ const handleTestes = () => {
       conteudo: (
         <>
           <p className="pergunta">Clique em calcular para ver os resultados do seu teste!</p>
-         
+
         </>
       ),
     },
@@ -293,7 +337,6 @@ const handleTestes = () => {
   const etapasFiltradas = etapas.filter((_, index) => {
     if (rotinasCadastradas.length === 0 && index > 0) return false; // Ignora etapas se não tem rotina
     const rotinaSelecionadaData = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
-    if (rotinaSelecionadaData?.tipoGas !== 'encanado' && index === 1) return false; // Ignora etapa de energia se não usa gás encanado
     if (rotinaSelecionadaData?.tipoGas !== 'encanado' && index === 2) return false; // Ignora etapa de gás natural se não usa gás encanado
     return true;
   });
@@ -301,8 +344,96 @@ const handleTestes = () => {
   // Garante que o índice da etapa atual esteja dentro dos limites das etapas filtradas
   const etapaAtualFiltrada = Math.min(etapaAtual, etapasFiltradas.length - 1);
 
+  const handleFinalizarTeste = async () => {
+    try {
+      const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+      const rotinaData = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
+
+      if (!usuarioLogado || !rotinaData) {
+        toast.error("Erro ao recuperar usuário ou rotina.");
+        return;
+      }
+
+      // Fatores fixos de emissão
+      const fatorKwh = 0.0385;
+      const fatorGas = 1.974;
+      const fatoresVeiculo = {
+        'Metrô': 0.0035,
+        'Trem': 0.0035,
+        'Ônibus': 0.0160,
+        'Carro': 0.1268,
+        'Moto': 0.0711,
+        'Carro elétrico': 0.0891,
+        'Barco/cruzeiro': 0.250,
+        'Avião': viagemInternacional === 'sim' ? 0.1542 : 0.10974,
+      };
+
+      // Cálculo de energia elétrica
+      const emissaoEnergia = Number(kwhContaLuz) * fatorKwh;
+
+      // Cálculo de gás (apenas se for encanado)
+      const emissaoGas = rotinaData?.tipoGas === 'encanado' ? Number(m3GasNatural) * fatorGas : 0;
+
+
+      // Cálculo de viagem
+      const veiculosArray = Object.entries(veiculosViagem)
+        .filter(([tipo, selecionado]) => selecionado)
+        .map(([tipo]) => {
+          const km = Number(kmPorVeiculoViagem[tipo]);
+          const emissao = km * fatoresVeiculo[tipo];
+          return { tipo, km, emissao };
+        });
+
+      // Cálculo de emissão total incluindo dados da rotina
+      const emissaoTotal = emissaoEnergia + emissaoGas + veiculosArray.reduce((soma, v) => soma + v.emissao, 0) +
+        (rotinaData.emissoes?.alimentos || 0) +
+        (rotinaData.emissoes?.gas || 0) +
+        (rotinaData.emissoes?.veiculos || 0);
+
+      const testeData = {
+        usuario: usuarioLogado._id,
+        rotina: rotinaSelecionada,
+        energiaEletrica: {
+          kwh: Number(kwhContaLuz),
+          emissao: emissaoEnergia
+        },
+        gasNatural: {
+          m3: rotinaSelecionada?.tipoGas === 'encanado' ? Number(m3GasNatural) : 0,
+          emissao: emissaoGas
+        },
+        viagem: {
+          fezViagem: fezViagem === 'sim',
+          internacional: fezViagem === 'sim' ? viagemInternacional === 'sim' : false,
+          veiculos: veiculosArray
+        },
+        emissaoTotal
+      };
+      const response = await fetch("http://localhost:3001/api/testes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testeData),
+      });
+
+      if (response.ok) {
+        toast.success("Teste salvo com sucesso!");
+        setTimeout(() => {
+          navigate('/graficos-conquistas');
+        }, 2000);
+      } else {
+        toast.error("Erro ao salvar o teste.");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar teste:", error);
+      toast.error("Erro de conexão com o servidor.");
+    }
+  };
+
   return (
     <div className="rotinas-container">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <header className="header">
@@ -341,22 +472,7 @@ const handleTestes = () => {
             </button>
           )}
           {etapaAtual === etapasFiltradas.length - 1 && (
-            <button className="botao primario" onClick={() => {
-              // Aqui você chamaria a lógica de cálculo
-              console.log('Dados para cálculo:', {
-                rotinaSelecionada,
-                kwhContaLuz,
-                m3GasNatural,
-                fezViagem,
-                viagemInternacional,
-                veiculosViagem,
-                kmPorVeiculoViagem
-              });
-              alert('Função de cálculo será implementada aqui.');
-              // Após o cálculo, você pode redirecionar para uma página de resultados ou atualizar o estado para exibir os resultados.
-            }}>
-              Calcular
-            </button>
+            <button className="botao primario" onClick={handleFinalizarTeste}>Calcular</button>
           )}
         </div>
       </main>

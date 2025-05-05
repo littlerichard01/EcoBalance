@@ -33,9 +33,9 @@ const SuasRotinas = () => {
   const handleCadastrarRotina = () => {
     navigate('/rotinas');
   };
-const handleTestes = () => {
+  const handleTestes = () => {
     navigate('/teste-logado')
-}
+  }
 
   const confirmarRemocaoRotina = async () => {
     if (!rotinaParaDeletar) return;
@@ -125,11 +125,13 @@ const handleTestes = () => {
                       {rotina.nome || `Rotina ${index + 1}`}
                     </div>
                     <div className="icones-rotina-abaixo">
-                      <TrashFill
-                        className="icone-lixeira"
-                        size={20}
-                        onClick={() => mostrarModalDeletar(rotina._id)}
-                      />
+                      {rotinas.length > 1 && (
+                        <TrashFill
+                          className="icone-lixeira"
+                          size={20}
+                          onClick={() => mostrarModalDeletar(rotina._id)}
+                        />
+                      )}
                       <PencilFill
                         className="icone-editar"
                         size={20}
