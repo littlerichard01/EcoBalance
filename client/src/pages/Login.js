@@ -6,8 +6,8 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-import avatar from '../assets/avatar.png'; 
-import axios from 'axios';// Importe o ícone do avatar
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
@@ -52,12 +52,12 @@ const handleTestes = () => {
 
   const handleCadastro = async () => {
     if (senhaCadastro !== confirmarSenha) {
-      alert("As senhas não coincidem!");
+      toast.warning("As senhas não coincidem!");
       return;
     }
 
     if (!emailValido) {
-      alert("Por favor, insira um e-mail válido.");
+      toast.warning("Por favor, insira um e-mail válido.");
       return;
     }
 
@@ -71,13 +71,13 @@ const handleTestes = () => {
       const dados = await resposta.json();
 
       if (resposta.ok) {
-        alert("Cadastro realizado com sucesso!");
+        toast.success("Cadastro realizado com sucesso!");
         // Limpar os campos se quiser
       } else {
-        alert(dados.error || "Erro ao cadastrar");
+        toast.error(dados.error || "Erro ao cadastrar");
       }
     } catch (err) {
-      alert("Erro de conexão com o servidor.");
+      toast.error("Erro de conexão com o servidor.");
     }
   };
 
@@ -94,13 +94,15 @@ const handleTestes = () => {
       if (resposta.ok) {
         // Salvar dados no localStorage
         localStorage.setItem("usuarioLogado", JSON.stringify(dados));
-        alert("Login realizado com sucesso!");
-        navigate("/info-cadastro");
+        toast.success("Login realizado com sucesso!");
+        setTimeout(() => {
+          navigate('/info-cadastro');
+        }, 2000);
       } else {
-        alert(dados.error || "Erro ao fazer login");
+        toast.error(dados.error || "Erro ao fazer login");
       }
     } catch (err) {
-      alert("Erro de conexão com o servidor.");
+      toast.error("Erro de conexão com o servidor.");
     }
   };
 
@@ -120,6 +122,8 @@ const handleTestes = () => {
 
   return (
     <div className="pagina-login">
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       {/* Folhas laterais */}
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
