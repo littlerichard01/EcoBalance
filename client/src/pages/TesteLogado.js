@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const TesteLogado = () => {
   const navigate = useNavigate();
+
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [mensagemErroTeste, setMensagemErroTeste] = useState('');
   const [rotinasCadastradas, setRotinasCadastradas] = useState([]);
@@ -18,6 +19,13 @@ const TesteLogado = () => {
   const [viagemInternacional, setViagemInternacional] = useState(null);
   const [veiculosViagem, setVeiculosViagem] = useState({});
   const [kmPorVeiculoViagem, setKmPorVeiculoViagem] = useState({});
+
+  const handleInicioClick = () => {
+    navigate('/home');
+};
+const handleTestes = () => {
+  navigate('/teste')
+}
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -303,8 +311,8 @@ const TesteLogado = () => {
         </div>
         <div className="header-right">
           <div className="header-links">
-            <span className="navlink">Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
           <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
         </div>

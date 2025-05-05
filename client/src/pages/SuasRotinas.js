@@ -31,10 +31,9 @@ const SuasRotinas = () => {
   const handleCadastrarRotina = () => {
     navigate('/rotinas');
   };
-
-  const abrirRotina = (rotina) => {
-    navigate('/rotinas', { state: { rotina } });
-  };
+const handleTestes = () => {
+    navigate('/teste-logado')
+}
 
   const confirmarRemocaoRotina = async () => {
     if (!rotinaParaDeletar) return;
@@ -96,7 +95,7 @@ const SuasRotinas = () => {
         <div className="header-right">
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
           <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
         </div>
@@ -114,7 +113,7 @@ const SuasRotinas = () => {
                 </div>
                 {rotinas.map((rotina, index) => (
                   <div className="rotina-circle-wrapper" key={index}>
-                    <div className="rotina-circle" onClick={() => abrirRotina(rotina)}>
+                    <div className="rotina-circle">
                       {rotina.nome || `Rotina ${index + 1}`}
                     </div>
                     <div className="icones-rotina-abaixo">

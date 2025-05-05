@@ -14,11 +14,11 @@ const NovaSenha = () => {
     navigate('/login');
   };
   const handleInicioClick = () => {
-    navigate('/home');
+    navigate('/');
 };
-const handleUsuarioAcesso = () => {
-    navigate('/info-cadastro')
-};
+const handleTestes = () => {
+  navigate('/teste')
+}
 
   return (
     <div className="pagina-login">
@@ -36,7 +36,7 @@ const handleUsuarioAcesso = () => {
             
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
             </div>
 
 

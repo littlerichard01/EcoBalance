@@ -30,6 +30,10 @@ const InfoCadastro = () => {
         navigate('/info-cadastro')
     };
 
+    const handleTestes = () => {
+        navigate('/teste-logado')
+    }
+
     const handleLogout = () => {
         localStorage.removeItem("usuarioLogado"); // Remove o usuário
         navigate("/login"); // Redireciona para a página de login
@@ -149,7 +153,7 @@ const InfoCadastro = () => {
                 <div className="header-right">
                     <div className="header-links">
                         <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                        <span className="navlink">Testes</span>
+                        <span className="navlink" onClick={handleTestes}>Testes</span>
                     </div>
                     <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
                 </div>

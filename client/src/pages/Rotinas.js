@@ -12,7 +12,16 @@ const Rotinas = () => {
   const rotinaCarregada = location.state?.rotina;
 
   const navigate = useNavigate();
-  const handleUsuarioAcesso = () => navigate('/info-cadastro');
+  const handleInicioClick = () => {
+    navigate('/home');
+};
+const handleUsuarioAcesso = () => {
+    navigate('/info-cadastro')
+};
+
+const handleTestes = () => {
+    navigate('/teste-logado')
+}
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -128,7 +137,7 @@ const Rotinas = () => {
     Vegetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe'].includes(a)),
     Vegana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos'].includes(a)),
     Pescetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango'].includes(a)),
-    Carnívora: ['Carne bovina', 'Carne suína', 'Frango', 'Peixe']
+    Carnívora: ['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos']
   };
 
   const etapas = [
@@ -498,7 +507,7 @@ const Rotinas = () => {
     let alimentosTotal = 0;
     Object.entries(porcoes).forEach(([alimento, quantidade]) => {
       const fator = fatores.alimentos[alimento] || 0;
-      alimentosTotal += quantidade * fator;
+      alimentosTotal += (quantidade * fator) * 4;
     });
 
     // Gás
@@ -549,8 +558,8 @@ const Rotinas = () => {
 
 
           <div className="header-links">
-            <span className="navlink" >Página inicial</span>
-            <span className="navlink">Testes</span>
+          <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+          <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
 
 

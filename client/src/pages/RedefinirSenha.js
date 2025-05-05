@@ -15,6 +15,9 @@ const RedefinirSenha = () => {
   const handleInicioClick = () => {
     navigate('/');
   };
+  const handleTestes = () => {
+    navigate('/teste')
+}
 
   return (
     <div className="pagina-login">
@@ -34,7 +37,7 @@ const RedefinirSenha = () => {
                   
                 <div className="header-links">
                   <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                  <span className="navlink">Testes</span>
+                  <span className="navlink" onClick={handleTestes}>Testes</span>
                   </div>
       
       

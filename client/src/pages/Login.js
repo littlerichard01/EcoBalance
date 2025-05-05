@@ -26,6 +26,9 @@ const Login = () => {
   const handleUsuarioAcesso = () => {
     navigate('/info-cadastro')
 };
+const handleTestes = () => {
+  navigate('/teste')
+};
 
   const [nome, setNome] = useState("");
 
@@ -133,7 +136,7 @@ const Login = () => {
             
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
             </div>
 
 

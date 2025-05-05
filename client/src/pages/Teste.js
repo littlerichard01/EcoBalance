@@ -7,6 +7,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Teste = () => {
   const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+  const handleInicioClick = () => {
+    navigate('/');
+};
+const handleTestes = () => {
+  navigate('/teste')
+}
+
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [mensagemErroTeste, setMensagemErroTeste] = useState('');
   const [rotinaSelecionada, setRotinaSelecionada] = useState('');
@@ -82,9 +93,6 @@ const Teste = () => {
     setMensagemErroTeste('');
     setEtapaAtual((prev) => prev - 1);
   };
-
-  const handleInicioClick = () => navigate('/'); 
-  const handleLoginClick = () => navigate('/login'); 
 
   const toggleVeiculoViagem = (veiculo) => {
     setVeiculosViagem((prev) => ({
@@ -264,7 +272,7 @@ const Teste = () => {
         <div className="header-right">
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink">Testes</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
           <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
         </div>
