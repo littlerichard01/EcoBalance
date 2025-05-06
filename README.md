@@ -14,3 +14,6 @@ npm install
 npm start
 
 Para acessar as telas do usuário devemos realizar um cadastro e logar no sistema, caso tente acessar as rotas de forma direta não será possível.
+
+cd client 
+npm install react-toastify recharts ( para visualizar as páginas )

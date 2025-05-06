@@ -166,6 +166,7 @@ const InfoCadastro = () => {
                 <div className="info-usuario">
                     <div className="login-box" >
                         <div className="login-section-alterar-informacoes">
+                            <div className="info-parte-1">
                             <h2 className="login-title">Informações de Usuário</h2>
                             <img src={avatar} alt="Avatar do usuário" className="icone-avatar-info-usuario" />
                             <PencilFill
@@ -174,6 +175,8 @@ const InfoCadastro = () => {
                                                     color="black"
                                                    // onClick={() => handle()}
                                                   />
+                                                  </div>
+                            <div className="info-parte-2">
                             <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
                             <div className="form-group-cadastro">{usuario?.nome}</div>
                             <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
@@ -181,6 +184,7 @@ const InfoCadastro = () => {
                             <button className="btn-alterar-informacoes" onClick={() => setMostrarModal(true)}>
                                 Alterar Informações
                             </button>
+                            </div>
                         </div>
                     </div>
                 </div>

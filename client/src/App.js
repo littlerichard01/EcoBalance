@@ -13,6 +13,7 @@ import Rotinas from "./pages/Rotinas.js";
 import TesteLogado from "./pages/TesteLogado.js";
 import Teste from "./pages/Teste.js"; 
 
+
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/rotinas" element={<Rotinas/>} />
         <Route path="/teste-logado" element={<TesteLogado/>} />
         <Route path="/teste" element={<Teste/>} />
+        
       </Routes>
     </Router> 
   );

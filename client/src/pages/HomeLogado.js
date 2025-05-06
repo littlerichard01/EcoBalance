@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -25,6 +25,7 @@ const Home = () => {
   const handleTesteLogadoClick = () => {
     navigate('/teste-logado');
   };
+
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03]; // Array com as imagens
