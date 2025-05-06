@@ -72,7 +72,6 @@ app.put("/api/usuarios/:id", async (req, res) => {
   const { nome, email, senha, senhaAntiga, receberLembretes } = req.body;
   const usuarioId = req.params.id; // ID do usuário que está fazendo a requisição
 
-  console.log(req.body)
   try {
     // Verifica se o usuário existe
     const usuario = await User.findById(usuarioId);
