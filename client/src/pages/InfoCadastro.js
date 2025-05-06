@@ -120,7 +120,7 @@ const InfoCadastro = () => {
 
         try {
             const response = await axios.put(
-                `ecobalance-backend.onrender.com/api/usuarios/${usuarioAtual._id}`,
+                `https://ecobalance-backend.onrender.com/api/usuarios/${usuarioAtual._id}`,
                 usuarioAtualizado
             );
 
