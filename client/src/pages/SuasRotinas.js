@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
 import { BsPersonFill } from 'react-icons/bs';
 import { TrashFill, Plus, PencilFill } from 'react-bootstrap-icons';
@@ -12,6 +12,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const SuasRotinas = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+  const [mostrarDropdown, setMostrarDropdown] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setMostrarDropdown(!mostrarDropdown);
+  };
+
   const navigate = useNavigate();
   const [rotinas, setRotinas] = useState([]);
   const [rotinaParaDeletar, setRotinaParaDeletar] = useState(null);
@@ -35,6 +44,14 @@ const SuasRotinas = () => {
   };
   const handleTestes = () => {
     navigate('/teste-logado')
+  }
+
+  const handleRotinas = () => {
+    navigate('/suas-rotinas')
+  }
+
+  const handleGráficosEConquistas = () => {
+    navigate('/graficos-conquistas')
   }
 
   const confirmarRemocaoRotina = async () => {
@@ -88,6 +105,19 @@ const SuasRotinas = () => {
     buscarRotinas();
   }, [usuario, navigate]);
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMostrarDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="pagina-login">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -105,7 +135,23 @@ const SuasRotinas = () => {
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
-          <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+            <img
+              src={avatar}
+              alt="Avatar do usuário"
+              className="icone-avatar"
+              onClick={toggleDropdown}
+              style={{ cursor: 'pointer' }}
+            />
+            {mostrarDropdown && (
+              <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

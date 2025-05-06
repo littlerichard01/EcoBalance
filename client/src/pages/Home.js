@@ -21,7 +21,7 @@ const Home = () => {
     navigate('/');
   };
 
-  
+
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03]; // Array com as imagens
@@ -41,18 +41,18 @@ const Home = () => {
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          </div>
+        </div>
 
-          <div className="header-right">
+        <div className="header-right">
 
-            <div className="header-links">
+          <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTesteClick}>Testes</span>
-            </div>
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
-       
-       
+          <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+        </div>
+
+
       </header>
 
 

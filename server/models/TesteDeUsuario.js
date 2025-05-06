@@ -34,6 +34,16 @@ const testeDeUsuarioSchema = new mongoose.Schema({
       }
     ]
   },
+  emissaoAlimentos: {
+    type: Number,
+    required: true
+  },
+  emissaoGas: {
+    type: Number
+  },
+  emissaoVeiculos: {
+    type: Number
+  },
   emissaoTotal: {
     type: Number,
     required: true

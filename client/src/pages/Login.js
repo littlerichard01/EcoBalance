@@ -23,12 +23,10 @@ const Login = () => {
   const handleInicioClick = () => {
     navigate('/');
   };
-  const handleUsuarioAcesso = () => {
-    navigate('/info-cadastro')
-};
-const handleTestes = () => {
-  navigate('/teste')
-};
+
+  const handleTestes = () => {
+    navigate('/teste')
+  };
 
   const [nome, setNome] = useState("");
 
@@ -46,9 +44,8 @@ const handleTestes = () => {
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
   const [idLogin, setIdLogin] = useState("")
-  const [usuarioLogado, setUsuarioLogado] = useState(null);
-  const [usuarioAcesso, setUsuarioAcesso] = useState(false);
-  const [usuarioNome, setUsuarioNome] = useState("");
+
+  const [receberLembretes, setReceberLembretes] = useState(false);
 
   const handleCadastro = async () => {
     if (senhaCadastro !== confirmarSenha) {
@@ -65,7 +62,7 @@ const handleTestes = () => {
       const resposta = await fetch("http://localhost:3001/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro })
+        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes })
       });
 
       const dados = await resposta.json();
@@ -122,33 +119,33 @@ const handleTestes = () => {
 
   return (
     <div className="pagina-login">
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
       {/* Folhas laterais */}
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
-      
-      
+
+
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          </div>
+        </div>
 
-          <div className="header-right">
+        <div className="header-right">
 
 
-            
+
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTestes}>Testes</span>
-            </div>
+          </div>
 
 
 
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
-            </div>
-       
-       
+          <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+        </div>
+
+
       </header>
 
       {/* Conteúdo Central */}
@@ -197,6 +194,18 @@ const handleTestes = () => {
                   <input type="password" placeholder="Confirmação de senha" value={confirmarSenha} onChange={e => { const confirmacao = e.target.value; setConfirmarSenha(confirmacao); const senhasIguais = confirmacao === senhaCadastro; setSenhasCoincidem(senhasIguais); setMensagemConfirmacao(senhasIguais ? "Senhas coincidem!" : "As senhas não coincidem"); }} />
                 </div>
                 {mensagemConfirmacao && (<small className={`mensagem-senha ${senhasCoincidem ? "sucesso" : "erro"}`}>{mensagemConfirmacao}</small>)}
+                <div className="form-check mt-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="lembreteMensal"
+                    checked={receberLembretes}
+                    onChange={e => setReceberLembretes(e.target.checked)}
+                  />
+                  <label className="form-check-label text-white" htmlFor="lembreteMensal">
+                    Desejo receber lembretes para realizar testes mensalmente.
+                  </label>
+                </div>
                 <button className="btn-cadastrar" onClick={handleCadastro}>Cadastrar</button>
               </div>
             </div>

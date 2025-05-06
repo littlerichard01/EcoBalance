@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Login.css'; // Importando o CSS existente
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -9,6 +9,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const TesteLogado = () => {
+
+  const [mostrarDropdown, setMostrarDropdown] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setMostrarDropdown(!mostrarDropdown);
+  };
+
   const navigate = useNavigate();
 
   const [etapaAtual, setEtapaAtual] = useState(0);
@@ -28,6 +37,23 @@ const TesteLogado = () => {
   const handleTestes = () => {
     navigate('/teste-logado')
   }
+
+  const handleUsuarioAcesso = () => {
+    navigate('/info-cadastro')
+  };
+
+  const handleRotinas = () => {
+    navigate('/suas-rotinas')
+  }
+
+  const handleGráficosEConquistas = () => {
+    navigate('/graficos-conquistas')
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    navigate("/login");
+  };
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -160,7 +186,6 @@ const TesteLogado = () => {
     setEtapaAtual((prev) => prev - 1);
   };
 
-  const handleUsuarioAcesso = () => navigate('/info-cadastro');
   const handleCadastroRotina = () => navigate('/rotinas');
 
   const toggleVeiculoViagem = (veiculo) => {
@@ -406,6 +431,9 @@ const TesteLogado = () => {
           internacional: fezViagem === 'sim' ? viagemInternacional === 'sim' : false,
           veiculos: veiculosArray
         },
+        emissaoAlimentos : rotinaData.emissoes?.alimentos || 0,
+        emissaoGas: rotinaData.emissoes?.gas || 0,
+        emissaoVeiculos: rotinaData.emissoes?.veiculos || 0,
         emissaoTotal
       };
       const response = await fetch("http://localhost:3001/api/testes", {
@@ -430,6 +458,19 @@ const TesteLogado = () => {
     }
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMostrarDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="rotinas-container">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -445,7 +486,23 @@ const TesteLogado = () => {
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTestes}>Testes</span>
           </div>
-          <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+            <img
+              src={avatar}
+              alt="Avatar do usuário"
+              className="icone-avatar"
+              onClick={toggleDropdown}
+              style={{ cursor: 'pointer' }}
+            />
+            {mostrarDropdown && (
+              <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

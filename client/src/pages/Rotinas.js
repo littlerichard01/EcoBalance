@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -13,6 +13,14 @@ const Rotinas = () => {
   const location = useLocation();
   const rotinaCarregada = location.state?.rotina;
 
+  const [mostrarDropdown, setMostrarDropdown] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setMostrarDropdown(!mostrarDropdown);
+  };
+
   const navigate = useNavigate();
   const handleInicioClick = () => {
     navigate('/home');
@@ -24,6 +32,19 @@ const Rotinas = () => {
   const handleTestes = () => {
     navigate('/teste-logado')
   }
+
+  const handleRotinas = () => {
+    navigate('/suas-rotinas')
+  }
+
+  const handleGráficosEConquistas = () => {
+    navigate('/graficos-conquistas')
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    navigate("/login");
+  };
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -544,6 +565,19 @@ const Rotinas = () => {
     };
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMostrarDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="rotinas-container">
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -566,7 +600,23 @@ const Rotinas = () => {
 
 
 
-          <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+            <img
+              src={avatar}
+              alt="Avatar do usuário"
+              className="icone-avatar"
+              onClick={toggleDropdown}
+              style={{ cursor: 'pointer' }}
+            />
+            {mostrarDropdown && (
+              <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+              </div>
+            )}
+          </div>
         </div>
 
 

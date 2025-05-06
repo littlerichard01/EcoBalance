@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
 import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
@@ -7,7 +7,7 @@ import avatar from '../assets/avatar.png';
 import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {PencilFill } from 'react-bootstrap-icons';
+import { PencilFill } from 'react-bootstrap-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,17 +23,36 @@ const InfoCadastro = () => {
     const [mensagemErroEmail, setMensagemErroEmail] = useState('');
     const [mensagemErroSenha, setMensagemErroSenha] = useState('');
 
+  const [receberLembretes, setReceberLembretes] = useState(false);
+
+    const [mostrarDropdown, setMostrarDropdown] = useState(false);
+
+    const dropdownRef = useRef(null);
+
+    const toggleDropdown = () => {
+        setMostrarDropdown(!mostrarDropdown);
+    };
+
     const navigate = useNavigate();
 
     const handleInicioClick = () => {
         navigate('/home');
     };
+
+    const handleTestes = () => {
+        navigate('/teste-logado')
+    }
+
     const handleUsuarioAcesso = () => {
         navigate('/info-cadastro')
     };
 
-    const handleTestes = () => {
-        navigate('/teste-logado')
+    const handleRotinas = () => {
+        navigate('/suas-rotinas')
+    }
+
+    const handleGráficosEConquistas = () => {
+        navigate('/graficos-conquistas')
     }
 
     const handleLogout = () => {
@@ -70,6 +89,7 @@ const InfoCadastro = () => {
         const usuarioAtualizado = {
             nome: novoNome !== "" ? novoNome : usuarioAtual.nome,
             email: novoEmail !== "" ? novoEmail : usuarioAtual.email,
+            receberLembretes
         };
 
         // Adiciona senha e senhaAntiga se o usuário quiser atualizar a senha
@@ -79,7 +99,7 @@ const InfoCadastro = () => {
         }
 
         // Verifica se os campos estão vazios
-        if (!novoNome && !novoEmail && !novaSenha && !senhaAntiga) {
+        if (!novoNome && !novoEmail && !novaSenha && !senhaAntiga && receberLembretes === usuario.receberLembretes) {
             toast.warning("Nenhuma alteração foi feita.");
             return;
         }
@@ -109,7 +129,8 @@ const InfoCadastro = () => {
                 localStorage.setItem("usuarioLogado", JSON.stringify({
                     ...usuarioAtual,
                     nome: usuarioAtualizado.nome,
-                    email: usuarioAtualizado.email
+                    email: usuarioAtualizado.email,
+                    receberLembretes: usuarioAtualizado.receberLembretes
                 }));
 
                 // Limpa campos e fecha modal
@@ -141,9 +162,33 @@ const InfoCadastro = () => {
 
     }, []);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setMostrarDropdown(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+        if (!usuario) {
+            navigate("/login");
+            return;
+        }
+    
+        // Atualiza o estado com base nas informações armazenadas
+        setReceberLembretes(usuario.receberLembretes ?? false);
+    }, []);    
+
     return (
         <div className="pagina-login">
-                    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
             <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" /> {/* Adicione a folha da esquerda */}
@@ -158,7 +203,23 @@ const InfoCadastro = () => {
                         <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
                         <span className="navlink" onClick={handleTestes}>Testes</span>
                     </div>
-                    <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso} />
+                    <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+                        <img
+                            src={avatar}
+                            alt="Avatar do usuário"
+                            className="icone-avatar"
+                            onClick={toggleDropdown}
+                            style={{ cursor: 'pointer' }}
+                        />
+                        {mostrarDropdown && (
+                            <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </header>
 
@@ -167,23 +228,27 @@ const InfoCadastro = () => {
                     <div className="login-box" >
                         <div className="login-section-alterar-informacoes">
                             <div className="info-parte-1">
-                            <h2 className="login-title">Informações de Usuário</h2>
-                            <img src={avatar} alt="Avatar do usuário" className="icone-avatar-info-usuario" />
-                            <PencilFill
-                                                    className="icone-editar"
-                                                    size={20}
-                                                    color="black"
-                                                   // onClick={() => handle()}
-                                                  />
-                                                  </div>
+                                <h2 className="login-title">Informações de Usuário</h2>
+                                <img src={avatar} alt="Avatar do usuário" className="icone-avatar-info-usuario" />
+                                <PencilFill
+                                    className="icone-editar"
+                                    size={20}
+                                    color="black"
+                                // onClick={() => handle()}
+                                />
+                            </div>
                             <div className="info-parte-2">
-                            <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
-                            <div className="form-group-cadastro">{usuario?.nome}</div>
-                            <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
-                            <div className="form-group-cadastro">{usuario?.email}</div>
-                            <button className="btn-alterar-informacoes" onClick={() => setMostrarModal(true)}>
-                                Alterar Informações
-                            </button>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Nome:</p>
+                                <div className="form-group-cadastro">{usuario?.nome}</div>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>E-mail:</p>
+                                <div className="form-group-cadastro">{usuario?.email}</div>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>Receber notificações:</p>
+<div className="form-group-cadastro">
+  {receberLembretes ? "Ativado" : "Desativado"}
+</div>
+                                <button className="btn-alterar-informacoes" onClick={() => setMostrarModal(true)}>
+                                    Alterar Informações
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -246,6 +311,17 @@ const InfoCadastro = () => {
                                     />
                                 </div>
                             )}
+
+<div className="modal-form-group">
+  <label>
+    <input
+      type="checkbox"
+      checked={receberLembretes}
+      onChange={(e) => setReceberLembretes(e.target.checked)}
+    />{' '}
+    Desejo receber notificações por e-mail
+  </label>
+</div>
 
                             <div className="modal-buttons">
                                 <button className="btn btn-secondary" onClick={() => setMostrarModal(false)}>Cancelar</button>

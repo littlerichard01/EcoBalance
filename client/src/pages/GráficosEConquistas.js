@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Login.css';
 import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
@@ -14,11 +14,16 @@ const GraficosEConquistas = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     const navigate = useNavigate();
 
+    const [mostrarDropdown, setMostrarDropdown] = useState(false);
+
+    const dropdownRef = useRef(null);
+
+    const toggleDropdown = () => {
+        setMostrarDropdown(!mostrarDropdown);
+    };
+
     const handleInicioClick = () => {
         navigate('/home');
-    };
-    const handleUsuarioAcesso = () => {
-        navigate('/info-cadastro');
     };
 
     const handleTestes = () => {
@@ -29,6 +34,18 @@ const GraficosEConquistas = () => {
         localStorage.removeItem("usuarioLogado");
         navigate("/login");
     };
+
+    const handleUsuarioAcesso = () => {
+        navigate('/info-cadastro')
+    };
+
+    const handleRotinas = () => {
+        navigate('/suas-rotinas')
+    }
+
+    const handleGráficosEConquistas = () => {
+        navigate('/graficos-conquistas')
+    }
 
     const [testes, setTestes] = useState([]);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -94,7 +111,7 @@ const GraficosEConquistas = () => {
         }
 
         // Gás (natural ou botijão)
-        const emissaoGas = teste.gasNatural?.emissao || teste.rotina?.emissoes?.gas || 0;
+        const emissaoGas = teste.gasNatural?.emissao || teste.emissaoGas || 0;
         if (emissaoGas > 0) {
             dados.push({ categoria: 'Gás', valor: emissaoGas });
         }
@@ -106,13 +123,13 @@ const GraficosEConquistas = () => {
         }
 
         // Alimentos
-        const emissaoAlimentos = teste.rotina?.emissoes?.alimentos || 0;
+        const emissaoAlimentos = teste.emissaoAlimentos || 0;
         if (emissaoAlimentos > 0) {
             dados.push({ categoria: 'Alimentos', valor: emissaoAlimentos });
         }
 
         // Veículos (uso semanal)
-        const emissaoVeiculos = teste.rotina?.emissoes?.veiculos || 0;
+        const emissaoVeiculos = teste.emissaoVeiculos || 0;
         if (emissaoVeiculos > 0) {
             dados.push({ categoria: 'Veículos', valor: emissaoVeiculos });
         }
@@ -120,9 +137,30 @@ const GraficosEConquistas = () => {
         return dados;
     };
 
-    const onPieEnter = (_, index) => {
-        setActiveIndex(index);
-    };
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setMostrarDropdown(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const renderTooltipContent = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const { name, value } = payload[0];
+            return (
+                <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px' }}>
+                    <strong>{`${name}: ${value.toFixed(2)} kgCO2`}</strong>
+                </div>
+            );
+        }
+        return null;
+    };    
 
     return (
         <div className="pagina-login">
@@ -141,7 +179,23 @@ const GraficosEConquistas = () => {
                         <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
                         <span className="navlink" onClick={handleTestes}>Testes</span>
                     </div>
-                    <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleLogout} />
+                    <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+                        <img
+                            src={avatar}
+                            alt="Avatar do usuário"
+                            className="icone-avatar"
+                            onClick={toggleDropdown}
+                            style={{ cursor: 'pointer' }}
+                        />
+                        {mostrarDropdown && (
+                            <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </header>
 
@@ -232,7 +286,7 @@ const GraficosEConquistas = () => {
                                                     <Cell key={`cell-${i}`} fill={cores[i % cores.length]} />
                                                 ))}
                                             </Pie>
-                                            <Tooltip />
+                                            <Tooltip content={renderTooltipContent} />
                                             <Legend />
                                         </PieChart>
                                     </div>

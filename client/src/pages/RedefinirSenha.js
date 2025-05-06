@@ -17,36 +17,36 @@ const RedefinirSenha = () => {
   };
   const handleTestes = () => {
     navigate('/teste')
-}
+  }
 
   return (
     <div className="pagina-login">
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
-      
+
 
       <header className="header">
-              <div className="header-top">
-                <img src={logo} alt="Logo" className="logo" />
-                </div>
-      
-                <div className="header-right">
-      
-      
-                  
-                <div className="header-links">
-                  <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                  <span className="navlink" onClick={handleTestes}>Testes</span>
-                  </div>
-      
-      
-      
-                  <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
-                </div>
-             
-             
-            </header>
+        <div className="header-top">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+
+        <div className="header-right">
+
+
+
+          <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
+            <span className="navlink" onClick={handleTestes}>Testes</span>
+          </div>
+
+
+
+          <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+        </div>
+
+
+      </header>
 
       <main className="login-container">
         <div className="vivi">

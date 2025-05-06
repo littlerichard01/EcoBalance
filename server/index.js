@@ -27,7 +27,7 @@ app.get("/api", (req, res) => {
 
 // Rota de cadastro
 app.post("/api/register", async (req, res) => {
-  const { nome, email, senha } = req.body;
+  const { nome, email, senha, receberLembretes } = req.body;
   
   try {
     const usuarioExistente = await User.findOne({ email });
@@ -38,7 +38,7 @@ app.post("/api/register", async (req, res) => {
     // Criptografar a senha
     const senhaCriptografada = await bcrypt.hash(senha, SALT_ROUNDS);
 
-    const novoUsuario = new User({ nome, email, senha: senhaCriptografada });
+    const novoUsuario = new User({ nome, email, senha: senhaCriptografada, receberLembretes: receberLembretes || false });
     await novoUsuario.save();
     res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
   } catch (err) {
@@ -69,9 +69,10 @@ app.post("/api/login", async (req, res) => {
 
 // Rota para atualizar as informações do usuário
 app.put("/api/usuarios/:id", async (req, res) => {
-  const { nome, email, senha, senhaAntiga } = req.body;
+  const { nome, email, senha, senhaAntiga, receberLembretes } = req.body;
   const usuarioId = req.params.id; // ID do usuário que está fazendo a requisição
 
+  console.log(req.body)
   try {
     // Verifica se o usuário existe
     const usuario = await User.findById(usuarioId);
@@ -94,6 +95,9 @@ app.put("/api/usuarios/:id", async (req, res) => {
     // Atualiza as outras informações (nome e email)
     if (nome) usuario.nome = nome;
     if (email) usuario.email = email;
+    if (typeof receberLembretes === 'boolean') {
+      usuario.receberLembretes = receberLembretes;
+    }
 
     // Salva as alterações no banco de dados
     await usuario.save();
@@ -105,27 +109,7 @@ app.put("/api/usuarios/:id", async (req, res) => {
   }
 });
 
-// Atualizar frequência de testes
-app.put("/api/usuarios/:id/frequencia", async (req, res) => {
-  const { frequencia } = req.body;
 
-  try {
-    const usuario = await User.findByIdAndUpdate(
-      req.params.id,
-      { frequencia },
-      { new: true } // retorna o documento atualizado
-    );
-
-    if (!usuario) {
-      return res.status(404).json({ error: "Usuário não encontrado" });
-    }
-
-    res.status(200).json({ message: "Frequência atualizada com sucesso", frequencia: usuario.frequencia });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Erro ao atualizar frequência" });
-  }
-});
 
 // Buscar dados de um usuário específico
 app.get("/api/usuariosBuscar/:id", async (req, res) => {
@@ -252,6 +236,9 @@ app.post("/api/testes", async (req, res) => {
     energiaEletrica,
     gasNatural,
     viagem,
+    emissaoAlimentos,
+    emissaoGas,
+    emissaoVeiculos,
     emissaoTotal
   } = req.body;
 
@@ -266,6 +253,9 @@ app.post("/api/testes", async (req, res) => {
       energiaEletrica,
       gasNatural,
       viagem,
+      emissaoAlimentos,
+      emissaoGas,
+      emissaoVeiculos,
       emissaoTotal
     });
 

@@ -12,12 +12,19 @@ import avatar from '../assets/avatar.png';
 
 const Home = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setMostrarDropdown(!mostrarDropdown);
+  };
 
   const navigate = useNavigate();
   const handleInicioClick = () => {
     navigate('/home');
   };
+
   const handleUsuarioAcesso = () => {
     navigate('/info-cadastro')
   };
@@ -26,6 +33,18 @@ const Home = () => {
     navigate('/teste-logado');
   };
 
+  const handleRotinas = () => {
+    navigate('/suas-rotinas')
+  }
+
+  const handleGráficosEConquistas = () => {
+    navigate('/graficos-conquistas')
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("usuarioLogado");
+    navigate("/login");
+  };
 
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03]; // Array com as imagens
@@ -35,7 +54,7 @@ const Home = () => {
     const usuario = localStorage.getItem("usuarioLogado");
     if (!usuario) {
       navigate("/login");
-      
+
       return; // evita continuar o código se não estiver logado
     }
 
@@ -45,15 +64,28 @@ const Home = () => {
     return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
   }, [images.length]);
 
-useEffect(() => {
-        // Verifica se o usuário está logado
-        const usuario = localStorage.getItem("usuarioLogado");
-        if (!usuario) {
-            navigate("/login");
-            return; // evita continuar o código se não estiver logado
-        }
+  useEffect(() => {
+    // Verifica se o usuário está logado
+    const usuario = localStorage.getItem("usuarioLogado");
+    if (!usuario) {
+      navigate("/login");
+      return; // evita continuar o código se não estiver logado
+    }
 
-    }, []);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMostrarDropdown(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="pagina-login">
@@ -63,26 +95,39 @@ useEffect(() => {
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          </div>
+        </div>
 
-          <div className="header-right">
+        <div className="header-right">
 
 
-            
+
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTesteLogadoClick}>Testes</span>
-            </div>
-
-
-
-            <img src={avatar} alt="Avatar do usuário" className="icone-avatar" onClick={handleUsuarioAcesso}/>
           </div>
-       
-       
+          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+            <img
+              src={avatar}
+              alt="Avatar do usuário"
+              className="icone-avatar"
+              onClick={toggleDropdown}
+              style={{ cursor: 'pointer' }}
+            />
+            {mostrarDropdown && (
+              <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
+                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
+                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
+                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+              </div>
+            )}
+          </div>
+        </div>
+
+
       </header>
 
-     
+
 
       <main className="login-container">
         <div className="home-content">
@@ -100,7 +145,7 @@ useEffect(() => {
                   <p>Faça um questionário personalizado e calcule com base na sua rotina.</p>
                 </div>
                 <div className="overlay-content-btn">
-                  <button className="overlay-button">Calcular</button></div>
+                  <button className="overlay-button" onClick={handleTesteLogadoClick}>Calcular</button></div>
               </div>
             </div>
             <div className="carousel-dots">
@@ -139,7 +184,7 @@ useEffect(() => {
             <p>Calcular sua pegada de carbono é essencial para compreender o impacto das suas ações diárias no meio ambiente. Nosso sistema avalia hábitos do seu estilo de vida, como consumo de energia, transporte e alimentação e traduz essas informações em uma estimativa clara e personalizada das suas emissões de gases de efeito estufa. A partir desse cálculo, você poderá identificar áreas-chave para reduzir suas emissões e adotar práticas mais sustentáveis, promovendo mudanças positivas para o planeta. Clique no botão e calcule agora mesmo.</p>
 
             <div className="btn-wrapper">
-              <button className="btn-calcular">Calcular</button>
+              <button className="btn-calcular" onClick={handleTesteLogadoClick}>Calcular</button>
             </div>
           </section>
 

@@ -15,10 +15,10 @@ const NovaSenha = () => {
   };
   const handleInicioClick = () => {
     navigate('/');
-};
-const handleTestes = () => {
-  navigate('/teste')
-}
+  };
+  const handleTestes = () => {
+    navigate('/teste')
+  }
 
   return (
     <div className="pagina-login">
@@ -28,23 +28,23 @@ const handleTestes = () => {
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />
-          </div>
+        </div>
 
-          <div className="header-right">
+        <div className="header-right">
 
 
-            
+
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTestes}>Testes</span>
-            </div>
-
-
-
-            <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
           </div>
-       
-       
+
+
+
+          <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
+        </div>
+
+
       </header>
 
 

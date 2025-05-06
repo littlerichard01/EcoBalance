@@ -13,10 +13,10 @@ const Teste = () => {
   };
   const handleInicioClick = () => {
     navigate('/');
-};
-const handleTestes = () => {
-  navigate('/teste')
-}
+  };
+  const handleTestes = () => {
+    navigate('/teste')
+  }
 
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [mensagemErroTeste, setMensagemErroTeste] = useState('');
@@ -29,17 +29,17 @@ const handleTestes = () => {
   const [kmPorVeiculoViagem, setKmPorVeiculoViagem] = useState({});
 
   const avancarEtapa = () => {
-    setMensagemErroTeste(''); 
+    setMensagemErroTeste('');
 
     if (etapaAtual === 0) {
       if (!rotinaSelecionada) {
         setMensagemErroTeste('Por favor, selecione uma rotina.');
         return;
       }
-      
-      const usaGasEncanado = true; 
+
+      const usaGasEncanado = true;
       if (!usaGasEncanado) {
-        setEtapaAtual(3); 
+        setEtapaAtual(3);
         return;
       }
     }
@@ -64,7 +64,7 @@ const handleTestes = () => {
         return;
       }
       if (fezViagem === 'nao') {
-        setEtapaAtual(etapasFiltradas.length - 1); 
+        setEtapaAtual(etapasFiltradas.length - 1);
         return;
       }
     }
@@ -101,7 +101,7 @@ const handleTestes = () => {
     }));
     setKmPorVeiculoViagem((prev) => ({
       ...prev,
-      [veiculo]: prev[veiculo] || 0, 
+      [veiculo]: prev[veiculo] || 0,
     }));
   };
 
@@ -251,9 +251,9 @@ const handleTestes = () => {
     },
   ];
 
-  
+
   const etapasFiltradas = etapas.filter((_, index) => {
-    const usaGasEncanadoSimulado = true; 
+    const usaGasEncanadoSimulado = true;
     if (!usaGasEncanadoSimulado && index === 1) return false;
     if (!usaGasEncanadoSimulado && index === 2) return false;
     return true;
@@ -302,7 +302,7 @@ const handleTestes = () => {
           )}
           {etapaAtual === etapasFiltradas.length - 1 && (
             <button className="botao primario" onClick={() => {
-              
+
               console.log('Dados para cálculo:', {
                 rotinaSelecionada,
                 kwhContaLuz,
