@@ -1,6 +1,6 @@
 // server/index.js
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const connectDB = require('./database');
 require('dotenv').config();
 const cors = require('cors');
