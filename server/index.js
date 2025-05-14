@@ -28,19 +28,31 @@ app.get("/api", (req, res) => {
 // Rota de cadastro
 app.post("/api/register", async (req, res) => {
   const { nome, email, senha, receberLembretes } = req.body;
-  
+
   try {
     const usuarioExistente = await User.findOne({ email });
     if (usuarioExistente) {
       return res.status(400).json({ error: "Usuário já existe" });
     }
 
-    // Criptografar a senha
     const senhaCriptografada = await bcrypt.hash(senha, SALT_ROUNDS);
 
-    const novoUsuario = new User({ nome, email, senha: senhaCriptografada, receberLembretes: receberLembretes || false });
+    const novoUsuario = new User({
+      nome,
+      email,
+      senha: senhaCriptografada,
+      receberLembretes: receberLembretes || false
+    });
+
     await novoUsuario.save();
-    res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+
+    // Retornar dados úteis do usuário para o frontend
+    res.status(201).json({
+      message: "Usuário cadastrado com sucesso!",
+      _id: novoUsuario._id,
+      nome: novoUsuario.nome,
+      email: novoUsuario.email
+    });
   } catch (err) {
     res.status(500).json({ error: "Erro ao cadastrar usuário, Preencha todos os campos." });
   }
@@ -195,7 +207,7 @@ app.post("/api/rotinas", async (req, res) => {
     });
 
     await novaRotina.save();
-    res.status(201).json({ message: "Rotina salva com sucesso!", rotina: novaRotina });
+    res.status(201).json(novaRotina);
   } catch (error) {
     console.error("Erro ao salvar/atualizar rotina:", error);
     res.status(500).json({ error: "Erro ao salvar/atualizar rotina no servidor." });

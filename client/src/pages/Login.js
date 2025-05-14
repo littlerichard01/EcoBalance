@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
@@ -43,7 +43,7 @@ const Login = () => {
 
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
-  const [idLogin, setIdLogin] = useState("")
+  const [idLogin] = useState("")
 
   const [receberLembretes, setReceberLembretes] = useState(false);
 
@@ -69,7 +69,59 @@ const Login = () => {
 
       if (resposta.ok) {
         toast.success("Cadastro realizado com sucesso!");
-        // Limpar os campos se quiser
+
+        const usuarioId = dados._id;
+
+        const rotinaSalva = localStorage.getItem("rotinaAnonima");
+        const testeSalvo = localStorage.getItem("testeAnonimo");
+
+        console.log('dados:', dados)
+        // Se existirem dados anônimos salvos
+        if (rotinaSalva && testeSalvo) {
+          console.log("Rotina e teste recuperados")
+          const rotina = JSON.parse(rotinaSalva);
+          const teste = JSON.parse(testeSalvo);
+
+          // Associar o ID do usuário à rotina
+          rotina.usuarioId = usuarioId;
+
+          console.log('Dados: ', JSON.stringify(rotina))
+          console.log('Id do usuário:', rotina.usuarioId)
+
+          // Enviar rotina
+          const respostaRotina = await fetch("http://localhost:3001/api/rotinas", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(rotina)
+          });
+
+          const dadosRotina = await respostaRotina.json();
+
+          if (respostaRotina.ok) {
+            const rotinaId = dadosRotina._id;
+
+            // Associar IDs ao teste
+            teste.usuario = usuarioId;
+            teste.rotina = rotinaId;
+
+            // Enviar teste
+            await fetch("http://localhost:3001/api/testes", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(teste)
+            });
+
+            // Remover do localStorage
+            localStorage.removeItem("rotinaAnonima");
+            localStorage.removeItem("testeAnonimo");
+          }
+        }
+
+        // Após isso, salvar o usuário logado e redirecionar
+        localStorage.setItem("usuarioLogado", JSON.stringify(dados));
+        setTimeout(() => {
+          navigate('/info-cadastro');
+        }, 2000);
       } else {
         toast.error(dados.error || "Erro ao cadastrar");
       }
@@ -166,7 +218,7 @@ const Login = () => {
                   <BsFillLockFill className="icon" />
                   <input type="password" placeholder="Senha" value={senhaLogin} onChange={e => setSenhaLogin(e.target.value)} />
                 </div>
-                <a href="#" className="forgot-password" onClick={handleRecuperarClick}>Esqueci minha senha</a>
+                <p className="forgot-password" onClick={handleRecuperarClick}><u>Esqueci minha senha</u></p>
                 <button className="btn-login" onClick={handleLogin}>Login</button>
               </div>
             </div>

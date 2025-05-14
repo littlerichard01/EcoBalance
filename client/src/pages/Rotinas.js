@@ -78,42 +78,45 @@ const Rotinas = () => {
       return;
     }
 
-    if (!dieta && etapaAtual == 1) {
+    if (!dieta && etapaAtual === 1) {
       setMensagemErroRotina("Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.")
       return;
     }
 
-    if (!tipoGas && etapaAtual == 2) {
+    if (!tipoGas && etapaAtual === 2) {
       setMensagemErroRotina("Por favor, selecione uma opção.");
       return;
-    } else if (tipoGas !== 'encanado' && etapaAtual == 2) {
-      if (!tipoBotijao && etapaAtual == 2) {
+    } else if (tipoGas !== 'encanado' && etapaAtual === 2) {
+      if (!tipoBotijao && etapaAtual === 2) {
         setMensagemErroRotina("Por favor, selecione um tipo de botijão de gás.");
         return;
-      } else if (!tempoDuracaoGas && etapaAtual == 2) {
+      } else if (!tempoDuracaoGas && etapaAtual === 2) {
         setMensagemErroRotina("Por favor, digite quantos meses seu gás costuma durar.");
         return;
       }
     }
 
-    if (!usaVeiculo && etapaAtual == 3) {
+    if (!usaVeiculo && etapaAtual === 3) {
       setMensagemErroRotina("Por favor, selecione uma opção.");
       return;
-    } else if (usaVeiculo !== 'nao' && etapaAtual == 3) {
-      if (!possuiVeiculo && etapaAtual == 3) {
+    } else if (usaVeiculo !== 'nao' && etapaAtual === 3) {
+      if (!possuiVeiculo && etapaAtual === 3) {
         setMensagemErroRotina("Por favor, selecione uma opção.");
         return;
-      } else if (possuiVeiculo == 'proprio' && etapaAtual == 3) {
-        if (!combustivel && etapaAtual == 3) {
+      } else if (possuiVeiculo === 'proprio' && etapaAtual === 3) {
+        if (!combustivel && etapaAtual === 3) {
           setMensagemErroRotina("Por favor, selecione um tipo de combustível.");
           return;
-        } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual == 3) {
+        } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual === 3) {
           setMensagemErroRotina("Por favor, digite quantos litros de combustível você abastece por mês.");
           return;
-        } else if (combustivel === 'Elétrico' && etapaAtual == 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual == 3) {
+        } else if (combustivel === 'Elétrico' && etapaAtual === 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual === 3) {
           setMensagemErroRotina("Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.");
           return;
         }
+      } else if (possuiVeiculo === 'publico' && etapaAtual === 3 && Object.keys(transportesPublicos).length === 0){
+        setMensagemErroRotina('Por favor, selecione pelo menos um veículo utilizado durante a semana.');
+        return;  
       }
     }
 

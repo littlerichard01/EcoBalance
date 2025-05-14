@@ -4,8 +4,6 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 
 const Teste = () => {
@@ -24,7 +22,6 @@ const Teste = () => {
   const [etapaAtual, setEtapaAtual] = useState(0);
 
   const [mensagemErroTeste, setMensagemErroTeste] = useState('');
-  const [mensagemErroRotina, setMensagemErroRotina] = useState('');
 
   const [kwhContaLuz, setKwhContaLuz] = useState(0);
   const [m3GasNatural, setM3GasNatural] = useState(0);
@@ -51,6 +48,81 @@ const Teste = () => {
 
   const avancarEtapa = () => {
     setMensagemErroTeste('');
+
+    if (etapaAtual === 0 && !nomeRotina.trim()) {
+      setMensagemErroTeste("Por favor, insira um nome para sua rotina.");
+      return;
+    }
+
+    if (etapaAtual === 1 && !dieta) {
+      setMensagemErroTeste("Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.")
+      return;
+    }
+
+    if (!tipoGas && etapaAtual === 2) {
+      setMensagemErroTeste("Por favor, selecione uma opção.");
+      return;
+    } else if (tipoGas !== 'encanado' && etapaAtual === 2) {
+      if (!tipoBotijao && etapaAtual === 2) {
+        setMensagemErroTeste("Por favor, selecione um tipo de botijão de gás.");
+        return;
+      } else if (!tempoDuracaoGas && etapaAtual === 2) {
+        setMensagemErroTeste("Por favor, digite quantos meses seu gás costuma durar.");
+        return;
+      }
+    } else if (tipoGas === 'encanado' && etapaAtual === 2) {
+      if (isNaN(Number(m3GasNatural)) || Number(m3GasNatural) <= 0) {
+        setMensagemErroTeste('Por favor, digite um valor válido para o m³ da conta de gás natural.');
+        return;
+      }
+    }
+
+    if (!usaVeiculo && etapaAtual === 3) {
+      setMensagemErroTeste("Por favor, selecione uma opção.");
+      return;
+    } else if (usaVeiculo !== 'nao' && etapaAtual === 3) {
+      if (!possuiVeiculo && etapaAtual === 3) {
+        setMensagemErroTeste("Por favor, selecione uma opção.");
+        return;
+      } else if (possuiVeiculo === 'proprio' && etapaAtual === 3) {
+        if (!combustivel && etapaAtual === 3) {
+          setMensagemErroTeste("Por favor, selecione um tipo de combustível.");
+          return;
+        } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual === 3) {
+          setMensagemErroTeste("Por favor, digite quantos litros de combustível você abastece por mês.");
+          return;
+        } else if (combustivel === 'Elétrico' && etapaAtual === 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual === 3) {
+          setMensagemErroTeste("Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.");
+          return;
+        }
+      } else if (possuiVeiculo === 'publico' && etapaAtual === 3 && Object.keys(transportesPublicos).length === 0) {
+        setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado durante a semana.');
+        return;
+      }
+    }
+
+    if (etapaAtual === 4 && (isNaN(Number(kwhContaLuz)) || Number(kwhContaLuz) <= 0)) {
+      setMensagemErroTeste('Por favor, digite um valor válido para o KWh da conta de luz.');
+      return;
+    }
+
+    if (etapaAtual === 5 && (fezViagem === null)) {
+      setMensagemErroTeste('Por favor, selecione se você fez alguma viagem no último mês.');
+      return;
+    } else if (etapaAtual === 5 && fezViagem === 'sim' && viagemInternacional === null) {
+      setMensagemErroTeste('Por favor, selecione o tipo de viagem.');
+      return;
+    } else if (etapaAtual === 5 && fezViagem === 'sim' && Object.keys(veiculosViagem).length === 0) {
+      setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado na viagem.');
+      return;
+    }
+    for (const veiculo in veiculosViagem) {
+      if (veiculosViagem[veiculo] && (isNaN(Number(kmPorVeiculoViagem[veiculo])) || Number(kmPorVeiculoViagem[veiculo]) <= 0)) {
+        setMensagemErroTeste(`Por favor, digite a distância percorrida para o veículo: ${veiculo}.`);
+        return;
+      }
+    }
+
     setEtapaAtual((prev) => prev + 1);
   };
 
@@ -129,7 +201,7 @@ const Teste = () => {
             onChange={(e) => setNomeRotina(e.target.value)}
             placeholder="Ex: Semana Sustentável"
           />
-          {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
+          {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       )
     },
@@ -186,7 +258,7 @@ const Teste = () => {
               </div>
             );
           })}
-          {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
+          {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       )
     },
@@ -262,7 +334,7 @@ const Teste = () => {
               />
             </>
           )}
-          {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
+          {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       )
     },
@@ -390,7 +462,7 @@ const Teste = () => {
               )}
             </>
           )}
-          {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
+          {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       )
     },
