@@ -384,7 +384,7 @@ const TesteLogado = () => {
       const fatorGas = 1.974;
       const fatoresVeiculo = {
         'Metrô': 0.0035,
-        'Trem': 0.0035,
+        'Trem': 0.0019,
         'Ônibus': 0.0160,
         'Carro': 0.1268,
         'Moto': 0.0711,

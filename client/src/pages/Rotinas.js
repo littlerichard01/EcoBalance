@@ -517,7 +517,7 @@ const Rotinas = () => {
         'Ônibus elétrico': 0,
         'Metrô': 0.0035,
         'Trem': 0.019,
-        'Carro (app)': 0.12688,
+        'Carro (app)': 0.1268,
         'Motocicleta (app)': 0.0711
       },
       eletrico: 0.0891

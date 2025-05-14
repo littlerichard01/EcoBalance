@@ -89,6 +89,8 @@ const Login = () => {
       const dados = await resposta.json();
 
       if (resposta.ok) {
+        localStorage.removeItem('rotinaAnonima');
+        localStorage.removeItem('testeAnonimo');
         // Salvar dados no localStorage
         localStorage.setItem("usuarioLogado", JSON.stringify(dados));
         toast.success("Login realizado com sucesso!");
