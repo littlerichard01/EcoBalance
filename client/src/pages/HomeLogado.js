@@ -9,24 +9,32 @@ import fotoHome03 from '../assets/fotoHome03.jpeg';
 import { useNavigate } from 'react-router-dom';
 import { BsBellFill } from 'react-icons/bs';
 import avatar from '../assets/avatar.png';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
 const Home = () => {
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+  const navigate = useNavigate();
 
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
   const dropdownRef = useRef(null);
+
+  // Estados para as funcionalidades
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+  const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+  const [temaEscuro, setTemaEscuro] = useState(false);
+  const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
 
   const toggleDropdown = () => {
     setMostrarDropdown(!mostrarDropdown);
   };
 
-  const navigate = useNavigate();
   const handleInicioClick = () => {
     navigate('/home');
   };
 
   const handleUsuarioAcesso = () => {
-    navigate('/info-cadastro')
+    navigate('/info-cadastro');
   };
 
   const handleTesteLogadoClick = () => {
@@ -34,16 +42,39 @@ const Home = () => {
   };
 
   const handleRotinas = () => {
-    navigate('/suas-rotinas')
-  }
+    navigate('/suas-rotinas');
+  };
 
   const handleGráficosEConquistas = () => {
-    navigate('/graficos-conquistas')
-  }
+    navigate('/graficos-conquistas');
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("usuarioLogado");
     navigate("/login");
+  };
+
+  const toggleIdiomaDropdown = () => {
+    setMostrarDropdownIdioma(!mostrarDropdownIdioma);
+  };
+
+  const handleIdiomaSelecionado = (idioma) => {
+    setIdiomaSelecionado(idioma);
+    setMostrarDropdownIdioma(false);
+    console.log(`Idioma selecionado: ${idioma}`);
+    // Aqui você implementaria a lógica para mudar o idioma da aplicação
+  };
+
+  const toggleTema = () => {
+    setTemaEscuro(!temaEscuro);
+    // Aqui você implementaria a lógica para aplicar o tema escuro/claro na aplicação
+    document.body.classList.toggle('dark-mode', !temaEscuro); // Exemplo de como adicionar/remover classe no body
+  };
+
+  const toggleAltoContraste = () => {
+    setAltoContrasteAtivo(!altoContrasteAtivo);
+    // Aqui você implementaria a lógica para aplicar o alto contraste na aplicação
+    document.body.classList.toggle('high-contrast', !altoContrasteAtivo); // Exemplo
   };
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -54,15 +85,14 @@ const Home = () => {
     const usuario = localStorage.getItem("usuarioLogado");
     if (!usuario) {
       navigate("/login");
-
       return; // evita continuar o código se não estiver logado
     }
 
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % images.length); // Alterna para a próxima imagem
-    }, 7000); // Tempo de 3 segundos
+    }, 7000); // Tempo de 7 segundos
     return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
-  }, [images.length]);
+  }, [images.length, navigate]);
 
   useEffect(() => {
     // Verifica se o usuário está logado
@@ -71,8 +101,7 @@ const Home = () => {
       navigate("/login");
       return; // evita continuar o código se não estiver logado
     }
-
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -88,7 +117,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="pagina-login">
+    <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
 
@@ -97,10 +126,57 @@ const Home = () => {
           <img src={logo} alt="Logo" className="logo" />
         </div>
 
+        <div className="header-left-controls">
+          <div className="dropdown-idioma">
+            <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
+              <img
+                src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
+                alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
+                className="bandeira-idioma"
+              />
+              <span>Idioma</span>
+              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+            </div>
+            {mostrarDropdownIdioma && (
+              <div className="dropdown-menu-idioma show">
+                {idiomaSelecionado !== 'pt' && (
+                  <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
+                    <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
+                    <span>Português</span>
+                  </div>
+                )}
+                {idiomaSelecionado !== 'en' && (
+                  <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
+                    <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
+                    <span>Inglês</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="tema-contraste-controles">
+            <div className="tema-controle">
+              <span>Tema:</span>
+              <i
+                className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
+                onClick={toggleTema}
+                style={{ cursor: 'pointer', fontSize: '1.5em' }}
+              ></i>
+            </div>
+
+            <div className="alto-contraste-container">
+              <span>Alto Contraste:</span>
+              <i
+                className={`bi ${altoContrasteAtivo ? 'bi-toggle-on' : 'bi-toggle-off'}`}
+                onClick={toggleAltoContraste}
+                style={{ cursor: 'pointer', fontSize: '2em' }}
+              ></i>
+            </div>
+          </div>
+        </div>
+
         <div className="header-right">
-
-
-
           <div className="header-links">
             <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
             <span className="navlink" onClick={handleTesteLogadoClick}>Testes</span>
@@ -123,12 +199,7 @@ const Home = () => {
             )}
           </div>
         </div>
-
-
       </header>
-
-
-
       <main className="login-container">
         <div className="home-content">
           {/* Carrossel com bolinhas */}
@@ -172,10 +243,10 @@ const Home = () => {
               O cálculo é baseado nos principais aspectos do estilo de vida que impactam diretamente a emissão de GEE. São eles:
 
 
-              1.	Gasto de energia: o processo de produção de energia elétrica, a qual no Brasil é em maioria oriunda de hidrelétricas, resulta na emissão de gases geradores do efeito estufa. Seja na construção da usina, quanto na produção.
-              2.	Gasto de Gás (encanado ou GLP): tanto o gás liquefeito de petróleo (gás de botijão) quanto o gás natural encanado emitem gases poluentes durante a queima para uso doméstico, como no preparo de alimentos ou aquecimento de água.
-              3.	Transporte: meios de transporte como carros, motos, ônibus, metrô e até aviões contribuem de maneira variável para as emissões, dependendo do tipo de combustível, frequência de uso e distância percorrida. Por isso, os deslocamentos diários são parte fundamental da estimativa.
-              4.	Alimentos: os alimentos que consumimos passam por processos que envolvem produção, transporte, armazenamento, distribuição e descarte. Alguns grupos alimentares, como carnes vermelhas e laticínios, possuem uma pegada de carbono significativamente maior. Assim, levaremos em consideração a média de emissão nesse processo.
+              1. &nbsp;Gasto de energia: o processo de produção de energia elétrica, a qual no Brasil é em maioria oriunda de hidrelétricas, resulta na emissão de gases geradores do efeito estufa. Seja na construção da usina, quanto na produção.
+              2. &nbsp;Gasto de Gás (encanado ou GLP): tanto o gás liquefeito de petróleo (gás de botijão) quanto o gás natural encanado emitem gases poluentes durante a queima para uso doméstico, como no preparo de alimentos ou aquecimento de água.
+              3. &nbsp;Transporte: meios de transporte como carros, motos, ônibus, metrô e até aviões contribuem de maneira variável para as emissões, dependendo do tipo de combustível, frequência de uso e distância percorrida. Por isso, os deslocamentos diários são parte fundamental da estimativa.
+              4. &nbsp;Alimentos: os alimentos que consumimos passam por processos que envolvem produção, transporte, armazenamento, distribuição e descarte. Alguns grupos alimentares, como carnes vermelhas e laticínios, possuem uma pegada de carbono significativamente maior. Assim, levaremos em consideração a média de emissão nesse processo.
 
               Essa análise permite estimar de forma personalizada o impacto ambiental do seu estilo de vida, promovendo uma compreensão mais clara das suas emissões e identificando oportunidades reais de redução.
             </p>
