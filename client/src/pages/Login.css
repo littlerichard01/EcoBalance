@@ -1325,7 +1325,8 @@ body {
 .botao.secundario {
   background-color: #73CC3D;
   color: white;
-  margin-left: 200px;
+  margin-left: 50% ;
+  margin-right: 10px ;
   
 }
 .botao.secundario:hover {
@@ -1832,6 +1833,518 @@ input:checked + .slider:before {
   transform: translateX(20px); 
 }
 
+/* Modo Escuro */
+.pagina-login.dark-mode {
+  background-color: #1e1e1e; 
+  color: #d4d4d4; 
+}
+
+.pagina-login.dark-mode .header {
+  background-color: #051809; 
+  border-bottom: 1px solid #444;
+}
+
+.pagina-login.dark-mode .navlink {
+  color: #d4d4d4; 
+}
+
+.pagina-login.dark-mode .dropdown-menu {
+  background-color: #252525;
+  border: 1px solid #444;
+  color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .dropdown-item {
+  color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .dropdown-item:hover {
+  background-color: #333;
+}
+.pagina-login.dark-mode .login-section {
+  background-color: #252525;
+  color: #d4d4d4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.pagina-login.dark-mode .info-section {
+  background-color: #252525;
+  border: 1px solid #444;
+}
+
+.pagina-login.dark-mode .login-title {
+  color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .faq-item summary {
+  color: #d4d4d4;
+  background-color: #252525;
+  border-bottom: 1px solid #444;
+}
+
+.pagina-login.dark-mode .faq-item p {
+  color: #d4d4d4;
+  background-color: #252525;
+
+}
+
+.pagina-login.dark-mode .footer {
+  background-color: #051809;
+  color: #d4d4d4;
+  border-top: 1px solid #444;
+}
+
+.pagina-login.dark-mode .carousel-box {
+  background-color: #252525;
+  border: 1px solid #444;
+}
+
+.pagina-login.dark-mode .content-overlay {
+  background-color: rgba(0, 0, 0, 0.7); 
+  color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .dot {
+  background-color: #555;
+}
+
+.pagina-login.dark-mode .dot.active {
+  background-color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .switch input:checked + .slider {
+  background-color: #66bb6a; 
+}
+
+.pagina-login.dark-mode .switch input:focus + .slider {
+  box-shadow: 0 0 1px #66bb6a;
+}
+
+.pagina-login.dark-mode .slider:before {
+  background-color: #444;
+}
+
+
+/* Alto Contraste */
+.pagina-login.high-contrast {
+  background-color: #000; 
+  color: #ff0; 
+}
+
+.pagina-login.high-contrast .header {
+  background-color: #000;
+  color: #ff0; 
+  border-bottom: 2px solid #ff0;
+}
+
+.pagina-login.high-contrast .navlink {
+  color: #ff0;
+}
+
+.pagina-login.high-contrast .dropdown-menu {
+  background-color: #111;
+  border: 1px solid #ff0;
+  color: #fff;
+}
+
+.pagina-login.high-contrast .dropdown-item {
+  color: #fff;
+}
+
+.pagina-login.high-contrast .dropdown-item:hover {
+  background-color: #333;
+  color: #ff0;
+}
+
+.pagina-login.high-contrast .info-section {
+  background-color: #000;
+  border: 1px solid #ff0;
+}
+
+.pagina-login.high-contrast .login-title {
+  color: #ff0;
+}
+
+.pagina-login.high-contrast .faq-item summary {
+  color: #ff0;
+  background-color: #111;
+  border-bottom: 1px solid #ff0;
+}
+
+.pagina-login.high-contrast .faq-item p {
+  color: #ff0;
+  background-color: #111;
+}
+
+.pagina-login.high-contrast .footer {
+  background-color: #000;
+  color: #ff0;
+  border-top: 1px solid #ff0;
+}
+
+.pagina-login.high-contrast .carousel-box {
+  background-color: #111;
+  border: 1px solid #ff0;
+}
+
+.pagina-login.high-contrast .content-overlay {
+  background-color: rgba(0, 0, 0, 0.8); 
+  color: #ff0;
+}
+
+.pagina-login.high-contrast .dot {
+  background-color: #fff;
+}
+
+.pagina-login.high-contrast .dot.active {
+  background-color: #ff0;
+}
+
+.pagina-login.high-contrast .switch input:checked + .slider {
+  background-color: #6AA84F; 
+}
+
+.pagina-login.high-contrast .switch input:focus + .slider {
+  box-shadow: 0 0 1px #ff0;
+}
+
+.pagina-login.high-contrast .slider:before {
+  background-color: #fff;
+}
+
+.rotinas-container.dark-mode {
+    background-color: #1e1e1e; 
+    color: #d4d4d4; 
+}
+
+.rotinas-container.dark-mode .header {
+    background-color: #252525; 
+    color: #d4d4d4;
+    border-bottom: 1px solid #444;
+}
+
+.rotinas-container.dark-mode .navlink {
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .dropdown-menu {
+    background-color: #252525;
+    border: 1px solid #444;
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .dropdown-item {
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .dropdown-item:hover {
+    background-color: #333;
+}
+
+.rotinas-container.dark-mode .conteudo-rotinas {
+    background-color: #252525;
+    color: #d4d4d4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.rotinas-container.dark-mode .pergunta {
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .ajuda {
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .input-texto {
+    background-color: #333;
+    color: #d4d4d4;
+    border-color: #555;
+}
+
+.rotinas-container.dark-mode .bolinha {
+    background-color: #555;
+}
+
+.rotinas-container.dark-mode .bolinha.ativa {
+    background-color: #66bb6a; 
+   
+}
+
+.rotinas-container.dark-mode .botao.primario {
+    background-color: #66bb6a; 
+    color: #fff;
+}
+
+.rotinas-container.dark-mode .botao.secundario {
+    background-color: #6c757d;
+    color: #d4d4d4;
+}
+
+.rotinas-container.dark-mode .footer {
+    background-color: #252525;
+    color: #d4d4d4;
+    border-top-color: #444;
+}
+
+.rotinas-container.dark-mode .dropdown-menu-idioma {
+    background-color: #252525;
+    color: #d4d4d4;
+    border-color: #444;
+}
+
+.rotinas-container.dark-mode .dropdown-item-idioma {
+    color: #d4d4d4;
+}
+
+
+.rotinas-container.high-contrast {
+    background-color: #000; 
+    color: #fff; 
+}
+
+.rotinas-container.high-contrast .header {
+    background-color: #000;
+    color: #ff0; 
+    border-bottom: 2px solid #ff0;
+}
+
+.rotinas-container.high-contrast .navlink {
+    color: #ff0;
+}
+
+.rotinas-container.high-contrast .dropdown-menu {
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #ff0;
+}
+
+.rotinas-container.high-contrast .dropdown-item {
+    color: #fff;
+}
+
+.rotinas-container.high-contrast .conteudo-rotinas {
+    background-color: #111;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.rotinas-container.high-contrast .pergunta {
+    color: #ff0;
+}
+
+.rotinas-container.high-contrast .ajuda {
+    color: #fff;
+}
+
+.rotinas-container.high-contrast .input-texto {
+    background-color: #333;
+    color: #fff;
+    border-color: #ff0;
+}
+
+.rotinas-container.high-contrast .bolinha {
+    background-color: #fff;
+}
+
+.rotinas-container.high-contrast .bolinha.ativa {
+    background-color: #ff0;
+}
+
+.rotinas-container.high-contrast .botao.primario {
+    background-color: #ff0;
+    color: #000;
+}
+
+.rotinas-container.high-contrast .botao.secundario {
+    background-color: #333;
+    color: #fff;
+}
+
+.rotinas-container.high-contrast .footer {
+    background-color: #111;
+    color: #fff;
+    border-top-color: #ff0;
+}
+
+.rotinas-container.high-contrast .dropdown-menu-idioma {
+    background-color: #111;
+    color: #fff;
+    border-color: #ff0;
+}
+
+.rotinas-container.high-contrast .dropdown-item-idioma {
+    color: #fff;
+}
+
+.pagina-login.dark-mode .home-content {
+  background-color:#252525;
+}
+.pagina-login.high-contrast .home-content {
+  background-color: #000; 
+}
+
+.pagina-login.dark-mode .dropdown-item-idioma {
+  background-color: #2a2a2a; 
+  color: #d4d4d4;
+}
+
+.pagina-login.dark-mode .dropdown-item-idioma:hover {
+  background-color: #333; 
+}
+
+.pagina-login.high-contrast .dropdown-item-idioma {
+  background-color: #000000; 
+  color: #fff; 
+}
+
+.pagina-login.high-contrast .dropdown-item-idioma:hover {
+  background-color: #444; 
+  color: #ff0;
+}
+
+.pagina-login.dark-mode .info-usuario {
+  background-color: #252525; 
+  border: 1px solid #444; 
+}
+.pagina-login.high-contrast .info-usuario {
+  background-color: #000; 
+  border: 2px solid #ff0; 
+}
+
+.pagina-login.dark-mode .info-usuario .login-title-Graficos {
+  color: #d4d4d4; 
+}
+
+.pagina-login.dark-mode .info-usuario .login-title-rotina {
+  color: #d4d4d4; 
+}
+.pagina-login.high-contrast .info-usuario .login-title-Graficos {
+  color: #ff0; 
+}
+.pagina-login.high-contrast .info-usuario .login-title-rotina {
+  color: #ff0; 
+}
+
+.pagina-login.dark-mode .info-usuario .grafico-label {
+  color: #d4d4d4; 
+}
+
+
+.pagina-login.high-contrast .info-usuario .grafico-label {
+  color: #ff0; 
+}
+
+.pagina-login.dark-mode .icone-editar {
+  color: #d4d4d4; 
+}
+
+.pagina-login.dark-mode .icone-editar:hover {
+  color: #66bb6a; 
+}
+
+
+.pagina-login.dark-mode .form-control {
+  background-color: #333; 
+  color: #d4d4d4; 
+  border-color: #555;
+}
+
+.pagina-login.dark-mode .form-control:focus {
+  border-color: #66bb6a;
+  box-shadow: 0 0 5px rgba(102, 187, 106, 0.5);
+}
+
+
+.pagina-login.high-contrast .icone-editar {
+  color: #fff; 
+}
+
+.pagina-login.high-contrast .icone-editar:hover {
+  color: #ff0; 
+}
+
+
+.pagina-login.high-contrast .form-control {
+  background-color: #111; 
+  color: #fff; 
+  border-color: #ff0;
+}
+
+.pagina-login.high-contrast .form-control:focus {
+  border-color: #fff;
+  box-shadow: 0 0 5px #fff;
+  outline: 1px solid #fff;
+}
+
+.pagina-login.dark-mode .form-group-cadastro {
+  border-color: #555;
+  background-color: #444;
+  color: #d4d4d4;
+}
+
+
+.pagina-login.dark-mode .custom-modal-content {
+  background-color: #2a2a2a;
+  color: #d4d4d4;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  border: 1px solid #555;
+}
+
+
+.pagina-login.high-contrast .form-group-cadastro {
+  border-color: #ff0;
+  background-color: #111;
+  color: #fff;
+}
+
+
+.pagina-login.high-contrast .custom-modal-content {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #ff0;
+}
+
+.pagina-login.dark-mode .rotina-circle {
+  background-color: #444;
+  color: #d4d4d4;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.pagina-login.dark-mode .rotina-circle.add {
+  background-color: #383838; 
+  color: #66bb6a; 
+}
+
+.pagina-login.dark-mode .rotina-circle.add:hover {
+  background-color: #4f4f4f; 
+}
+
+.pagina-login.dark-mode .rotina-circle:not(.add):hover {
+  background-color: #555; 
+}
+
+/* Estilos para a div rotina-circle - Alto Contraste */
+.pagina-login.high-contrast .rotina-circle {
+  background-color: #222;
+  color: #fff;
+  border: 2px solid #ff0;
+}
+
+.pagina-login.high-contrast .rotina-circle.add {
+  background-color: #111; 
+  color: #ff0; 
+}
+
+.pagina-login.high-contrast .rotina-circle.add:hover {
+  background-color: #333; 
+}
+
+.pagina-login.high-contrast .rotina-circle:not(.add):hover {
+  background-color: #333; 
+}
+
+.pagina-login.high-contrast .icone-editar {
+  color: #ff0;
+}
 
 
 /* Estilos para telas um pouco maiores (max-width: 768px) - Adicional para tablets menores */

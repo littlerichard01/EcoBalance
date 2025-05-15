@@ -9,14 +9,56 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+
+const textos = {
+    pt: {
+        paginaInicial: 'Página inicial',
+        testes: 'Testes',
+        informacoesUsuario: 'Informações de Usuário',
+        suasRotinas: 'Suas Rotinas',
+        graficosConquistas: 'Gráficos e Conquistas',
+        sair: 'Sair',
+        graficos: 'Gráficos',
+        nenhumTesteEncontrado: 'Nenhum teste encontrado.',
+        conquistas: 'Conquistas',
+        detalhesGraficoDia: 'Detalhes do Gráfico do dia',
+        fechar: 'Fechar',
+        tema: 'Tema:',
+        altoContraste: 'Alto Contraste:',
+        idioma: 'Idioma',
+    },
+    en: {
+        paginaInicial: 'Homepage',
+        testes: 'Tests',
+        informacoesUsuario: 'User Information',
+        suasRotinas: 'Your Routines',
+        graficosConquistas: 'Charts and Achievements',
+        sair: 'Logout',
+        graficos: 'Charts',
+        nenhumTesteEncontrado: 'No tests found.',
+        conquistas: 'Achievements',
+        detalhesGraficoDia: 'Chart Details for',
+        fechar: 'Close',
+        tema: 'Theme:',
+        altoContraste: 'High Contrast:',
+        idioma: 'Language',
+    },
+};
 
 const GraficosEConquistas = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
     const navigate = useNavigate();
 
     const [mostrarDropdown, setMostrarDropdown] = useState(false);
-
     const dropdownRef = useRef(null);
+
+    // Estados para as funcionalidades de tema e idioma
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+    const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+    const [temaEscuro, setTemaEscuro] = useState(false);
+    const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
 
     const toggleDropdown = () => {
         setMostrarDropdown(!mostrarDropdown);
@@ -75,6 +117,60 @@ const GraficosEConquistas = () => {
     };
 
     useEffect(() => {
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark') {
+            setTemaEscuro(true);
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+
+        const storedContrast = localStorage.getItem('highContrast');
+        if (storedContrast === 'true') {
+            setAltoContrasteAtivo(true);
+            document.body.classList.add('high-contrast');
+        } else {
+            document.body.classList.remove('high-contrast');
+        }
+
+        const storedLanguage = localStorage.getItem('language');
+        if (storedLanguage) {
+            setIdiomaSelecionado(storedLanguage);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+        document.body.classList.toggle('dark-mode', temaEscuro);
+    }, [temaEscuro]);
+
+    useEffect(() => {
+        localStorage.setItem('highContrast', altoContrasteAtivo);
+        document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+    }, [altoContrasteAtivo]);
+
+    useEffect(() => {
+        localStorage.setItem('language', idiomaSelecionado);
+    }, [idiomaSelecionado]);
+
+    const toggleIdiomaDropdown = () => {
+        setMostrarDropdownIdioma(!mostrarDropdownIdioma);
+    };
+
+    const handleIdiomaSelecionado = (idioma) => {
+        setIdiomaSelecionado(idioma);
+        setMostrarDropdownIdioma(false);
+    };
+
+    const toggleTema = () => {
+        setTemaEscuro(!temaEscuro);
+    };
+
+    const toggleAltoContraste = () => {
+        setAltoContrasteAtivo(!altoContrasteAtivo);
+    };
+
+    useEffect(() => {
         if (!usuario) {
             navigate("/login");
             return;
@@ -107,31 +203,31 @@ const GraficosEConquistas = () => {
         // Viagens
         const emissaoViagens = teste.viagem?.veiculos?.reduce((acc, v) => acc + (v.emissao || 0), 0);
         if (emissaoViagens > 0) {
-            dados.push({ categoria: 'Viagens', valor: emissaoViagens });
+            dados.push({ categoria: textos[idiomaSelecionado]?.viagens || 'Viagens', valor: emissaoViagens });
         }
 
         // Gás (natural ou botijão)
         const emissaoGas = teste.gasNatural?.emissao || teste.emissaoGas || 0;
         if (emissaoGas > 0) {
-            dados.push({ categoria: 'Gás', valor: emissaoGas });
+            dados.push({ categoria: textos[idiomaSelecionado]?.gas || 'Gás', valor: emissaoGas });
         }
 
         // Energia elétrica
         const emissaoEnergia = teste.energiaEletrica?.emissao || 0;
         if (emissaoEnergia > 0) {
-            dados.push({ categoria: 'Energia', valor: emissaoEnergia });
+            dados.push({ categoria: textos[idiomaSelecionado]?.energia || 'Energia', valor: emissaoEnergia });
         }
 
         // Alimentos
         const emissaoAlimentos = teste.emissaoAlimentos || 0;
         if (emissaoAlimentos > 0) {
-            dados.push({ categoria: 'Alimentos', valor: emissaoAlimentos });
+            dados.push({ categoria: textos[idiomaSelecionado]?.alimentos || 'Alimentos', valor: emissaoAlimentos });
         }
 
         // Veículos (uso semanal)
         const emissaoVeiculos = teste.emissaoVeiculos || 0;
         if (emissaoVeiculos > 0) {
-            dados.push({ categoria: 'Veículos', valor: emissaoVeiculos });
+            dados.push({ categoria: textos[idiomaSelecionado]?.veiculos || 'Veículos', valor: emissaoVeiculos });
         }
 
         return dados;
@@ -160,10 +256,10 @@ const GraficosEConquistas = () => {
             );
         }
         return null;
-    };    
+    };
 
     return (
-        <div className="pagina-login">
+        <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
             <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
@@ -174,10 +270,63 @@ const GraficosEConquistas = () => {
                     <img src={logo} alt="Logo" className="logo" />
                 </div>
 
+                <div className="header-left-controls">
+                    <div className="dropdown-idioma">
+                        <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
+                            <img
+                                src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
+                                alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
+                                className="bandeira-idioma"
+                            />
+                            <span>{textos[idiomaSelecionado]?.idioma}</span>
+                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                        </div>
+                        {mostrarDropdownIdioma && (
+                            <div className="dropdown-menu-idioma show">
+                                {idiomaSelecionado !== 'pt' && (
+                                    <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
+                                        <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
+                                        <span>Português</span>
+                                    </div>
+                                )}
+                                {idiomaSelecionado !== 'en' && (
+                                    <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
+                                        <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
+                                        <span>Inglês</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="tema-contraste-controles">
+                        <div className="tema-controle">
+                            <span>{textos[idiomaSelecionado]?.tema}</span>
+                            <i
+                                className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
+                                onClick={toggleTema}
+                                style={{ cursor: 'pointer', fontSize: '1.5em' }}
+                            ></i>
+                        </div>
+
+                        <div className="alto-contraste-container">
+                            <label className="switch">
+                                <input
+                                    type="checkbox"
+                                    checked={altoContrasteAtivo}
+                                    onChange={toggleAltoContraste}
+                                />
+                                <span className="slider round"></span>
+                            </label>
+                            <span>{textos[idiomaSelecionado]?.altoContraste}</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="header-right">
                     <div className="header-links">
-                        <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                        <span className="navlink" onClick={handleTestes}>Testes</span>
+                        <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+                        <span className="navlink" onClick={handleTestes}>{textos[idiomaSelecionado]?.testes}</span>
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
@@ -189,10 +338,10 @@ const GraficosEConquistas = () => {
                         />
                         {mostrarDropdown && (
                             <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
-                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
-                                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
-                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
-                                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
+                                <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
+                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
+                                <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
                             </div>
                         )}
                     </div>
@@ -203,15 +352,15 @@ const GraficosEConquistas = () => {
                 <div className="info-usuario">
                     <div className="login-box">
                         <div className="login-section-GraficosEConquistas">
-                            <h2 className="login-title-Graficos">Gráficos</h2>
+                            <h2 className="login-title-Graficos">{textos[idiomaSelecionado]?.graficos}</h2>
                             <div className="scroll-container">
                                 <button className="scroll-btn left" onClick={() => scrollContainer('graficos', 'left')}>&lt;</button>
                                 <div className="container-grafico" id="graficos">
                                     {testes.length === 0 ? (
-                                        <span style={{ padding: '20px' }}>Nenhum teste encontrado.</span>
+                                        <span style={{ padding: '20px' }}>{textos[idiomaSelecionado]?.nenhumTesteEncontrado}</span>
                                     ) : (
                                         testes.map((teste, index) => (
-                                            <div className="grafico-circle-wrapper" onClick={() => abrirModal(teste)} style={{ cursor: 'pointer' }}>
+                                            <div className="grafico-circle-wrapper" onClick={() => abrirModal(teste)} style={{ cursor: 'pointer' }} key={index}>
                                                 <div className="grafico-circle">
                                                     <PieChart width={80} height={80}>
                                                         <Pie
@@ -240,7 +389,7 @@ const GraficosEConquistas = () => {
                                 </div>
                                 <button className="scroll-btn right" onClick={() => scrollContainer('graficos', 'right')}>&gt;</button>
                             </div>
-                            <h2 className="login-title-Graficos">Conquistas</h2>
+                            <h2 className="login-title-Graficos">{textos[idiomaSelecionado]?.conquistas}</h2>
                             <div className="scroll-container">
                                 <button className="scroll-btn left" onClick={() => scrollContainer('conquistas', 'left')}>&lt;</button>
                                 <div className="container-grafico" id="conquistas">
@@ -256,19 +405,26 @@ const GraficosEConquistas = () => {
                 </div>
                 {showModal && graficoSelecionado && (
                     <>
-                        <div className="modal fade show" style={{ display: 'block' }} tabIndex="-1" role="dialog">
+                        <div className="modal fade show"
+                        style={{ display: 'block' }}
+                            tabIndex="-1"
+                            role="dialog"
+                        >
                             <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div className="modal-content" style={{ position: 'relative' }}>
                                     <button
                                         type="button"
                                         className="btn-close-custom"
                                         onClick={fecharModal}
-                                        aria-label="Fechar"
+                                        aria-label={textos[idiomaSelecionado]?.fechar}
                                     >
                                         &times;
                                     </button>
                                     <div className="modal-header">
-                                        <h5 className="modal-title">Detalhes do Gráfico do dia {new Date(graficoSelecionado.dataRealizacao).toLocaleDateString('pt-BR')}</h5>
+                                        <h5 className="modal-title">
+                                            {textos[idiomaSelecionado]?.detalhesGraficoDia}{' '}
+                                            {new Date(graficoSelecionado.dataRealizacao).toLocaleDateString('pt-BR')}
+                                        </h5>
                                     </div>
                                     <div className="modal-body d-flex justify-content-center">
                                         <PieChart width={400} height={400}>
