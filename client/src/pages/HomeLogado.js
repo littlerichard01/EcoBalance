@@ -166,12 +166,15 @@ const Home = () => {
             </div>
 
             <div className="alto-contraste-container">
-              <span>Alto Contraste:</span>
-              <i
-                className={`bi ${altoContrasteAtivo ? 'bi-toggle-on' : 'bi-toggle-off'}`}
-                onClick={toggleAltoContraste}
-                style={{ cursor: 'pointer', fontSize: '2em' }}
-              ></i>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={altoContrasteAtivo}
+                  onChange={toggleAltoContraste}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span>Alto Contraste</span>
             </div>
           </div>
         </div>

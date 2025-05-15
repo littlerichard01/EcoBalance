@@ -62,7 +62,7 @@ body {
 }
 
 .header-top {
-  margin-left: 20px;
+  margin-left: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,31 +71,19 @@ body {
 .logo {
   display: fixed;
   height: 80px;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 
 .header-right {
 
-  margin-right: 20px;
+  margin-right: 40px;
   display: flex;
   gap: 100px;
   align-items: right;
   justify-content: right; 
 }
 
-.toggle-theme {
-  background-color: #fff;
 
-  border-radius: 40px;
-  padding: 15px 30px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.toggle-theme:hover {
-  background-color: #e0e0e0;
-}
 
 /* Botão entrar */
 .btn-entrar {
@@ -1688,7 +1676,7 @@ body {
 /* Estilos para o container que envolve o dropdown e os controles */
 .header-left-controls { /* Ou a classe que engloba os elementos */
   display: flex;
-  margin-left: 0x; /* Adiciona espaço à esquerda */
+  margin-left: 0px; /* Adiciona espaço à esquerda */
   align-items: center; /* Isso alinhará os itens verticalmente ao centro */
 }
 
@@ -1696,6 +1684,7 @@ body {
 .dropdown-idioma {
   position: relative;
   display: inline-block;
+  
 }
 
 .idioma-selecionado {
@@ -1708,20 +1697,17 @@ body {
 }
 
 .bandeira-idioma {
-  width: 20px; /* Ajuste o tamanho da bandeira */
-  height: 14px; /* Ajuste o tamanho da bandeira */
+  width: 20px; 
+  height: 14px; 
   margin-right: 5px;
   border-radius: 3px;
 }
 
 .dropdown-menu-idioma {
   position: absolute;
-  top: 100%;
-  left: 0;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
 }
 
 .dropdown-item-idioma {
@@ -1737,21 +1723,20 @@ body {
 }
 
 .bandeira-idioma-item {
-  width: 20px; /* Ajuste o tamanho da bandeira */
-  height: 14px; /* Ajuste o tamanho da bandeira */
+  width: 20px; 
+  height: 14px;
   margin-right: 10px;
   border-radius: 3px;
 }
 
-/* Estilos para os controles de tema e contraste */
+
 .tema-contraste-controles {
   display: flex;
   align-items: center;
-  margin-left: 20px; /* Opcional: Adiciona espaço entre o dropdown e os controles */
+  margin-left: 20px; 
 }
 
-.tema-controle,
-.contraste-controle {
+.tema-controle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1763,73 +1748,89 @@ body {
   cursor: pointer;
   margin-right: 10px;
   font-size: 1.2em;
-  border: 1px solid #ccc; /* Adicione uma borda sutil */
+  border: 1px solid #ccc; 
 }
 
-/* Esconde o texto "Tema:" e "Contraste:" */
-.tema-controle span,
-.contraste-controle span {
+
+.tema-controle span {
   display: none;
 }
 
-/* Aumenta o tamanho dos ícones para preencher o círculo */
-.tema-controle i,
-.contraste-controle i {
-  font-size: 10px; /* Ajuste conforme necessário */
+
+.tema-controle i {
+  font-size: 1.5em; 
 }
 
-/* Estilo específico para o controle de contraste para o texto menor */
-.contraste-controle {
-  flex-direction: column; /* Coloca ícone e texto em coluna */
-  align-items: center; /* Centraliza os itens */
-}
-
-.contraste-controle span {
-  display: block;
-  font-size: 0.7em;
-  margin-top: -5px; /* Ajusta o espaçamento */
-}
-
-.tema-controle.ativo,
-.contraste-controle.ativo {
-   /* Cor quando ativo, ajuste conforme necessário */
+.tema-controle.ativo {
+ 
   color: #333;
 }
 
-/* Estilos para o container do controle de alto contraste */
+
 .alto-contraste-container {
   display: flex;
-  flex-direction: column; /* Coloca ícone e texto em coluna */
-  align-items: center; /* Centraliza os itens horizontalmente */
-  justify-content: center; /* Centraliza os itens verticalmente (opcional, para mais controle) */
-  width: auto; /* Ajusta a largura para o conteúdo */
-  height: auto; /* Ajusta a altura para o conteúdo */
-  padding: 5px; /* Adiciona um pequeno padding */
-  border-radius: 5px; /* Adiciona um pequeno border-radius */
-  border-color: white; /* Remove a borda */
-  margin-right: 10px; /* Adiciona um pouco de espaço à direita */
-  color: #73CC3D; /* Define a cor do texto para branco */
+  flex-direction: column; 
+  align-items: center;
+  margin-right: 350px; 
+  color: #eee;
 }
-
 
 .alto-contraste-container span {
-  display: block;
-  color: #eee;
   font-size: 0.7em;
-  margin-top: -5px; /* Ajusta o espaçamento entre o ícone e o texto */
+  margin-top: 5px; 
 }
 
-.alto-contraste-container i {
-  font-size: 2em; /* Mantém o tamanho do ícone */
-  color:  ; /* Define a cor do ícone */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px; 
+  height: 23px; 
 }
 
-.tema-controle.ativo,
-.alto-contraste-container.ativo {
-   /* Cor quando ativo, ajuste conforme necessário */
-  color:#73CC3D; /* A cor do texto ativo pode ser diferente, ajuste se precisar branco também */
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; 
+  transition: .4s;
+  border-radius: 20px; 
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px; 
+  width: 17px; 
+  left: 0px;
+  bottom: 1px;
+  background-color: white; 
+  transition: .4s;
+  border-radius: 50%; 
+}
+
+
+input:checked + .slider {
+  background-color: #73CC3D; 
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #73CC3D;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px); 
+}
 
 
 
