@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
-import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
@@ -396,7 +395,7 @@ const InfoCadastro = () => {
                                 <PencilFill
                                     className="icone-editar"
                                     size={20}
-                                    color="black"
+                                    color={temaEscuro ? '#d4d4d4' : altoContrasteAtivo ? '#fff' : 'black'}
                                 // onClick={() => handle()}
                                 />
                             </div>
@@ -405,8 +404,7 @@ const InfoCadastro = () => {
                                 <div className="form-group-cadastro">{usuario?.nome}</div>
                                 <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>{textos[idiomaSelecionado]?.email}</p>
                                 <div className="form-group-cadastro">{usuario?.email}</div>
-                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>{textos[idiomaSelecionado]?.
-                                receberNotificacoes}</p>
+                                <p style={{ fontWeight: 'bold', marginBottom: '4px' }}>{textos[idiomaSelecionado]?.receberNotificacoes}</p>
                                 <div className="form-group-cadastro">
                                     {receberLembretes ? textos[idiomaSelecionado]?.ativado : textos[idiomaSelecionado]?.desativado}
                                 </div>
