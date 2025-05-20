@@ -10,6 +10,126 @@ import 'react-toastify/dist/ReactToastify.css';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
+const textos = {
+  pt: {
+    paginaInicial: 'Página inicial',
+    testes: 'Testes',
+    entrar: 'Entrar',
+    nomeDaRotina: '',
+    rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+    tema: 'Tema:',
+    altoContraste: 'Alto Contraste:',
+    idioma: 'Idioma',
+SelecioneTresPontinhos: 'Selecione...',
+TituloGas: 'Gás de Cozinha',
+PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
+ExemploMetrosCubicos: 'Ex: 25',
+RespostaSim: 'Sim',
+RespostaNao: 'Não',
+TituloEnergiaEletrica: 'Energia elétrica',
+ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
+TituloViagens: 'Viagens',
+PerguntaViagem: 'Você fez alguma viagem no último mês?',
+DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
+PerguntaViagemInternacional: 'Foi uma viagem internacional?',
+DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
+NaoFoiInternacional: 'Não, foi uma viagem nacional.',
+VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
+TituloCalcular: 'Calcular',
+CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
+TituloResultados: 'Resultados',
+BotaoVoltar: 'Voltar',
+BotaoAvancar: 'Avançar',
+Onibus: 'Ônibus',
+Metro: 'Metrô',
+Trem: 'Trem',
+Carro: 'Carro',
+CarroEletrico: 'Carro elétrico',
+Moto: 'Moto',
+Aviao: 'Avião',
+BarcoCruzeiro: 'Barco/Cruzeiro',
+ErroOpcao: 'Por favor, selecione uma opção.',
+ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
+ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
+ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
+ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
+ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
+ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
+ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
+ErroDeConexão: 'Erro de conexão com o servidor.',
+ErroSalvarTeste: 'Erro ao salvar teste: ',
+ErroSalvar: 'Erro ao salvar teste.',
+TesteSalvo: 'Teste salvo com sucesso!',
+ErroUsuario: 'Erro ao recuperar usuário ou rotina.',
+CadastrarRotina: 'Cadastrar Rotina',
+AindaNaoTemRotinas: 'Você ainda não possui rotinas cadastradas. Deseja cadastrar agora?',
+SelecioneRotina: 'Selecione uma rotina para realizar um teste:',
+TituloRotinas: 'Selecione sua rotina',
+ErroRotina: 'Por favor, selecione uma rotina.',
+ErroConectarServidor: 'Erro ao conectar com o servidor:',
+ErroConectar: 'Erro ao conectar com o servidor.',
+ErroCarregarRotinas: 'Erro ao carregar rotinas.',
+},
+  en: {
+    paginaInicial: 'Homepage',
+    testes: 'Tests',
+    entrar: 'Login',
+    
+    rodape: '© 2025 EcoBalance — All rights reserved',
+    tema: 'Theme:',
+    altoContraste: 'High Contrast:',
+    idioma: 'Language',
+SelecioneTresPontinhos: 'Select...',
+TituloGas: 'Cooking Gas',
+PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
+ExemploMetrosCubicos: 'E.g.: 25',
+RespostaSim: 'Yes',
+RespostaNao: 'No',
+TituloEnergiaEletrica: 'Electricity',
+ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
+TituloViagens: 'Trips',
+PerguntaViagem: 'Did you take any trips last month?',
+DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
+PerguntaViagemInternacional: 'Was it an international trip?',
+DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
+NaoFoiInternacional: 'No, it was a national trip.',
+VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
+TituloCalcular: 'Calculate',
+CliqueEmCalcular: 'Click to calculate and see your test results!',
+TituloResultados: 'Results',
+BotaoVoltar: 'Back',
+BotaoAvancar: 'Next',
+Onibus: 'Bus',
+Metro: 'Subway',
+Trem: 'Train',
+Carro: 'Car',
+CarroEletrico: 'Electric car',
+Moto: 'Motorcycle',
+Aviao: 'Airplane',
+BarcoCruzeiro: 'Boat/Cruise',
+ErroOpcao: 'Please select an option.',
+ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
+ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
+ErroSelecioneViagem: 'Please select whether you took any trips last month.',
+ErroTipoViagem: 'Please select the type of trip.',
+ErroUmViagem: 'Please select at least one vehicle used during the trip.',
+ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
+ErroDeConexão: 'Connection error with the server.',
+ErroSalvarTeste: 'Error saving test:',
+ErroSalvar: 'Error saving test.',
+TesteSalvo: 'Test saved successfully!',
+ErroUsuario: 'Error retrieving user or routine.',
+CadastrarRotina: 'Register Routine',
+AindaNaoTemRotinas: 'You don’t have any routines registered yet. Would you like to register one now?',
+SelecioneRotina: 'Select a routine to take a test:',
+TituloRotinas: 'Select your routine',
+ErroRotina: 'Please select a routine.',
+ErroConectarServidor: 'Error connecting to the server:',
+ErroConectar: 'Error connecting to the server.',
+ErroCarregarRotinas: 'Error loading routines.',
+},
+};
+
 const TesteLogado = () => {
     const [mostrarDropdown, setMostrarDropdown] = useState(false);
     const dropdownRef = useRef(null);
@@ -31,6 +151,61 @@ const TesteLogado = () => {
     return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
   });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+
+const toggleIdiomaDropdown = () => {
+        setMostrarDropdownIdioma(!mostrarDropdownIdioma);
+    };
+
+    const handleIdiomaSelecionado = (idioma) => {
+        setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage
+        setMostrarDropdownIdioma(false);
+    };
+
+    const toggleTema = () => {
+        setTemaEscuro(!temaEscuro);
+    };
+
+    const toggleAltoContraste = () => {
+        setAltoContrasteAtivo(!altoContrasteAtivo);
+    };
+
+    useEffect(() => {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'dark') {
+                setTemaEscuro(true);
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+    
+            const storedContrast = localStorage.getItem('highContrast');
+            if (storedContrast === 'true') {
+                setAltoContrasteAtivo(true);
+                document.body.classList.add('high-contrast');
+            } else {
+                document.body.classList.remove('high-contrast');
+            }
+    
+            const storedLanguage = localStorage.getItem('language');
+            if (storedLanguage) {
+                setIdiomaSelecionado(storedLanguage);
+            }
+        }, []);
+    
+        useEffect(() => {
+            localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+            document.body.classList.toggle('dark-mode', temaEscuro);
+        }, [temaEscuro]);
+    
+        useEffect(() => {
+            localStorage.setItem('highContrast', altoContrasteAtivo);
+            document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+        }, [altoContrasteAtivo]);
+    
+        useEffect(() => {
+            localStorage.setItem('language', idiomaSelecionado);
+        }, [idiomaSelecionado]);
 
     const toggleDropdown = () => {
         setMostrarDropdown(!mostrarDropdown);
@@ -56,62 +231,9 @@ const TesteLogado = () => {
         navigate("/login");
     };
 
-    useEffect(() => {
-        const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'dark') {
-            setTemaEscuro(true);
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
 
-        const storedContrast = localStorage.getItem('highContrast');
-        if (storedContrast === 'true') {
-            setAltoContrasteAtivo(true);
-            document.body.classList.add('high-contrast');
-        } else {
-            document.body.classList.remove('high-contrast');
-        }
 
-        const storedLanguage = localStorage.getItem('language');
-        if (storedLanguage) {
-            setIdiomaSelecionado(storedLanguage);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
-        document.body.classList.toggle('dark-mode', temaEscuro);
-    }, [temaEscuro]);
-
-    useEffect(() => {
-        localStorage.setItem('highContrast', altoContrasteAtivo);
-        document.body.classList.toggle('high-contrast', altoContrasteAtivo);
-    }, [altoContrasteAtivo]);
-
-    useEffect(() => {
-        localStorage.setItem('language', idiomaSelecionado);
-    }, [idiomaSelecionado]);
-
-    const toggleIdiomaDropdown = () => {
-        setMostrarDropdownIdioma(!mostrarDropdownIdioma);
-    };
-
-    const handleIdiomaSelecionado = (idioma) => {
-        setIdiomaSelecionado(idioma);
-        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
-        setMostrarDropdownIdioma(false);
-    };
-
-    const toggleTema = () => {
-        setTemaEscuro(!temaEscuro);
-    };
-
-    const toggleAltoContraste = () => {
-        setAltoContrasteAtivo(!altoContrasteAtivo);
-    };
-
-    useEffect(() => {
+    useEffect((idiomaSelecionado) => {
         // Verifica se o usuário está logado
         const usuario = localStorage.getItem("usuarioLogado");
         if (!usuario) {
@@ -128,12 +250,12 @@ const TesteLogado = () => {
                     const data = await response.json();
                     setRotinasCadastradas(data);
                 } else {
-                    console.error('Erro ao carregar rotinas.');
-                    toast.error("Erro ao carregar rotinas.");
+                    console.error(textos[idiomaSelecionado]?.ErroCarregarRotinas);
+                    toast.error(textos[idiomaSelecionado]?.ErroCarregarRotinas);
                 }
             } catch (error) {
-                console.error('Erro ao conectar com o servidor:', error);
-                toast.error("Erro ao conectar com o servidor.");
+                console.error(textos[idiomaSelecionado]?.ErroConectarServidor, error);
+                toast.error(textos[idiomaSelecionado]?.ErroConectar);
             }
         };
 
@@ -166,14 +288,14 @@ const TesteLogado = () => {
 
         if (etapaAtual === 0) {
             if (!rotinaSelecionada) {
-                setMensagemErroTeste('Por favor, selecione uma rotina.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroRotina);
                 return;
             }
         }
 
         if (etapaAtual === 1) {
             if (isNaN(Number(kwhContaLuz)) || Number(kwhContaLuz) <= 0) {
-                setMensagemErroTeste('Por favor, digite um valor válido para o KWh da conta de luz.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroValorKWh);
                 return;
             }
         }
@@ -182,7 +304,7 @@ const TesteLogado = () => {
             const rotinaSelecionadaData = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
             if (rotinaSelecionadaData?.tipoGas === 'encanado') {
                 if (isNaN(Number(m3GasNatural)) || Number(m3GasNatural) <= 0) {
-                    setMensagemErroTeste('Por favor, digite um valor válido para o m³ da conta de gás natural.');
+                    setMensagemErroTeste(textos[idiomaSelecionado]?.ErroValorGas);
                     return;
                 }
             }
@@ -190,7 +312,7 @@ const TesteLogado = () => {
 
         if (etapaAtual === 3) {
             if (fezViagem === null) {
-                setMensagemErroTeste('Por favor, selecione se você fez alguma viagem no último mês.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroSelecioneViagem);
                 return;
             }
 
@@ -200,18 +322,18 @@ const TesteLogado = () => {
             }
 
             if (viagemInternacional === null) {
-                setMensagemErroTeste('Por favor, selecione o tipo de viagem.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroTipoViagem);
                 return;
             }
 
             if (Object.keys(veiculosViagem).length === 0) {
-                setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado na viagem.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroUmViagem);
                 return;
             }
 
             for (const veiculo in veiculosViagem) {
                 if (veiculosViagem[veiculo] && (isNaN(Number(kmPorVeiculoViagem[veiculo])) || Number(kmPorVeiculoViagem[veiculo]) <= 0)) {
-                    setMensagemErroTeste(`Por favor, digite a distância percorrida para o veículo: ${veiculo}.`);
+                    setMensagemErroTeste(`${textos[idiomaSelecionado]?.ErroDistancia} ${veiculo}.`);
                     return;
                 }
             }
@@ -219,16 +341,16 @@ const TesteLogado = () => {
 
         if (etapaAtual === 4) {
             if (viagemInternacional === null) {
-                setMensagemErroTeste('Por favor, selecione o tipo de viagem.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroTipoViagem);
                 return;
             }
             if (Object.keys(veiculosViagem).length === 0) {
-                setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado na viagem.');
+                setMensagemErroTeste(textos[idiomaSelecionado]?.ErroUmViagem);
                 return;
             }
             for (const veiculo in veiculosViagem) {
                 if (veiculosViagem[veiculo] && (isNaN(Number(kmPorVeiculoViagem[veiculo])) || Number(kmPorVeiculoViagem[veiculo]) <= 0)) {
-                    setMensagemErroTeste(`Por favor, digite a distância percorrida para o veículo: ${veiculo}.`);
+                    setMensagemErroTeste(`${textos[idiomaSelecionado]?.ErroDistancia} ${veiculo}.`);
                     return;
                 }
             }
@@ -263,26 +385,26 @@ const TesteLogado = () => {
 
     const etapas = [
         {
-            titulo: 'Selecione sua rotina',
+            titulo: textos[idiomaSelecionado]?.TituloRotinas,
             conteudo: (
                 <>
-                    <label className="pergunta">Selecione uma rotina para realizar um teste:</label>
+                    <label className="pergunta">{textos[idiomaSelecionado]?.SelecioneRotina}</label>
                     {rotinasCadastradas.length > 0 ? (
                         <select
                             className="input-texto"
                             value={rotinaSelecionada}
                             onChange={(e) => setRotinaSelecionada(e.target.value)}
                         >
-                            <option value="">Selecione...</option>
+                            <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
                             {rotinasCadastradas.map((rotina) => (
                                 <option key={rotina._id} value={rotina._id}>{rotina.nome}</option>
                             ))}
                         </select>
                     ) : (
                         <>
-                            <p>Você ainda não possui rotinas cadastradas. Deseja cadastrar agora?</p>
-                            <button className="botao secundario" onClick={handleCadastroRotina}>
-                                Cadastrar Rotina
+                            <p>{textos[idiomaSelecionado]?.AindaNaoTemRotinas}</p>
+                            <button className="botao primario" onClick={handleCadastroRotina}>
+                                {textos[idiomaSelecionado]?.CadastrarRotina}
                             </button>
                         </>
                     )}
@@ -291,10 +413,10 @@ const TesteLogado = () => {
             ),
         },
         {
-            titulo: 'Energia elétrica',
+      titulo: textos[idiomaSelecionado]?.TituloEnergiaEletrica,
             conteudo: (
                 <>
-                    <label className="pergunta">Digite o valor de KWh da sua última conta de energia elétrica:</label>
+                    <label className="pergunta">{textos[idiomaSelecionado]?.ContaDeEnergia}</label>
                     <input
                         type="number"
                         min="0"
@@ -308,28 +430,28 @@ const TesteLogado = () => {
             ),
         },
         {
-            titulo: 'Gás Natural',
+            titulo: textos[idiomaSelecionado]?.TituloGas,
             conteudo: (
                 <>
-                    <label className="pergunta">Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:</label>
+                    <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaMetrosCubicos}</label>
                     <input
                         type="number"
                         min="0"
                         className="input-texto"
                         value={m3GasNatural}
                         onChange={(e) => setM3GasNatural(e.target.value)}
-                        placeholder="Ex: 25"
+                        placeholder={textos[idiomaSelecionado]?.ExemploMetrosCubicos}
                     />
                     {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
                 </>
             ),
         },
         {
-            titulo: 'Viagens',
+            titulo: textos[idiomaSelecionado]?.TituloViagens,
             conteudo: (
                 <>
-                    <label className="pergunta">Você fez alguma viagem no último mês?</label>
-                    <small className="ajuda pequeno">Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.</small>
+                    <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagem}</label>
+          <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagens}</small>
                     <div className="radio-group">
                         <label>
                             <input
@@ -337,7 +459,7 @@ const TesteLogado = () => {
                                 value="sim"
                                 checked={fezViagem === 'sim'}
                                 onChange={(e) => setFezViagem(e.target.value)}
-                            /> Sim.
+                            /> {textos[idiomaSelecionado]?.RespostaSim}
                         </label>
                         <label>
                             <input
@@ -345,14 +467,14 @@ const TesteLogado = () => {
                                 value="nao"
                                 checked={fezViagem === 'nao'}
                                 onChange={(e) => setFezViagem(e.target.value)}
-                            /> Não.
+                            /> {textos[idiomaSelecionado]?.RespostaNao}
                         </label>
                     </div>
 
                     {fezViagem === 'sim' && (
                         <>
-                            <label className="pergunta">Foi uma viagem internacional?</label>
-                            <small className="ajuda pequeno">Selecione "Sim." se fez mais de uma viagem diferente no último mês.</small>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagemInternacional}</label>
+              <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagemInternacional}</small>
                             <div className="radio-group">
                                 <label>
                                     <input
@@ -360,7 +482,7 @@ const TesteLogado = () => {
                                         value="sim"
                                         checked={viagemInternacional === 'sim'}
                                         onChange={(e) => setViagemInternacional(e.target.value)}
-                                    /> Sim.
+                                    /> {textos[idiomaSelecionado]?.RespostaSim}
                                 </label>
                                 <label>
                                     <input
@@ -368,13 +490,13 @@ const TesteLogado = () => {
                                         value="nao"
                                         checked={viagemInternacional === 'nao'}
                                         onChange={(e) => setViagemInternacional(e.target.value)}
-                                    /> Não, foi uma viagem nacional.
+                                    /> {textos[idiomaSelecionado]?.NaoFoiInternacional}
                                 </label>
                             </div>
 
-                            <label className="pergunta">Qual (ou quais) veículo(s) você utilizou para viajar?</label>
+                            <label className="pergunta">{textos[idiomaSelecionado]?.VeiculosQueViajou}</label>
                             <div className="checkbox-group">
-                                {['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'].map((veiculo) => (
+                                {[textos[idiomaSelecionado]?.Carro, textos[idiomaSelecionado]?.CarroEletrico, textos[idiomaSelecionado]?.Moto, textos[idiomaSelecionado]?.Onibus, textos[idiomaSelecionado]?.Metro, textos[idiomaSelecionado]?.Trem, textos[idiomaSelecionado]?.Aviao, textos[idiomaSelecionado]?.BarcoCruzeiro].map((veiculo) => (
                                     <div key={veiculo} className="linha-checkbox-km">
                                         <label>
                                             <input
@@ -404,10 +526,10 @@ const TesteLogado = () => {
             ),
         },
         {
-            titulo: 'Resultados',
+            titulo: textos[idiomaSelecionado]?.TituloResultados,
             conteudo: (
                 <>
-                    <p className="pergunta">Clique em calcular para ver os resultados do seu teste!</p>
+                    <p className="pergunta">{textos[idiomaSelecionado]?.CliqueEmCalcular}</p>
                 </>
             ),
         },
@@ -430,7 +552,7 @@ const TesteLogado = () => {
             const rotinaData = rotinasCadastradas.find(r => r._id === rotinaSelecionada);
 
             if (!usuarioLogado || !rotinaData) {
-                toast.error("Erro ao recuperar usuário ou rotina.");
+                toast.error(textos[idiomaSelecionado]?.ErroUsuario);
                 return;
             }
 
@@ -438,14 +560,14 @@ const TesteLogado = () => {
             const fatorKwh = 0.0385;
             const fatorGas = 1.974;
             const fatoresVeiculo = {
-                'Metrô': 0.0035,
-                'Trem': 0.0019,
-                'Ônibus': 0.0160,
-                'Carro': 0.1268,
-                'Moto': 0.0711,
-                'Carro elétrico': 0.0891,
-                'Barco/cruzeiro': 0.250,
-                'Avião': viagemInternacional === 'sim' ? 0.1542 : 0.10974,
+[textos[idiomaSelecionado]?.Metro]: 0.0035,
+      [textos[idiomaSelecionado]?.Trem]: 0.0019,
+      [textos[idiomaSelecionado]?.Onibus]: 0.016,
+      [textos[idiomaSelecionado]?.Carro]: 0.1268,
+      [textos[idiomaSelecionado]?.Moto]: 0.0711,
+      [textos[idiomaSelecionado]?.CarroEletrico]: 0.0891,
+      [textos[idiomaSelecionado]?.BarcoCruzeiro]: 0.250,
+      [textos[idiomaSelecionado]?.Aviao]: viagemInternacional === 'sim' ? 0.1542 : 0.10974,
             };
 
             // Cálculo de energia elétrica
@@ -500,16 +622,16 @@ const TesteLogado = () => {
             });
 
             if (response.ok) {
-                toast.success("Teste salvo com sucesso!");
+                toast.success(textos[idiomaSelecionado]?.TesteSalvo);
                 setTimeout(() => {
                     navigate('/graficos-conquistas');
                 }, 2000);
             } else {
-                toast.error("Erro ao salvar o teste.");
+                toast.error(textos[idiomaSelecionado]?.ErroSalvar);
             }
         } catch (error) {
-            console.error("Erro ao salvar teste:", error);
-            toast.error("Erro de conexão com o servidor.");
+            console.error(textos[idiomaSelecionado]?.ErroSalvarTeste, error);
+            toast.error(textos[idiomaSelecionado]?.ErroDeConexão);
         }
     };
 
@@ -525,19 +647,6 @@ const TesteLogado = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
-    useEffect(() => {
-        function handleClickOutsideIdioma(event) {
-            if (mostrarDropdownIdioma && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setMostrarDropdownIdioma(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutsideIdioma);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutsideIdioma);
-        };
-    }, [mostrarDropdownIdioma, dropdownRef]);
 
     return (
         <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
@@ -558,8 +667,8 @@ const TesteLogado = () => {
                                 alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
                                 className="bandeira-idioma"
                             />
-                            <span>{idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}</span>
-                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                            <span>{textos[idiomaSelecionado]?.idioma}</span>
+                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
                         </div>
                         {mostrarDropdownIdioma && (
                             <div className="dropdown-menu-idioma show">
@@ -572,7 +681,7 @@ const TesteLogado = () => {
                                 {idiomaSelecionado !== 'en' && (
                                     <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
                                         <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                                        <span>Inglês</span>
+                                        <span>English</span>
                                     </div>
                                 )}
                             </div>
@@ -581,7 +690,7 @@ const TesteLogado = () => {
 
                     <div className="tema-contraste-controles">
                         <div className="tema-controle">
-                            <span>Tema:</span>
+                            <span>{textos[idiomaSelecionado]?.tema}</span>
                             <i
                                 className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
                                 onClick={toggleTema}
@@ -598,15 +707,15 @@ const TesteLogado = () => {
                                 />
                                 <span className="slider round"></span>
                             </label>
-                            <span>Alto Contraste:</span>
+                            <span>{textos[idiomaSelecionado]?.altoContraste}</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="header-right">
                     <div className="header-links">
-                        <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                        <span className="navlink" onClick={handleTestes}>Testes</span>
+                        <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+                        <span className="navlink" onClick={handleTestes}>{textos[idiomaSelecionado]?.testes}</span>
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
@@ -618,10 +727,10 @@ const TesteLogado = () => {
                         />
                         {mostrarDropdown && (
                             <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
-                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
-                                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
-                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
-                                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+                                      <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
+                                      <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
+                                      <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
+                                      <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
                             </div>
                         )}
                     </div>
@@ -642,22 +751,22 @@ const TesteLogado = () => {
                 <div className="botoes-navegacao">
                     {etapaAtual > 0 && (
                         <button className="botao secundario" onClick={voltarEtapa}>
-                            Voltar
+                            {textos[idiomaSelecionado]?.BotaoVoltar}
                         </button>
                     )}
                     {etapaAtual < etapasFiltradas.length - 1 && (
                         <button className="botao primario" onClick={avancarEtapa}>
-                            Avançar
+                            {textos[idiomaSelecionado]?.BotaoAvancar}
                         </button>
                     )}
                     {etapaAtual === etapasFiltradas.length - 1 && (
-                        <button className="botao primario" onClick={handleFinalizarTeste}>Calcular</button>
+                        <button className="botao primario" onClick={handleFinalizarTeste}>{textos[idiomaSelecionado]?.TituloCalcular}</button>
                     )}
                 </div>
             </main>
 
             <footer className="footer">
-                <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+                <p>{textos[idiomaSelecionado]?.rodape}</p>
             </footer>
         </div>
     );

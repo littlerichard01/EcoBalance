@@ -15,6 +15,7 @@ const textos = {
     pt: {
         paginaInicial: 'Página inicial',
         testes: 'Testes',
+        informacoesUsuario: 'Informações de Usuário',
         suasRotinas: 'Suas Rotinas',
         graficosConquistas: 'Gráficos e Conquistas',
         sair: 'Sair',
@@ -26,6 +27,10 @@ const textos = {
         tema: 'Tema:',
         altoContraste: 'Alto Contraste:',
         idioma: 'Idioma',
+        ErroDeletar: 'Erro ao deletar rotina.',
+DeletadaSucesso: 'Rotina deletada com sucesso!',
+ErroBuscarRotinas: 'Erro ao buscar rotina.',
+RespostaInesperada: 'Resposta inesperada ao buscar rotina.',
     },
     en: {
         paginaInicial: 'Homepage',
@@ -42,6 +47,10 @@ const textos = {
         tema: 'Theme:',
         altoContraste: 'High Contrast:',
         idioma: 'Language',
+        ErroDeletar: 'Error deleting routine.',
+DeletadaSucesso: 'Routine deleted successfully!',
+ErroBuscarRotinas: 'Error fetching routine.',
+RespostaInesperada: 'Unexpected response when fetching routine.',
     },
 };
 
@@ -102,11 +111,11 @@ const SuasRotinas = () => {
             await fetch(`http://localhost:3001/api/rotinas/${rotinaParaDeletar}`, {
                 method: 'DELETE',
             });
-            toast.success("Rotina deletada com sucesso!")
+            toast.success(textos[idiomaSelecionado]?.DeletadaSucesso)
             setRotinas(rotinas.filter(rotina => rotina._id !== rotinaParaDeletar));
         } catch (error) {
             console.error("Erro ao deletar rotina:", error);
-            toast.error("Erro ao deletar rotina.")
+            toast.error(textos[idiomaSelecionado]?.ErroDeletar)
         } finally {
             setMostrarModal(false);
             setRotinaParaDeletar(null);
@@ -180,7 +189,7 @@ useEffect(() => {
         setAltoContrasteAtivo(!altoContrasteAtivo);
     };
 
-    useEffect(() => {
+    useEffect((idiomaSelecionado) => {
         if (!usuario) {
             navigate("/login");
             return;
@@ -194,11 +203,11 @@ useEffect(() => {
                     setRotinas(data);
                 } else {
                     console.error("Resposta inesperada ao buscar rotinas:", data);
-                    toast.warning("Resposta inesperada ao buscar rotina.")
+                    toast.warning(textos[idiomaSelecionado]?.RespostaInesperada)
                 }
             } catch (err) {
                 console.error("Erro ao buscar rotinas:", err);
-                toast.error("Erro ao buscar rotina.")
+                toast.error(textos[idiomaSelecionado]?.ErroBuscarRotinas)
             }
         };
 
@@ -239,7 +248,7 @@ useEffect(() => {
                                 className="bandeira-idioma"
                             />
                             <span>{textos[idiomaSelecionado]?.idioma}</span>
-                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
                         </div>
                         {mostrarDropdownIdioma && (
                             <div className="dropdown-menu-idioma show">
@@ -252,7 +261,7 @@ useEffect(() => {
                                 {idiomaSelecionado !== 'en' && (
                                     <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
                                         <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                                        <span>Inglês</span>
+                                        <span>English</span>
                                     </div>
                                 )}
                             </div>
@@ -316,7 +325,7 @@ useEffect(() => {
 
                             <div className="container-rotinas">
                                 <div className="rotina-circle add" onClick={handleCadastrarRotina}>
-                                    <Plus size={40} />
+                                    <Plus className='plus' size={40} />
                                 </div>
                                 {rotinas.map((rotina, index) => (
                                     <div className="rotina-circle-wrapper" key={index}>

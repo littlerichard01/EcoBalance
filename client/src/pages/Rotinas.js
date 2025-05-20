@@ -12,33 +12,192 @@ import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
 const textos = {
-    pt: {
-        paginaInicial: 'Página inicial',
-        testes: 'Testes',
-        informacoesUsuario: 'Informações de Usuário',
+  pt: {
+    paginaInicial: 'Página inicial',
+    testes: 'Testes',
+    entrar: 'Entrar',
+    informacoesUsuario: 'Informações de Usuário',
         suasRotinas: 'Suas Rotinas',
         graficosConquistas: 'Gráficos e Conquistas',
         sair: 'Sair',
-        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
-        tema: 'Tema:',
-        altoContraste: 'Alto Contraste:',
-        idioma: 'Idioma',
-    },
-    en: {
-        paginaInicial: 'Homepage',
-        testes: 'Tests',
-        informacoesUsuario: 'User Information',
+    rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+    tema: 'Tema:',
+    altoContraste: 'Alto Contraste:',
+    idioma: 'Idioma',
+    TituloNome: 'Nome da Rotina',
+PerguntaNome: 'Digite o nome da sua rotina:',
+PlaceHolderNome: 'Ex: Semana Sustentável',
+TituloAlimentos: 'Alimentos',
+SelecioneDieta: 'Selecione a sua dieta:',
+TooltipDieta: 'Caso sua dieta não esteja dentro das opções, selecione Onívora.',
+SelecioneTresPontinhos: 'Selecione...',
+DietaOnivora: 'Onivora',
+DietaVegetariana: 'Vegetariana',
+DietaVegana: 'Vegana',
+DietaPescetariana: 'Pescetariana',
+DietaCarnivora: 'Carnívora',
+PorcoesConsumidas: 'Porções consumidas por semana:',
+AjudaPorcoes: 'Considere que uma porção equivale a uma refeição média do alimento selecionado.',
+TituloGas: 'Gás de Cozinha',
+PerguntaGas: 'Você utiliza gás encanado ou compra botijões?',
+SelecaoEncanado: 'Gás encanado',
+SelecaoBotijao: 'Botijão',
+PerguntaTipoBotijão: 'Qual tipo de botijão?',
+BotijaoP13: 'Comum P13',
+BotijaoP20: 'Médio P20',
+BotijaoP45: 'Grande P45',
+PerguntaDuracaoBotijao: 'Quanto tempo dura o gás que você compra?',
+MesesBotijao: 'meses',
+TitulosVeiculos: 'Veículos',
+PerguntaVeiculoSemana: 'Você utiliza algum tipo de veículo durante a semana?',
+RespostaSim: 'Sim',
+RespostaNao: 'Não',
+PerguntaVeiculoOuPublico: 'Você possui um veículo ou utiliza transporte público?',
+SelecaoVeiculoProprio: 'Veículo próprio',
+SelecaoPublico: 'Transporte público',
+PerguntaTipoCombustivel: 'Tipo de combustível:',
+SelecaoGasolina: 'Gasolina',
+SelecaoDiesel: 'Diesel',
+SelecaoEtanol: 'Etanol',
+SelecaoEletrico: 'Veículo elétrico',
+SelecaoNenhum: 'Não utiliza combustível',
+KmVeiculoEletrico: 'Km por semana com veículo elétrico:',
+LitrosPorMes: 'Litros abastecidos por mês:',
+TransportesSemana: 'Transportes usados na semana:',
+PlaceholderSemanal: 'Km semanais',
+BotaoVoltar: 'Voltar',
+BotaoAvancar: 'Avançar',
+CarneBovina: 'Carne bovina',
+CarneSuina: 'Carne suína',
+Frango: 'Frango',
+Peixe: 'Peixe',
+Leite: 'Leite',
+Ovos: 'Ovos',
+Leguminosas: 'Leguminosas',
+FrutasEVegetais: 'Frutas e vegetais',
+CereaisIntegrais: 'Cereais integrais',
+Onibus: 'Ônibus',
+OnibusEletrico: 'Ônibus elétrico',
+Metro: 'Metrô',
+Trem: 'Trem',
+CarroApp: 'Carro (app)',
+MotocicletaApp: 'Motocicleta (app)',
+ErroNome: 'Por favor, insira um nome para sua rotina.',
+ErroDieta: 'Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.',
+ErroOpcao: 'Por favor, selecione uma opção.',
+ErroTipoBotijao: 'Por favor, selecione um tipo de botijão de gás.',
+ErroMesGas: 'Por favor, digite quantos meses seu gás costuma durar.',
+ErroCombustivel: 'Por favor, selecione um tipo de combustível.',
+ErroLitrosCombustivel: 'Por favor, digite quantos litros de combustível você abastece por mês.',
+ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
+ErroUmVeiculo: 'Por favor, selecione pelo menos um veículo utilizado durante a semana.',
+SalvarRotina: 'Salvar Rotina',
+ErroSalvarRotinaBanco: 'Falha ao salvar rotina no banco de dados.',
+RotinaSalva: 'Rotina salva com sucesso!',
+ErroSalvarRotina: 'Erro ao salvar rotina.',
+Parabens: 'Parabéns por completar sua rotina sustentável! 🎉',
+Finalizado: 'Finalizado!'
+
+  },
+  en: {
+    paginaInicial: 'Homepage',
+    testes: 'Tests',
+    entrar: 'Login',
+    informacoesUsuario: 'User Information',
         suasRotinas: 'Your Routines',
         graficosConquistas: 'Charts and Achievements',
         sair: 'Logout',
-        rodape: '© 2025 EcoBalance — All rights reserved',
-        tema: 'Theme:',
-        altoContraste: 'High Contrast:',
-        idioma: 'Language',
-    },
+    rodape: '© 2025 EcoBalance — All rights reserved',
+    tema: 'Theme:',
+    altoContraste: 'High Contrast:',
+    idioma: 'Language',
+    TituloNome: 'Routine Name',
+PerguntaNome: 'Enter the name of your routine:',
+PlaceHolderNome: 'E.g.: Sustainable Week',
+TituloAlimentos: 'Food',
+SelecioneDieta: 'Select your diet:',
+TooltipDieta: 'If your diet is not listed, select Omnivore.',
+SelecioneTresPontinhos: 'Select...',
+DietaOnivora: 'Omnivore',
+DietaVegetariana: 'Vegetarian',
+DietaVegana: 'Vegan',
+DietaPescetariana: 'Pescetarian',
+DietaCarnivora: 'Carnivore',
+PorcoesConsumidas: 'Portions consumed per week:',
+AjudaPorcoes: 'Consider one portion as an average meal of the selected food.',
+TituloGas: 'Cooking Gas',
+PerguntaGas: 'Do you use piped gas or buy gas cylinders?',
+SelecaoEncanado: 'Piped gas',
+SelecaoBotijao: 'Cylinder',
+PerguntaTipoBotijão: 'What type of cylinder?',
+BotijaoP13: 'Standard P13',
+BotijaoP20: 'Medium P20',
+BotijaoP45: 'Large P45',
+PerguntaDuracaoBotijao: 'How long does your gas cylinder last?',
+MesesBotijao: 'months',
+TitulosVeiculos: 'Vehicles',
+PerguntaVeiculoSemana: 'Do you use any type of vehicle during the week?',
+RespostaSim: 'Yes',
+RespostaNao: 'No',
+PerguntaVeiculoOuPublico: 'Do you own a vehicle or use public transport?',
+SelecaoVeiculoProprio: 'Own vehicle',
+SelecaoPublico: 'Public transport',
+PerguntaTipoCombustivel: 'Fuel type:',
+SelecaoGasolina: 'Gasoline',
+SelecaoDiesel: 'Diesel',
+SelecaoEtanol: 'Ethanol',
+SelecaoEletrico: 'Electric vehicle',
+SelecaoNenhum: 'Does not use fuel',
+KmVeiculoEletrico: 'Km per week with electric vehicle:',
+LitrosPorMes: 'Liters fueled per month:',
+TransportesSemana: 'Transports used during the week:',
+PlaceholderSemanal: 'Weekly km',
+
+
+
+BotaoVoltar: 'Back',
+BotaoAvancar: 'Next',
+CarneBovina: 'Beef',
+CarneSuina: 'Pork',
+Frango: 'Chicken',
+Peixe: 'Fish',
+Leite: 'Milk',
+Ovos: 'Eggs',
+Leguminosas: 'Legumes',
+FrutasEVegetais: 'Fruits and vegetables',
+CereaisIntegrais: 'Whole grains',
+Onibus: 'Bus',
+OnibusEletrico: 'Electric bus',
+Metro: 'Subway',
+Trem: 'Train',
+CarroApp: 'Car (ride-hailing app)',
+MotocicletaApp: 'Motorcycle (ride-hailing app)',
+
+ErroNome: 'Please enter a name for your routine.',
+ErroDieta: 'Please select a diet and fill in the quantity of consumed food portions.',
+ErroOpcao: 'Please select an option.',
+ErroTipoBotijao: 'Please select a type of gas cylinder.',
+ErroMesGas: 'Please enter how many months your gas usually lasts.',
+ErroCombustivel: 'Please select a type of fuel.',
+ErroLitrosCombustivel: 'Please enter how many liters of fuel you use per month.',
+ErroQuilometrosEletrico: 'Please enter how many kilometers you travel in a month with your electric vehicle.',
+ErroUmVeiculo: 'Please select at least one vehicle used during the week.',
+SalvarRotina: 'Save Routine',
+ErroSalvarRotinaBanco: 'Failed to save routine to the database.',
+RotinaSalva: 'Routine saved successfully!',
+ErroSalvarRotina: 'Error saving routine.',
+Parabens: 'Congratulations on completing your sustainable routine! 🎉',
+Finalizado: 'Finished!'
+
+},
 };
 
 const Rotinas = () => {
+const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+      return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
+      const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+
   const location = useLocation();
   const rotinaCarregada = location.state?.rotina;
 
@@ -106,48 +265,48 @@ const Rotinas = () => {
 
   const avancarEtapa = () => {
     if (!nomeRotina.trim()) {
-      setMensagemErroRotina("Por favor, insira um nome para sua rotina.");
+      setMensagemErroRotina(textos[idiomaSelecionado]?.ErroNome);
       return;
     }
 
     if (!dieta && etapaAtual === 1) {
-      setMensagemErroRotina("Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.")
+      setMensagemErroRotina(textos[idiomaSelecionado]?.ErroDieta)
       return;
     }
 
     if (!tipoGas && etapaAtual === 2) {
-      setMensagemErroRotina("Por favor, selecione uma opção.");
+      setMensagemErroRotina(textos[idiomaSelecionado]?.ErroOpcao);
       return;
     } else if (tipoGas !== 'encanado' && etapaAtual === 2) {
       if (!tipoBotijao && etapaAtual === 2) {
-        setMensagemErroRotina("Por favor, selecione um tipo de botijão de gás.");
+        setMensagemErroRotina(textos[idiomaSelecionado]?.ErroTipoBotijao);
         return;
       } else if (!tempoDuracaoGas && etapaAtual === 2) {
-        setMensagemErroRotina("Por favor, digite quantos meses seu gás costuma durar.");
+        setMensagemErroRotina(textos[idiomaSelecionado]?.ErroMesGas);
         return;
       }
     }
 
     if (!usaVeiculo && etapaAtual === 3) {
-      setMensagemErroRotina("Por favor, selecione uma opção.");
+      setMensagemErroRotina(textos[idiomaSelecionado]?.ErroOpcao)
       return;
     } else if (usaVeiculo !== 'nao' && etapaAtual === 3) {
       if (!possuiVeiculo && etapaAtual === 3) {
-        setMensagemErroRotina("Por favor, selecione uma opção.");
+        setMensagemErroRotina(textos[idiomaSelecionado]?.ErroOpcao);
         return;
       } else if (possuiVeiculo === 'proprio' && etapaAtual === 3) {
         if (!combustivel && etapaAtual === 3) {
-          setMensagemErroRotina("Por favor, selecione um tipo de combustível.");
+          setMensagemErroRotina(textos[idiomaSelecionado]?.ErroCombustivel);
           return;
         } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual === 3) {
-          setMensagemErroRotina("Por favor, digite quantos litros de combustível você abastece por mês.");
+          setMensagemErroRotina(textos[idiomaSelecionado]?.ErroLitrosCombustivel);
           return;
         } else if (combustivel === 'Elétrico' && etapaAtual === 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual === 3) {
-          setMensagemErroRotina("Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.");
+          setMensagemErroRotina(textos[idiomaSelecionado]?.ErroQuilometrosEletrico);
           return;
         }
       } else if (possuiVeiculo === 'publico' && etapaAtual === 3 && Object.keys(transportesPublicos).length === 0){
-        setMensagemErroRotina('Por favor, selecione pelo menos um veículo utilizado durante a semana.');
+        setMensagemErroRotina(textos[idiomaSelecionado]?.ErroUmVeiculo);
         return;  
       }
     }
@@ -186,41 +345,41 @@ const Rotinas = () => {
   };
 
   const alimentos = [
-    'Carne bovina', 'Carne suína', 'Frango', 'Peixe',
-    'Leite', 'Ovos', 'Leguminosas', 'Frutas e vegetais', 'Cereais integrais'
+    textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe,
+    textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos, textos[idiomaSelecionado]?.Leguminosas, textos[idiomaSelecionado]?.FrutasEVegetais, textos[idiomaSelecionado]?.CereaisIntegrais
   ];
 
   const alimentosPermitidosPorDieta = {
     Onívora: alimentos, // todos
-    Vegetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe'].includes(a)),
-    Vegana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos'].includes(a)),
-    Pescetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango'].includes(a)),
-    Carnívora: ['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos']
+    Vegetariana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe].includes(a)),
+    Vegana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe, textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos].includes(a)),
+    Pescetariana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango].includes(a)),
+    Carnívora: [textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe, textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos]
   };
 
   const etapas = [
     {
-      titulo: 'Nome da Rotina',
+      titulo: textos[idiomaSelecionado]?.TituloNome,
       conteudo: (
         <>
-          <label className="pergunta">Digite o nome da sua rotina:</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaNome}</label>
           <input
             type="text"
             className="input-texto"
             value={nomeRotina}
             onChange={(e) => setNomeRotina(e.target.value)}
-            placeholder="Ex: Semana Sustentável"
+            placeholder={textos[idiomaSelecionado]?.PlaceHolderNome}
           />
           {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
         </>
       )
     },
     {
-      titulo: 'Alimentos',
+      titulo: textos[idiomaSelecionado]?.TituloAlimentos,
       conteudo: (
         <>
-          <label className="pergunta">Selecione a sua dieta:</label>
-          <small className="ajuda">Caso sua dieta não esteja dentro das opções, selecione Onívora.</small>
+          <label className="pergunta">{textos[idiomaSelecionado]?.SelecioneDieta}</label>
+          <small className="ajuda">{textos[idiomaSelecionado]?.TooltipDieta}</small>
           <select
             className="input-texto"
             value={dieta}
@@ -240,15 +399,15 @@ const Rotinas = () => {
               setPorcoes(novasPorcoes);
             }}
           >
-            <option value="">Selecione...</option>
-            <option value="Onívora">Onívora</option>
-            <option value="Vegetariana">Vegetariana</option>
-            <option value="Vegana">Vegana</option>
-            <option value="Pescetariana">Pescetariana</option>
-            <option value="Carnívora">Carnívora</option>
+            <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+            <option value="Onívora">{textos[idiomaSelecionado]?.DietaOnivora}</option>
+            <option value="Vegetariana">{textos[idiomaSelecionado]?.DietaVegetariana}</option>
+            <option value="Vegana">{textos[idiomaSelecionado]?.DietaVegana}</option>
+            <option value="Pescetariana">{textos[idiomaSelecionado]?.DietaPescetariana}</option>
+            <option value="Carnívora">{textos[idiomaSelecionado]?.DietaCarnivora}</option>
           </select>
-          <label className="pergunta">Porções consumidas por semana:</label>
-          <small className="ajuda">Considere que uma porção equivale a uma refeição média do alimento selecionado.</small>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PorcoesConsumidas}</label>
+          <small className="ajuda">{textos[idiomaSelecionado]?.AjudaPorcoes}</small>
           {alimentos.map((alimento) => {
             const permitido = alimentosPermitidosPorDieta[dieta]?.includes(alimento) ?? true;
 
@@ -273,10 +432,10 @@ const Rotinas = () => {
       )
     },
     {
-      titulo: 'Gás de Cozinha',
+      titulo: textos[idiomaSelecionado]?.TituloGas,
       conteudo: (
         <>
-          <label className="pergunta">Você utiliza gás encanado ou compra botijões?</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaGas}</label>
           <div className="radio-group">
             <label>
               <input
@@ -287,7 +446,7 @@ const Rotinas = () => {
                   setTipoGas(e.target.value);
                 }}
               />
-              Gás encanado
+              {textos[idiomaSelecionado]?.SelecaoEncanado}
             </label>
             <label>
               <input
@@ -300,34 +459,34 @@ const Rotinas = () => {
                   setTempoDuracaoGas(0);      // Resetar duração
                 }}
               />
-              Botijão
+              {textos[idiomaSelecionado]?.SelecaoBotijao}
             </label>
           </div>
           {tipoGas === 'botijao' && (
             <>
-              <label className="pergunta">Qual tipo de botijão?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaTipoBotijão}</label>
               <select
                 className="input-texto"
                 value={tipoBotijao}
                 onChange={(e) => setTipoBotijao(e.target.value)}
               >
-                <option value="">Selecione...</option>
-                <option value="P13">Comum P13</option>
-                <option value="P20">Médio P20</option>
-                <option value="P45">Grande P45</option>
+                    <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+                <option value="P13">{textos[idiomaSelecionado]?.BotijaoP13}</option>
+                <option value="P20">{textos[idiomaSelecionado]?.BotijaoP20}</option>
+                <option value="P45">{textos[idiomaSelecionado]?.BotijaoP45}</option>
               </select>
             </>
           )}
           {tipoGas === 'botijao' && (
             <>
-              <label className="pergunta">Quanto tempo dura o gás que você compra?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaDuracaoBotijao}</label>
               <input
                 type="number"
                 min="1"
                 className="spinner"
                 value={tempoDuracaoGas}
                 onChange={(e) => setTempoDuracaoGas(e.target.value)}
-              /> meses
+              /> {textos[idiomaSelecionado]?.MesesBotijao}
             </>
           )}
           {mensagemErroRotina && <small className="feedback-error">{mensagemErroRotina}</small>}
@@ -335,17 +494,17 @@ const Rotinas = () => {
       )
     },
     {
-      titulo: 'Veículos',
+      titulo: textos[idiomaSelecionado]?.TitulosVeiculos,
       conteudo: (
         <>
-          <label className="pergunta">Você utiliza algum tipo de veículo durante a semana?</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaVeiculoSemana}</label>
           <div className="radio-group">
-            <label><input type="radio" value="sim" checked={usaVeiculo === 'sim'} onChange={(e) => setUsaVeiculo(e.target.value)} /> Sim</label>
-            <label><input type="radio" value="nao" checked={usaVeiculo === 'nao'} onChange={(e) => setUsaVeiculo(e.target.value)} /> Não</label>
+            <label><input type="radio" value="sim" checked={usaVeiculo === 'sim'} onChange={(e) => setUsaVeiculo(e.target.value)} /> {textos[idiomaSelecionado]?.RespostaSim}</label>
+            <label><input type="radio" value="nao" checked={usaVeiculo === 'nao'} onChange={(e) => setUsaVeiculo(e.target.value)} /> {textos[idiomaSelecionado]?.RespostaNao}</label>
           </div>
           {usaVeiculo === 'sim' && (
             <>
-              <label className="pergunta">Você possui um veículo ou utiliza transporte público?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaVeiculoOuPublico}</label>
               <div className="radio-group">
                 <label>
                   <input
@@ -358,7 +517,7 @@ const Rotinas = () => {
                       setTransportesPublicos([]);
                       setKmTransportes({});
                     }}
-                  /> Veículo próprio
+                  /> {textos[idiomaSelecionado]?.SelecaoVeiculoProprio}
                 </label>
                 <label>
                   <input
@@ -372,12 +531,12 @@ const Rotinas = () => {
                       setLitrosCombustivel(0);
                       setKmEletrico(0);
                     }}
-                  /> Transporte público
+                  /> {textos[idiomaSelecionado]?.SelecaoPublico}
                 </label>
               </div>
               {possuiVeiculo === 'proprio' && (
                 <>
-                  <label className="pergunta">Tipo de combustível:</label>
+                  <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaTipoCombustivel}</label>
                   <select
                     className="input-texto"
                     value={combustivel}
@@ -388,16 +547,16 @@ const Rotinas = () => {
                       setKmEletrico(0);
                     }}
                   >
-                    <option value="">Selecione...</option>
-                    <option value="Gasolina">Gasolina</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Etanol">Etanol</option>
-                    <option value="Elétrico">Veículo elétrico</option>
-                    <option value="Nenhum">Não utiliza combustível</option>
+                    <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+                    <option value="Gasolina">{textos[idiomaSelecionado]?.SelecaoGasolina}</option>
+                    <option value="Diesel">{textos[idiomaSelecionado]?.SelecaoDiesel}</option>
+                    <option value="Etanol">{textos[idiomaSelecionado]?.SelecaoEtanol}</option>
+                    <option value="Elétrico">{textos[idiomaSelecionado]?.SelecaoEletrico}</option>
+                    <option value="Nenhum">{textos[idiomaSelecionado]?.SelecaoNenhum}</option>
                   </select>
                   {combustivel === 'Elétrico' && (
                     <>
-                      <label className="pergunta">Km por semana com veículo elétrico:</label>
+                      <label className="pergunta">{textos[idiomaSelecionado]?.KmVeiculoEletrico}</label>
                       <input
                         type="number"
                         min="0"
@@ -411,7 +570,7 @@ const Rotinas = () => {
 
                   {combustivel !== 'Elétrico' && combustivel !== 'Nenhum' && (
                     <>
-                      <label className="pergunta">Litros abastecidos por mês:</label>
+                      <label className="pergunta">{textos[idiomaSelecionado]?.LitrosPorMes}</label>
                       <input
                         type="number"
                         min="0"
@@ -426,8 +585,8 @@ const Rotinas = () => {
               )}
               {possuiVeiculo === 'publico' && (
                 <>
-                  <label className="pergunta">Transportes usados na semana:</label>
-                  {['Ônibus', 'Ônibus elétrico', 'Metrô', 'Trem', 'Carro (app)', 'Motocicleta (app)'].map((tipo) => (
+                  <label className="pergunta">{textos[idiomaSelecionado]?.TransportesSemana}</label>
+                  {[textos[idiomaSelecionado]?.Onibus, textos[idiomaSelecionado]?.OnibusEletrico, textos[idiomaSelecionado]?.Metro, textos[idiomaSelecionado]?.Trem, textos[idiomaSelecionado]?.CarroApp, textos[idiomaSelecionado]?.MotocicletaApp].map((tipo) => (
                     <div key={tipo} className="linha-porcao">
                       <label>
                         <input
@@ -441,7 +600,7 @@ const Rotinas = () => {
                         <input
                           type="number"
                           min="0"
-                          placeholder="Km semanais"
+                          placeholder={textos[idiomaSelecionado]?.PlaceholderSemanal}
                           className="spinner pequeno"
                           value={kmTransportes[tipo] || ''}
                           onChange={(e) =>
@@ -463,10 +622,10 @@ const Rotinas = () => {
       )
     },
     {
-      titulo: 'Finalizado!',
+      titulo: textos[idiomaSelecionado]?.Finalizado,
       conteudo: (
         <>
-          <p className="pergunta">Parabéns por completar sua rotina sustentável! 🎉</p>
+          <p className="pergunta">{textos[idiomaSelecionado]?.Parabens}</p>
           <button
             className="botao"
             onClick={() => {
@@ -502,22 +661,22 @@ const Rotinas = () => {
                 body: JSON.stringify(rotinaParaSalvar)
               })
                 .then(res => {
-                  if (!res.ok) throw new Error('Erro ao salvar rotina.');
+                  if (!res.ok) throw new Error(textos[idiomaSelecionado]?.ErroSalvarRotina);
                   return res.json();
                 })
                 .then(data => {
-                  toast.success("Rotina salva com sucesso!");
+                  toast.success(textos[idiomaSelecionado]?.RotinaSalva);
                   setTimeout(() => {
                     navigate('/suas-rotinas');
                   }, 2000);
                 })
                 .catch(err => {
                   console.error(err);
-                  toast.error("Falha ao salvar rotina no banco de dados.");
+                  toast.error(textos[idiomaSelecionado]?.ErroSalvarRotinaBanco);
                 });
             }}
           >
-            Salvar Rotina
+            {textos[idiomaSelecionado]?.SalvarRotina}
           </button>
         </>
       )
@@ -527,15 +686,15 @@ const Rotinas = () => {
   const calcularEmissoesSeparadas = () => {
     const fatores = {
       alimentos: {
-        'Carne bovina': 6.136,
-        'Carne suína': 1.149,
-        'Frango': 0.591,
-        'Peixe': 0.389,
-        'Leite': 0.594,
-        'Ovos': 0.186,
-        'Leguminosas': 0.055,
-        'Frutas e vegetais': 0.135,
-        'Cereais integrais': 0.176
+        [textos[idiomaSelecionado]?.CarneBovina]: 6.136,
+        [textos[idiomaSelecionado]?.CarneSuina]: 1.149,
+        [textos[idiomaSelecionado]?.Frango]: 0.591,
+        [textos[idiomaSelecionado]?.Peixe]: 0.389,
+        [textos[idiomaSelecionado]?.Leite]: 0.594,
+        [textos[idiomaSelecionado]?.Ovos]: 0.186,
+        [textos[idiomaSelecionado]?.Leguminosas]: 0.055,
+        [textos[idiomaSelecionado]?.FrutasEVegetais]: 0.135,
+        [textos[idiomaSelecionado]?.CereaisIntegrais]: 0.176
       },
       gas: {
         P13: 35.711,
@@ -548,12 +707,12 @@ const Rotinas = () => {
         Etanol: 1.44
       },
       transportes: {
-        'Ônibus': 0.016,
-        'Ônibus elétrico': 0,
-        'Metrô': 0.0035,
-        'Trem': 0.019,
-        'Carro (app)': 0.1268,
-        'Motocicleta (app)': 0.0711
+[textos[idiomaSelecionado]?.Onibus]: 0.016,
+        [textos[idiomaSelecionado]?.OnibusEletrico]: 0,
+        [textos[idiomaSelecionado]?.Metro]: 0.0035,
+        [textos[idiomaSelecionado]?.Trem]: 0.019,
+        [textos[idiomaSelecionado]?.CarroApp]: 0.1268,
+        [textos[idiomaSelecionado]?.MotocicletaApp]: 0.0711
       },
       eletrico: 0.0891
     };
@@ -613,10 +772,7 @@ const Rotinas = () => {
     };
   }, []);
 
-  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-      return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-    });
-      const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+  
 
     const toggleIdiomaDropdown = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
@@ -635,6 +791,43 @@ const Rotinas = () => {
     const toggleAltoContraste = () => {
         setAltoContrasteAtivo(!altoContrasteAtivo);
     };
+
+    useEffect(() => {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'dark') {
+                setTemaEscuro(true);
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+    
+            const storedContrast = localStorage.getItem('highContrast');
+            if (storedContrast === 'true') {
+                setAltoContrasteAtivo(true);
+                document.body.classList.add('high-contrast');
+            } else {
+                document.body.classList.remove('high-contrast');
+            }
+    
+            const storedLanguage = localStorage.getItem('language');
+            if (storedLanguage) {
+                setIdiomaSelecionado(storedLanguage);
+            }
+        }, []);
+    
+        useEffect(() => {
+            localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+            document.body.classList.toggle('dark-mode', temaEscuro);
+        }, [temaEscuro]);
+    
+        useEffect(() => {
+            localStorage.setItem('highContrast', altoContrasteAtivo);
+            document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+        }, [altoContrasteAtivo]);
+    
+        useEffect(() => {
+            localStorage.setItem('language', idiomaSelecionado);
+        }, [idiomaSelecionado]);
 
   return (
     <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
@@ -656,7 +849,7 @@ const Rotinas = () => {
                                       className="bandeira-idioma"
                                   />
                                   <span>{textos[idiomaSelecionado]?.idioma}</span>
-                                  <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                                  <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
                               </div>
                               {mostrarDropdownIdioma && (
                                   <div className="dropdown-menu-idioma show">
@@ -669,7 +862,7 @@ const Rotinas = () => {
                                       {idiomaSelecionado !== 'en' && (
                                           <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
                                               <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                                              <span>Inglês</span>
+                                              <span>English</span>
                                           </div>
                                       )}
                                   </div>
@@ -739,19 +932,19 @@ const Rotinas = () => {
         <div className="botoes-navegacao">
           {etapaAtual > 0 && (
             <button className="botao secundario" onClick={voltarEtapa}>
-              Voltar
+              {textos[idiomaSelecionado]?.BotaoVoltar}
             </button>
           )}
           {etapaAtual < etapas.length - 1 && (
             <button className="botao primario" onClick={avancarEtapa}>
-              Avançar
+              {textos[idiomaSelecionado]?.BotaoAvancar}
             </button>
           )}
         </div>
       </main>
 
       <footer className="footer">
-        <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+        <p>{textos[idiomaSelecionado]?.rodape}</p>
       </footer>
     </div>
 

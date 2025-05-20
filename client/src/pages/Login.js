@@ -288,7 +288,7 @@ import React, { useState, useEffect } from 'react';
                 className="bandeira-idioma"
               />
               <span>{textos[idiomaSelecionado]?.idioma}</span>
-              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
             </div>
             {mostrarDropdownIdioma && (
               <div className="dropdown-menu-idioma show">

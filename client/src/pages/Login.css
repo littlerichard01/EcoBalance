@@ -126,6 +126,26 @@ body {
   transform: scale(1.05);
 }
 
+.rotinas-container.high-contrast .btn-entrar {
+  background-color: #fff;
+  color: #000;
+  width:100px;
+  height: 55px;
+  border: none;
+  border-radius: 50px;
+  padding: 10px, 20px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+
+}
+
+.rotinas-container.high-contrast .btn-entrar:hover {
+  background-color: #d4d4d4;
+  transform: scale(1.05);
+}
+
 /* Nav */
 .nav-bar {
   position: absolute;
@@ -206,7 +226,7 @@ body {
   background-color: #fff;
   border-radius: 0;
   padding: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   max-width: 1000px;
   width: 100%;
 }
@@ -548,7 +568,7 @@ body {
   background-color: #fff;
   padding: 20px;
   margin: auto;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-box {
@@ -1115,6 +1135,14 @@ body {
   padding: 0 10px;
 }
 
+.pagina-login.dark-mode .scroll-btn {
+  color: #d4d4d4;
+}
+
+.pagina-login.high-contrast .scroll-btn {
+  color: #fff;
+}
+
 .scroll-btn.left {
   margin-right: 10px;
 }
@@ -1362,7 +1390,7 @@ body {
   background: #D9D9D9;;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   margin-bottom: 10px;
   margin-top: 10px;
 
@@ -1868,6 +1896,10 @@ body {
   color: #000000
 }
 
+.pagina-login.high-contrast .btn-alterar-informacoes {
+  background-color: #ffffff;
+  color: #000;
+}
 
 .rotinas-container.high-contrast .tema-controle {
   background-color: #ffffff;
@@ -2321,6 +2353,7 @@ input:checked + .slider:before {
 .rotinas-container.high-contrast .conteudo-rotinas {
   background-color: #111;
   color: #fff;
+  border: 1px solid #fff;
 }
 
 .rotinas-container.high-contrast .pergunta {
@@ -2349,6 +2382,16 @@ input:checked + .slider:before {
 
 .rotinas-container.high-contrast .bolinha.ativa {
   background-color: #fff;
+}
+
+.rotinas-container.high-contrast .botao {
+  background-color: #fff;
+  color: #000;
+}
+
+.rotinas-container.high-contrast .botao:hover {
+  background-color: #d4d4d4;
+  transform: scale(1.05);
 }
 
 .rotinas-container.high-contrast .botao.primario {
@@ -2387,6 +2430,7 @@ input:checked + .slider:before {
 
 .pagina-login.high-contrast .home-content {
   background-color: #111;
+  border: 1px solid #fff;
 }
 
 .pagina-login.dark-mode .dropdown-item-idioma {
@@ -2409,25 +2453,52 @@ input:checked + .slider:before {
 }
 
 
-
-
-
-.pagina-login.high-contrast .info-usuario {
-  background-color: #000;
-  border: 2px solid #fff;
+.rotinas-container.dark-mode .dropdown-item-idioma {
+  background-color: #252525;
+  color: #d4d4d4;
 }
+
+.rotinas-container.dark-mode .dropdown-item-idioma:hover {
+  background-color: #333;
+}
+
+.rotinas-container.high-contrast .dropdown-item-idioma {
+  background-color: #111;
+  color: #fff; 
+}
+
+.rotinas-container.high-contrast .dropdown-item-idioma:hover {
+  background-color: #444;
+  color: #fff;
+}
+
 .pagina-login.dark-mode .info-usuario {
   background-color: #252525;
-  border: 2px solid #444;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.pagina-login.high-contrast .info-usuario {
+  background-color: #111;
+  border: 1px solid #fff;
+}
+
+.pagina-login.dark-mode .info-usuario .login-title-Graficos {
+  color: #d4d4d4; 
+}
 .pagina-login.high-contrast .info-usuario .login-title-Graficos {
   color: #fff; 
+}
+
+.pagina-login.dark-mode .info-usuario .login-title-rotina {
+  color: #d4d4d4; 
 }
 .pagina-login.high-contrast .info-usuario .login-title-rotina {
   color: #fff; 
 }
 
+.pagina-login.dark-mode .info-usuario .grafico-label {
+  color: #d4d4d4; 
+}
 .pagina-login.high-contrast .info-usuario .grafico-label {
   color: #fff; 
 }
@@ -2457,37 +2528,77 @@ input:checked + .slider:before {
   outline: 1px solid #fff;
 }
 
-.pagina-login.high-contrast .form-group-cadastro {
-  border-color: #fff;
-  background-color: #111;
-  color: #fff;
-}
-
 .pagina-login.dark-mode .form-group-cadastro {
-  border-color: #fff;
-  background-color: #1a1a1a;
+  background-color: #252525;
   color: #fff;
+  border: 1px solid #555;
 }
 
-.pagina-login.high-contrast .custom-modal-content {
-  background-color: #000;
+.pagina-login.high-contrast .form-group-cadastro {
+  background-color: #333;
   color: #fff;
-  border: 2px solid #fff;
+  border-color: #fff;
 }
+
 .pagina-login.dark-mode .custom-modal-content {
   background-color: #2d2d2d;
   color: #fff;
   border: 2px solid #fff;
 }
-
-.pagina-login.high-contrast .rotina-circle {
-  background-color: #222;
+.pagina-login.high-contrast .custom-modal-content {
+  background-color: #000;
   color: #fff;
   border: 2px solid #fff;
 }
 
+.pagina-login.dark-mode .modal-content {
+  background-color: #2d2d2d;
+  color: #d4d4d4;
+  border: 1px solid #d4d4d4;
+}
+.pagina-login.high-contrast .modal-content {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.pagina-login.high-contrast .btn-danger {
+  background-color: #fff;;
+  color: #000;
+  border-color: #fff;;
+}
+
+.pagina-login.high-contrast .btn-secondary {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+.pagina-login.dark-mode .rotina-circle {
+  background-color: #1a1a1a;
+  color: #d4d4d4;
+}
+.pagina-login.high-contrast .rotina-circle {
+  background-color: #111;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.pagina-login.dark-mode .rotina-circle.add {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
 .pagina-login.high-contrast .rotina-circle.add {
   background-color: #111;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.pagina-login.pagina-login.high-contrast .plus {
+  color: #fff;
+}
+
+.pagina-login.pagina-login.high-contrast .icone-lixeira {
   color: #fff;
 }
 

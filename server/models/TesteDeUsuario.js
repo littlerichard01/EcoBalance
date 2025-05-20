@@ -28,7 +28,7 @@ const testeDeUsuarioSchema = new mongoose.Schema({
     internacional: { type: Boolean }, // se fezViagem = true
     veiculos: [
       {
-        tipo: { type: String, enum: ['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'] },
+        tipo: { type: String, enum: ['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro', 'Car', 'Electric car', 'Motorcycle', 'Bus', 'Subway', 'Train',  'Airplane', 'Boat/Cruise'] },
         km: { type: Number },
         emissao: { type: Number } // km * fator do veículo
       }

@@ -51,7 +51,7 @@ const textos = {
         altoContraste: 'High Contrast:',
         idioma: 'Language',
         viagens: 'Trips',
-        gas: 'gas',
+        gas: 'Gas',
         energia: 'Electricity',
         alimentos: 'Food',
         veiculos: 'Vehicles',
@@ -183,7 +183,7 @@ const GraficosEConquistas = () => {
         setAltoContrasteAtivo(!altoContrasteAtivo);
     };
 
-    useEffect(() => {
+    useEffect((idiomaSelecionado) => {
         if (!usuario) {
             navigate("/login");
             return;
@@ -197,11 +197,11 @@ const GraficosEConquistas = () => {
                     setTestes(data);
                 } else {
                     console.error("Resposta inesperada ao buscar testes:", data);
-                    toast.warning("Resposta inesperada ao buscar testes.")
+                    toast.warning(textos[idiomaSelecionado]?.RespostaInesperadaT)
                 }
             } catch (err) {
                 console.error("Erro ao buscar testes:", err);
-                toast.error("Erro ao buscar testes.")
+                toast.error(textos[idiomaSelecionado]?.ErroBuscarTestes)
             }
         };
 
@@ -263,7 +263,7 @@ const GraficosEConquistas = () => {
         if (active && payload && payload.length) {
             const { name, value } = payload[0];
             return (
-                <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px' }}>
+                <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px', color: 'black' }}>
                     <strong>{`${name}: ${value.toFixed(2)} kgCO2`}</strong>
                 </div>
             );
@@ -292,7 +292,7 @@ const GraficosEConquistas = () => {
                                 className="bandeira-idioma"
                             />
                             <span>{textos[idiomaSelecionado]?.idioma}</span>
-                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                            <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
                         </div>
                         {mostrarDropdownIdioma && (
                             <div className="dropdown-menu-idioma show">
@@ -394,7 +394,7 @@ const GraficosEConquistas = () => {
                                                     </PieChart>
                                                 </div>
                                                 <span className="grafico-label">
-                                                    {new Date(teste.dataRealizacao).toLocaleDateString('pt-BR')}
+                                                    {new Date(teste.dataRealizacao).toLocaleDateString(idiomaSelecionado === 'en' ? 'en-US' : 'pt-BR')}
                                                 </span>
                                             </div>
                                         ))

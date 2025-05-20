@@ -76,6 +76,43 @@ TituloResultados: 'Resultados',
 BotaoVoltar: 'Voltar',
 BotaoAvancar: 'Avançar',
 BotaoCadastreSe: 'Cadastre-se',
+CarneBovina: 'Carne bovina',
+CarneSuina: 'Carne suína',
+Frango: 'Frango',
+Peixe: 'Peixe',
+Leite: 'Leite',
+Ovos: 'Ovos',
+Leguminosas: 'Leguminosas',
+FrutasEVegetais: 'Frutas e vegetais',
+CereaisIntegrais: 'Cereais integrais',
+Onibus: 'Ônibus',
+OnibusEletrico: 'Ônibus elétrico',
+Metro: 'Metrô',
+Trem: 'Trem',
+CarroApp: 'Carro (app)',
+MotocicletaApp: 'Motocicleta (app)',
+Carro: 'Carro',
+CarroEletrico: 'Carro elétrico',
+Moto: 'Moto',
+Aviao: 'Avião',
+BarcoCruzeiro: 'Barco/Cruzeiro',
+ErroNome: 'Por favor, insira um nome para sua rotina.',
+ErroDieta: 'Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.',
+ErroOpcao: 'Por favor, selecione uma opção.',
+ErroTipoBotijao: 'Por favor, selecione um tipo de botijão de gás.',
+ErroMesGas: 'Por favor, digite quantos meses seu gás costuma durar.',
+ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
+ErroCombustivel: 'Por favor, selecione um tipo de combustível.',
+ErroLitrosCombustivel: 'Por favor, digite quantos litros de combustível você abastece por mês.',
+ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
+ErroUmVeiculo: 'Por favor, selecione pelo menos um veículo utilizado durante a semana.',
+ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
+ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
+ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
+ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
+ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
+TextoConclusao1: 'Total de emissões: ',
+TextoConclusao2: ' kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
   },
   en: {
     paginaInicial: 'Homepage',
@@ -144,6 +181,43 @@ TituloResultados: 'Results',
 BotaoVoltar: 'Back',
 BotaoAvancar: 'Next',
 BotaoCadastreSe: 'Sign up',
+CarneBovina: 'Beef',
+CarneSuina: 'Pork',
+Frango: 'Chicken',
+Peixe: 'Fish',
+Leite: 'Milk',
+Ovos: 'Eggs',
+Leguminosas: 'Legumes',
+FrutasEVegetais: 'Fruits and vegetables',
+CereaisIntegrais: 'Whole grains',
+Onibus: 'Bus',
+OnibusEletrico: 'Electric bus',
+Metro: 'Subway',
+Trem: 'Train',
+CarroApp: 'Car (ride-hailing app)',
+MotocicletaApp: 'Motorcycle (ride-hailing app)',
+Carro: 'Car',
+CarroEletrico: 'Electric car',
+Moto: 'Motorcycle',
+Aviao: 'Airplane',
+BarcoCruzeiro: 'Boat/Cruise',
+ErroNome: 'Please enter a name for your routine.',
+ErroDieta: 'Please select a diet and fill in the quantity of consumed food portions.',
+ErroOpcao: 'Please select an option.',
+ErroTipoBotijao: 'Please select a type of gas cylinder.',
+ErroMesGas: 'Please enter how many months your gas usually lasts.',
+ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
+ErroCombustivel: 'Please select a type of fuel.',
+ErroLitrosCombustivel: 'Please enter how many liters of fuel you use per month.',
+ErroQuilometrosEletrico: 'Please enter how many kilometers you travel in a month with your electric vehicle.',
+ErroUmVeiculo: 'Please select at least one vehicle used during the week.',
+ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
+ErroSelecioneViagem: 'Please select whether you took any trips last month.',
+ErroTipoViagem: 'Please select the type of trip.',
+ErroUmViagem: 'Please select at least one vehicle used during the trip.',
+ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
+TextoConclusao1: 'Total emissions: ',
+TextoConclusao2: ' kgCO2. Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
   },
 };
 
@@ -198,75 +272,75 @@ const Teste = () => {
     setMensagemErroTeste('');
 
     if (etapaAtual === 0 && !nomeRotina.trim()) {
-      setMensagemErroTeste("Por favor, insira um nome para sua rotina.");
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroNome);
       return;
     }
 
     if (etapaAtual === 1 && !dieta) {
-      setMensagemErroTeste("Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.")
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroDieta)
       return;
     }
 
     if (!tipoGas && etapaAtual === 2) {
-      setMensagemErroTeste("Por favor, selecione uma opção.");
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroOpcao);
       return;
     } else if (tipoGas !== 'encanado' && etapaAtual === 2) {
       if (!tipoBotijao && etapaAtual === 2) {
-        setMensagemErroTeste("Por favor, selecione um tipo de botijão de gás.");
+        setMensagemErroTeste(textos[idiomaSelecionado]?.ErroTipoBotijao);
         return;
       } else if (!tempoDuracaoGas && etapaAtual === 2) {
-        setMensagemErroTeste("Por favor, digite quantos meses seu gás costuma durar.");
+        setMensagemErroTeste(textos[idiomaSelecionado]?.ErroMesGas);
         return;
       }
     } else if (tipoGas === 'encanado' && etapaAtual === 2) {
       if (isNaN(Number(m3GasNatural)) || Number(m3GasNatural) <= 0) {
-        setMensagemErroTeste('Por favor, digite um valor válido para o m³ da conta de gás natural.');
+        setMensagemErroTeste(textos[idiomaSelecionado]?.ErroValorGas);
         return;
       }
     }
 
     if (!usaVeiculo && etapaAtual === 3) {
-      setMensagemErroTeste("Por favor, selecione uma opção.");
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroOpcao);
       return;
     } else if (usaVeiculo !== 'nao' && etapaAtual === 3) {
       if (!possuiVeiculo && etapaAtual === 3) {
-        setMensagemErroTeste("Por favor, selecione uma opção.");
+        setMensagemErroTeste(textos[idiomaSelecionado]?.ErroOpcao);
         return;
       } else if (possuiVeiculo === 'proprio' && etapaAtual === 3) {
         if (!combustivel && etapaAtual === 3) {
-          setMensagemErroTeste("Por favor, selecione um tipo de combustível.");
+          setMensagemErroTeste(textos[idiomaSelecionado]?.ErroCombustivel);
           return;
         } else if (combustivel !== 'Nenhum' && combustivel !== 'Elétrico' && !litrosCombustivel && etapaAtual === 3) {
-          setMensagemErroTeste("Por favor, digite quantos litros de combustível você abastece por mês.");
+          setMensagemErroTeste(textos[idiomaSelecionado]?.ErroLitrosCombustivel);
           return;
         } else if (combustivel === 'Elétrico' && etapaAtual === 3 && (isNaN(Number(kmEletrico)) || Number(kmEletrico) <= 0) && etapaAtual === 3) {
-          setMensagemErroTeste("Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.");
+          setMensagemErroTeste(textos[idiomaSelecionado]?.ErroQuilometrosEletrico);
           return;
         }
       } else if (possuiVeiculo === 'publico' && etapaAtual === 3 && Object.keys(transportesPublicos).length === 0) {
-        setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado durante a semana.');
+        setMensagemErroTeste(textos[idiomaSelecionado]?.ErroUmVeiculo);
         return;
       }
     }
 
     if (etapaAtual === 4 && (isNaN(Number(kwhContaLuz)) || Number(kwhContaLuz) <= 0)) {
-      setMensagemErroTeste('Por favor, digite um valor válido para o KWh da conta de luz.');
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroValorKWh);
       return;
     }
 
     if (etapaAtual === 5 && (fezViagem === null)) {
-      setMensagemErroTeste('Por favor, selecione se você fez alguma viagem no último mês.');
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroSelecioneViagem);
       return;
     } else if (etapaAtual === 5 && fezViagem === 'sim' && viagemInternacional === null) {
-      setMensagemErroTeste('Por favor, selecione o tipo de viagem.');
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroTipoViagem);
       return;
     } else if (etapaAtual === 5 && fezViagem === 'sim' && Object.keys(veiculosViagem).length === 0) {
-      setMensagemErroTeste('Por favor, selecione pelo menos um veículo utilizado na viagem.');
+      setMensagemErroTeste(textos[idiomaSelecionado]?.ErroUmViagem);
       return;
     }
     for (const veiculo in veiculosViagem) {
       if (veiculosViagem[veiculo] && (isNaN(Number(kmPorVeiculoViagem[veiculo])) || Number(kmPorVeiculoViagem[veiculo]) <= 0)) {
-        setMensagemErroTeste(`Por favor, digite a distância percorrida para o veículo: ${veiculo}.`);
+        setMensagemErroTeste(`${textos[idiomaSelecionado]?.ErroDistancia} ${veiculo}.`);
         return;
       }
     }
@@ -324,16 +398,16 @@ const Teste = () => {
   };
 
   const alimentos = [
-    'Carne bovina', 'Carne suína', 'Frango', 'Peixe',
-    'Leite', 'Ovos', 'Leguminosas', 'Frutas e vegetais', 'Cereais integrais'
+    textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe,
+    textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos, textos[idiomaSelecionado]?.Leguminosas, textos[idiomaSelecionado]?.FrutasEVegetais, textos[idiomaSelecionado]?.CereaisIntegrais
   ];
 
   const alimentosPermitidosPorDieta = {
     Onívora: alimentos, // todos
-    Vegetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe'].includes(a)),
-    Vegana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos'].includes(a)),
-    Pescetariana: alimentos.filter(a => !['Carne bovina', 'Carne suína', 'Frango'].includes(a)),
-    Carnívora: ['Carne bovina', 'Carne suína', 'Frango', 'Peixe', 'Leite', 'Ovos']
+    Vegetariana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe].includes(a)),
+    Vegana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe, textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos].includes(a)),
+    Pescetariana: alimentos.filter(a => ![textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango].includes(a)),
+    Carnívora: [textos[idiomaSelecionado]?.CarneBovina, textos[idiomaSelecionado]?.CarneSuina, textos[idiomaSelecionado]?.Frango, textos[idiomaSelecionado]?.Peixe, textos[idiomaSelecionado]?.Leite, textos[idiomaSelecionado]?.Ovos]
   };
 
   const etapas = [
@@ -579,7 +653,7 @@ const Teste = () => {
               {possuiVeiculo === 'publico' && (
                 <>
                   <label className="pergunta">{textos[idiomaSelecionado]?.TransportesSemana}</label>
-                  {['Ônibus', 'Ônibus elétrico', 'Metrô', 'Trem', 'Carro (app)', 'Motocicleta (app)'].map((tipo) => (
+                  {[textos[idiomaSelecionado]?.Onibus, textos[idiomaSelecionado]?.OnibusEletrico, textos[idiomaSelecionado]?.Metro, textos[idiomaSelecionado]?.Trem, textos[idiomaSelecionado]?.CarroApp, textos[idiomaSelecionado]?.MotocicletaApp].map((tipo) => (
                     <div key={tipo} className="linha-porcao">
                       <label>
                         <input
@@ -681,7 +755,7 @@ const Teste = () => {
 
               <label className="pergunta">{textos[idiomaSelecionado]?.VeiculosQueViajou}</label>
               <div className="checkbox-group">
-                {['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'].map((veiculo) => (
+                {[textos[idiomaSelecionado]?.Carro, textos[idiomaSelecionado]?.CarroEletrico, textos[idiomaSelecionado]?.Moto, textos[idiomaSelecionado]?.Onibus, textos[idiomaSelecionado]?.Metro, textos[idiomaSelecionado]?.Trem, textos[idiomaSelecionado]?.Aviao, textos[idiomaSelecionado]?.BarcoCruzeiro].map((veiculo) => (
                   <div key={veiculo} className="linha-checkbox-km">
                     <label>
                       <input
@@ -732,15 +806,15 @@ const Teste = () => {
     // Fatores rotina
     const fatores = {
       alimentos: {
-        'Carne bovina': 6.136,
-        'Carne suína': 1.149,
-        'Frango': 0.591,
-        'Peixe': 0.389,
-        'Leite': 0.594,
-        'Ovos': 0.186,
-        'Leguminosas': 0.055,
-        'Frutas e vegetais': 0.135,
-        'Cereais integrais': 0.176
+        [textos[idiomaSelecionado]?.CarneBovina]: 6.136,
+        [textos[idiomaSelecionado]?.CarneSuina]: 1.149,
+        [textos[idiomaSelecionado]?.Frango]: 0.591,
+        [textos[idiomaSelecionado]?.Peixe]: 0.389,
+        [textos[idiomaSelecionado]?.Leite]: 0.594,
+        [textos[idiomaSelecionado]?.Ovos]: 0.186,
+        [textos[idiomaSelecionado]?.Leguminosas]: 0.055,
+        [textos[idiomaSelecionado]?.FrutasEVegetais]: 0.135,
+        [textos[idiomaSelecionado]?.CereaisIntegrais]: 0.176
       },
       gas: {
         P13: 35.711,
@@ -753,12 +827,12 @@ const Teste = () => {
         Etanol: 1.44
       },
       transportes: {
-        'Ônibus': 0.016,
-        'Ônibus elétrico': 0,
-        'Metrô': 0.0035,
-        'Trem': 0.019,
-        'Carro (app)': 0.1268,
-        'Motocicleta (app)': 0.0711
+        [textos[idiomaSelecionado]?.Onibus]: 0.016,
+        [textos[idiomaSelecionado]?.OnibusEletrico]: 0,
+        [textos[idiomaSelecionado]?.Metro]: 0.0035,
+        [textos[idiomaSelecionado]?.Trem]: 0.019,
+        [textos[idiomaSelecionado]?.CarroApp]: 0.1268,
+        [textos[idiomaSelecionado]?.MotocicletaApp]: 0.0711
       },
       eletrico: 0.0891
     };
@@ -799,14 +873,14 @@ const Teste = () => {
     const fatorKwh = 0.0385;
     const fatorGas = 1.974;
     const fatoresVeiculo = {
-      'Metrô': 0.0035,
-      'Trem': 0.0019,
-      'Ônibus': 0.016,
-      'Carro': 0.1268,
-      'Moto': 0.0711,
-      'Carro elétrico': 0.0891,
-      'Barco/cruzeiro': 0.250,
-      'Avião': viagemInternacional === 'sim' ? 0.1542 : 0.10974,
+      [textos[idiomaSelecionado]?.Metro]: 0.0035,
+      [textos[idiomaSelecionado]?.Trem]: 0.0019,
+      [textos[idiomaSelecionado]?.Onibus]: 0.016,
+      [textos[idiomaSelecionado]?.Carro]: 0.1268,
+      [textos[idiomaSelecionado]?.Moto]: 0.0711,
+      [textos[idiomaSelecionado]?.CarroEletrico]: 0.0891,
+      [textos[idiomaSelecionado]?.BarcoCruzeiro]: 0.250,
+      [textos[idiomaSelecionado]?.Aviao]: viagemInternacional === 'sim' ? 0.1542 : 0.10974,
     };
 
     // Cálculo de energia elétrica
@@ -899,31 +973,31 @@ const Teste = () => {
     // Viagens
     const emissaoViagens = resultados.testeData.viagem?.veiculos?.reduce((acc, v) => acc + (v.emissao || 0), 0);
     if (emissaoViagens > 0) {
-      dados.push({ categoria: 'Viagens', valor: emissaoViagens });
+      dados.push({ categoria: textos[idiomaSelecionado]?.TituloViagens, valor: emissaoViagens });
     }
 
     // Gás (natural ou botijão)
     const emissaoGas = resultados.testeData.gasNatural?.emissao || resultados.rotinaParaSalvar.emissoes.gas || 0;
     if (emissaoGas > 0) {
-      dados.push({ categoria: 'Gás', valor: emissaoGas });
+      dados.push({ categoria: textos[idiomaSelecionado]?.TituloGas, valor: emissaoGas });
     }
 
     // Energia elétrica
     const emissaoEnergia = resultados.testeData.energiaEletrica?.emissao || 0;
     if (emissaoEnergia > 0) {
-      dados.push({ categoria: 'Energia', valor: emissaoEnergia });
+      dados.push({ categoria: textos[idiomaSelecionado]?.TituloEnergiaEletrica, valor: emissaoEnergia });
     }
 
     // Alimentos
     const emissaoAlimentos = resultados.testeData.emissaoAlimentos || 0;
     if (emissaoAlimentos > 0) {
-      dados.push({ categoria: 'Alimentos', valor: emissaoAlimentos });
+      dados.push({ categoria: textos[idiomaSelecionado]?.TituloAlimentos, valor: emissaoAlimentos });
     }
 
     // Veículos (uso semanal)
     const emissaoVeiculos = resultados.testeData.emissaoVeiculos || 0;
     if (emissaoVeiculos > 0) {
-      dados.push({ categoria: 'Veículos', valor: emissaoVeiculos });
+      dados.push({ categoria: textos[idiomaSelecionado]?.TitulosVeiculos, valor: emissaoVeiculos });
     }
 
     return dados;
@@ -931,10 +1005,10 @@ const Teste = () => {
 
   const renderTooltipContent = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      const { name, value } = payload[0];
+      const { value } = payload[0];
       return (
         <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px', color: 'black' }}>
-          <strong className='tooltips'>{`${name}: ${value.toFixed(2)} kgCO2`}</strong>
+          <strong className='tooltips'>{`${value.toFixed(2)} kgCO2`}</strong>
         </div>
       );
     }
@@ -1109,7 +1183,7 @@ const Teste = () => {
 </div>
             <div>
               <p className="pergunta">
-                Total de emissões: {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!
+                {textos[idiomaSelecionado]?.TextoConclusao1} {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} {textos[idiomaSelecionado]?.TextoConclusao2}
               </p>
             </div>
           </div>
