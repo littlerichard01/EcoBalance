@@ -4,9 +4,157 @@ import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+
+const textos = {
+  pt: {
+    paginaInicial: 'Página inicial',
+    testes: 'Testes',
+    entrar: 'Entrar',
+    nomeDaRotina: '',
+    rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+    tema: 'Tema:',
+    altoContraste: 'Alto Contraste:',
+    idioma: 'Idioma',
+    TituloNome: 'Nome da Rotina',
+PerguntaNome: 'Digite o nome da sua rotina:',
+PlaceHolderNome: 'Ex: Semana Sustentável',
+TituloAlimentos: 'Alimentos',
+SelecioneDieta: 'Selecione a sua dieta:',
+TooltipDieta: 'Caso sua dieta não esteja dentro das opções, selecione Onívora.',
+SelecioneTresPontinhos: 'Selecione...',
+DietaOnivora: 'Onivora',
+DietaVegetariana: 'Vegetariana',
+DietaVegana: 'Vegana',
+DietaPescetariana: 'Pescetariana',
+DietaCarnivora: 'Carnívora',
+PorcoesConsumidas: 'Porções consumidas por semana:',
+AjudaPorcoes: 'Considere que uma porção equivale a uma refeição média do alimento selecionado.',
+TituloGas: 'Gás de Cozinha',
+PerguntaGas: 'Você utiliza gás encanado ou compra botijões?',
+SelecaoEncanado: 'Gás encanado',
+SelecaoBotijao: 'Botijão',
+PerguntaTipoBotijão: 'Qual tipo de botijão?',
+BotijaoP13: 'Comum P13',
+BotijaoP20: 'Médio P20',
+BotijaoP45: 'Grande P45',
+PerguntaDuracaoBotijao: 'Quanto tempo dura o gás que você compra?',
+MesesBotijao: 'meses',
+PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
+ExemploMetrosCubicos: 'Ex: 25',
+TitulosVeiculos: 'Veículos',
+PerguntaVeiculoSemana: 'Você utiliza algum tipo de veículo durante a semana?',
+RespostaSim: 'Sim',
+RespostaNao: 'Não',
+PerguntaVeiculoOuPublico: 'Você possui um veículo ou utiliza transporte público?',
+SelecaoVeiculoProprio: 'Veículo próprio',
+SelecaoPublico: 'Transporte público',
+PerguntaTipoCombustivel: 'Tipo de combustível:',
+SelecaoGasolina: 'Gasolina',
+SelecaoDiesel: 'Diesel',
+SelecaoEtanol: 'Etanol',
+SelecaoEletrico: 'Veículo elétrico',
+SelecaoNenhum: 'Não utiliza combustível',
+KmVeiculoEletrico: 'Km por semana com veículo elétrico:',
+LitrosPorMes: 'Litros abastecidos por mês:',
+TransportesSemana: 'Transportes usados na semana:',
+PlaceholderSemanal: 'Km semanais',
+TituloEnergiaEletrica: 'Energia elétrica',
+ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
+TituloViagens: 'Viagens',
+PerguntaViagem: 'Você fez alguma viagem no último mês?',
+DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
+PerguntaViagemInternacional: 'Foi uma viagem internacional?',
+DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
+NaoFoiInternacional: 'Não, foi uma viagem nacional.',
+VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
+TituloCalcular: 'Calcular',
+CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
+TituloResultados: 'Resultados',
+BotaoVoltar: 'Voltar',
+BotaoAvancar: 'Avançar',
+BotaoCadastreSe: 'Cadastre-se',
+  },
+  en: {
+    paginaInicial: 'Homepage',
+    testes: 'Tests',
+    entrar: 'Login',
+    
+    rodape: '© 2025 EcoBalance — All rights reserved',
+    tema: 'Theme:',
+    altoContraste: 'High Contrast:',
+    idioma: 'Language',
+    TituloNome: 'Routine Name',
+PerguntaNome: 'Enter the name of your routine:',
+PlaceHolderNome: 'E.g.: Sustainable Week',
+TituloAlimentos: 'Food',
+SelecioneDieta: 'Select your diet:',
+TooltipDieta: 'If your diet is not listed, select Omnivore.',
+SelecioneTresPontinhos: 'Select...',
+DietaOnivora: 'Omnivore',
+DietaVegetariana: 'Vegetarian',
+DietaVegana: 'Vegan',
+DietaPescetariana: 'Pescetarian',
+DietaCarnivora: 'Carnivore',
+PorcoesConsumidas: 'Portions consumed per week:',
+AjudaPorcoes: 'Consider one portion as an average meal of the selected food.',
+TituloGas: 'Cooking Gas',
+PerguntaGas: 'Do you use piped gas or buy gas cylinders?',
+SelecaoEncanado: 'Piped gas',
+SelecaoBotijao: 'Cylinder',
+PerguntaTipoBotijão: 'What type of cylinder?',
+BotijaoP13: 'Standard P13',
+BotijaoP20: 'Medium P20',
+BotijaoP45: 'Large P45',
+PerguntaDuracaoBotijao: 'How long does your gas cylinder last?',
+MesesBotijao: 'months',
+PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
+ExemploMetrosCubicos: 'E.g.: 25',
+TitulosVeiculos: 'Vehicles',
+PerguntaVeiculoSemana: 'Do you use any type of vehicle during the week?',
+RespostaSim: 'Yes',
+RespostaNao: 'No',
+PerguntaVeiculoOuPublico: 'Do you own a vehicle or use public transport?',
+SelecaoVeiculoProprio: 'Own vehicle',
+SelecaoPublico: 'Public transport',
+PerguntaTipoCombustivel: 'Fuel type:',
+SelecaoGasolina: 'Gasoline',
+SelecaoDiesel: 'Diesel',
+SelecaoEtanol: 'Ethanol',
+SelecaoEletrico: 'Electric vehicle',
+SelecaoNenhum: 'Does not use fuel',
+KmVeiculoEletrico: 'Km per week with electric vehicle:',
+LitrosPorMes: 'Liters fueled per month:',
+TransportesSemana: 'Transports used during the week:',
+PlaceholderSemanal: 'Weekly km',
+TituloEnergiaEletrica: 'Electricity',
+ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
+TituloViagens: 'Trips',
+PerguntaViagem: 'Did you take any trips last month?',
+DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
+PerguntaViagemInternacional: 'Was it an international trip?',
+DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
+NaoFoiInternacional: 'No, it was a national trip.',
+VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
+TituloCalcular: 'Calculate',
+CliqueEmCalcular: 'Click to calculate and see your test results!',
+TituloResultados: 'Results',
+BotaoVoltar: 'Back',
+BotaoAvancar: 'Next',
+BotaoCadastreSe: 'Sign up',
+  },
+};
 
 const Teste = () => {
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+      });
+    const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+    const [temaEscuro, setTemaEscuro] = useState(false);
+    const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -15,7 +163,7 @@ const Teste = () => {
   const handleInicioClick = () => {
     navigate('/');
   };
-  const handleTestes = () => {
+  const handleTesteClick = () => {
     navigate('/teste')
   }
 
@@ -190,27 +338,27 @@ const Teste = () => {
 
   const etapas = [
     {
-      titulo: 'Nome da Rotina',
+      titulo: textos[idiomaSelecionado]?.TituloNome,
       conteudo: (
         <>
-          <label className="pergunta">Digite o nome da sua rotina:</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaNome}</label>
           <input
             type="text"
             className="input-texto"
             value={nomeRotina}
             onChange={(e) => setNomeRotina(e.target.value)}
-            placeholder="Ex: Semana Sustentável"
+            placeholder={textos[idiomaSelecionado]?.PlaceHolderNome}
           />
           {mensagemErroTeste && <small className="feedback-error">{mensagemErroTeste}</small>}
         </>
       )
     },
     {
-      titulo: 'Alimentos',
+      titulo: textos[idiomaSelecionado]?.TituloAlimentos,
       conteudo: (
         <>
-          <label className="pergunta">Selecione a sua dieta:</label>
-          <small className="ajuda">Caso sua dieta não esteja dentro das opções, selecione Onívora.</small>
+          <label className="pergunta">{textos[idiomaSelecionado]?.SelecioneDieta}</label>
+          <small className="ajuda">{textos[idiomaSelecionado]?.TooltipDieta}</small>
           <select
             className="input-texto"
             value={dieta}
@@ -230,15 +378,15 @@ const Teste = () => {
               setPorcoes(novasPorcoes);
             }}
           >
-            <option value="">Selecione...</option>
-            <option value="Onívora">Onívora</option>
-            <option value="Vegetariana">Vegetariana</option>
-            <option value="Vegana">Vegana</option>
-            <option value="Pescetariana">Pescetariana</option>
-            <option value="Carnívora">Carnívora</option>
+            <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+            <option value="Onívora">{textos[idiomaSelecionado]?.DietaOnivora}</option>
+            <option value="Vegetariana">{textos[idiomaSelecionado]?.DietaVegetariana}</option>
+            <option value="Vegana">{textos[idiomaSelecionado]?.DietaVegana}</option>
+            <option value="Pescetariana">{textos[idiomaSelecionado]?.DietaPescetariana}</option>
+            <option value="Carnívora">{textos[idiomaSelecionado]?.DietaCarnivora}</option>
           </select>
-          <label className="pergunta">Porções consumidas por semana:</label>
-          <small className="ajuda">Considere que uma porção equivale a uma refeição média do alimento selecionado.</small>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PorcoesConsumidas}</label>
+          <small className="ajuda">{textos[idiomaSelecionado]?.AjudaPorcoes}</small>
           {alimentos.map((alimento) => {
             const permitido = alimentosPermitidosPorDieta[dieta]?.includes(alimento) ?? true;
 
@@ -263,10 +411,10 @@ const Teste = () => {
       )
     },
     {
-      titulo: 'Gás de Cozinha',
+      titulo: textos[idiomaSelecionado]?.TituloGas,
       conteudo: (
         <>
-          <label className="pergunta">Você utiliza gás encanado ou compra botijões?</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaGas}</label>
           <div className="radio-group">
             <label>
               <input
@@ -278,7 +426,7 @@ const Teste = () => {
                   setM3GasNatural(0);          // Resetar m3
                 }}
               />
-              Gás encanado
+              {textos[idiomaSelecionado]?.SelecaoEncanado}
             </label>
             <label>
               <input
@@ -291,46 +439,46 @@ const Teste = () => {
                   setTempoDuracaoGas(0);      // Resetar duração
                 }}
               />
-              Botijão
+              {textos[idiomaSelecionado]?.SelecaoBotijao}
             </label>
           </div>
           {tipoGas === 'botijao' && (
             <>
-              <label className="pergunta">Qual tipo de botijão?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaTipoBotijão}</label>
               <select
                 className="input-texto"
                 value={tipoBotijao}
                 onChange={(e) => setTipoBotijao(e.target.value)}
               >
-                <option value="">Selecione...</option>
-                <option value="P13">Comum P13</option>
-                <option value="P20">Médio P20</option>
-                <option value="P45">Grande P45</option>
+                <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+                <option value="P13">{textos[idiomaSelecionado]?.BotijaoP13}</option>
+                <option value="P20">{textos[idiomaSelecionado]?.BotijaoP20}</option>
+                <option value="P45">{textos[idiomaSelecionado]?.BotijaoP45}</option>
               </select>
             </>
           )}
           {tipoGas === 'botijao' && (
             <>
-              <label className="pergunta">Quanto tempo dura o gás que você compra?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaDuracaoBotijao}</label>
               <input
                 type="number"
                 min="1"
                 className="spinner"
                 value={tempoDuracaoGas}
                 onChange={(e) => setTempoDuracaoGas(e.target.value)}
-              /> meses
+              /> {textos[idiomaSelecionado]?.MesesBotijao}
             </>
           )}
           {tipoGas === 'encanado' && (
             <>
-              <label className="pergunta">Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaMetrosCubicos}</label>
               <input
                 type="number"
                 min="0"
                 className="input-texto"
                 value={m3GasNatural}
                 onChange={(e) => setM3GasNatural(e.target.value)}
-                placeholder="Ex: 25"
+                placeholder={textos[idiomaSelecionado]?.ExemploMetrosCubicos}
               />
             </>
           )}
@@ -339,17 +487,17 @@ const Teste = () => {
       )
     },
     {
-      titulo: 'Veículos',
+      titulo: textos[idiomaSelecionado]?.TitulosVeiculos,
       conteudo: (
         <>
-          <label className="pergunta">Você utiliza algum tipo de veículo durante a semana?</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaVeiculoSemana}</label>
           <div className="radio-group">
-            <label><input type="radio" value="sim" checked={usaVeiculo === 'sim'} onChange={(e) => setUsaVeiculo(e.target.value)} /> Sim</label>
-            <label><input type="radio" value="nao" checked={usaVeiculo === 'nao'} onChange={(e) => setUsaVeiculo(e.target.value)} /> Não</label>
+            <label><input type="radio" value="sim" checked={usaVeiculo === 'sim'} onChange={(e) => setUsaVeiculo(e.target.value)} /> {textos[idiomaSelecionado]?.RespostaSim}</label>
+            <label><input type="radio" value="nao" checked={usaVeiculo === 'nao'} onChange={(e) => setUsaVeiculo(e.target.value)} /> {textos[idiomaSelecionado]?.RespostaNao}</label>
           </div>
           {usaVeiculo === 'sim' && (
             <>
-              <label className="pergunta">Você possui um veículo ou utiliza transporte público?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaVeiculoOuPublico}</label>
               <div className="radio-group">
                 <label>
                   <input
@@ -362,7 +510,7 @@ const Teste = () => {
                       setTransportesPublicos([]);
                       setKmTransportes({});
                     }}
-                  /> Veículo próprio
+                  /> {textos[idiomaSelecionado]?.SelecaoVeiculoProprio}
                 </label>
                 <label>
                   <input
@@ -376,12 +524,12 @@ const Teste = () => {
                       setLitrosCombustivel(0);
                       setKmEletrico(0);
                     }}
-                  /> Transporte público
+                  /> {textos[idiomaSelecionado]?.SelecaoPublico}
                 </label>
               </div>
               {possuiVeiculo === 'proprio' && (
                 <>
-                  <label className="pergunta">Tipo de combustível:</label>
+                  <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaTipoCombustivel}</label>
                   <select
                     className="input-texto"
                     value={combustivel}
@@ -392,16 +540,16 @@ const Teste = () => {
                       setKmEletrico(0);
                     }}
                   >
-                    <option value="">Selecione...</option>
-                    <option value="Gasolina">Gasolina</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Etanol">Etanol</option>
-                    <option value="Elétrico">Veículo elétrico</option>
-                    <option value="Nenhum">Não utiliza combustível</option>
+                    <option value="">{textos[idiomaSelecionado]?.SelecioneTresPontinhos}</option>
+                    <option value="Gasolina">{textos[idiomaSelecionado]?.SelecaoGasolina}</option>
+                    <option value="Diesel">{textos[idiomaSelecionado]?.SelecaoDiesel}</option>
+                    <option value="Etanol">{textos[idiomaSelecionado]?.SelecaoEtanol}</option>
+                    <option value="Elétrico">{textos[idiomaSelecionado]?.SelecaoEletrico}</option>
+                    <option value="Nenhum">{textos[idiomaSelecionado]?.SelecaoNenhum}</option>
                   </select>
                   {combustivel === 'Elétrico' && (
                     <>
-                      <label className="pergunta">Km por semana com veículo elétrico:</label>
+                      <label className="pergunta">{textos[idiomaSelecionado]?.KmVeiculoEletrico}</label>
                       <input
                         type="number"
                         min="0"
@@ -415,7 +563,7 @@ const Teste = () => {
 
                   {combustivel !== 'Elétrico' && combustivel !== 'Nenhum' && (
                     <>
-                      <label className="pergunta">Litros abastecidos por mês:</label>
+                      <label className="pergunta">{textos[idiomaSelecionado]?.LitrosPorMes}</label>
                       <input
                         type="number"
                         min="0"
@@ -430,7 +578,7 @@ const Teste = () => {
               )}
               {possuiVeiculo === 'publico' && (
                 <>
-                  <label className="pergunta">Transportes usados na semana:</label>
+                  <label className="pergunta">{textos[idiomaSelecionado]?.TransportesSemana}</label>
                   {['Ônibus', 'Ônibus elétrico', 'Metrô', 'Trem', 'Carro (app)', 'Motocicleta (app)'].map((tipo) => (
                     <div key={tipo} className="linha-porcao">
                       <label>
@@ -445,7 +593,7 @@ const Teste = () => {
                         <input
                           type="number"
                           min="0"
-                          placeholder="Km semanais"
+                          placeholder={textos[idiomaSelecionado]?.PlaceholderSemanal}
                           className="spinner pequeno"
                           value={kmTransportes[tipo] || ''}
                           onChange={(e) =>
@@ -467,10 +615,10 @@ const Teste = () => {
       )
     },
     {
-      titulo: 'Energia elétrica',
+      titulo: textos[idiomaSelecionado]?.TituloEnergiaEletrica,
       conteudo: (
         <>
-          <label className="pergunta">Digite o valor de KWh da sua última conta de energia elétrica:</label>
+          <label className="pergunta">{textos[idiomaSelecionado]?.ContaDeEnergia}</label>
           <input
             type="number"
             min="0"
@@ -484,11 +632,11 @@ const Teste = () => {
       ),
     },
     {
-      titulo: 'Viagens',
+      titulo: textos[idiomaSelecionado]?.TituloViagens,
       conteudo: (
         <>
-          <label className="pergunta">Você fez alguma viagem no último mês?</label>
-          <small className="ajuda pequeno">Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.</small>
+          <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagem}</label>
+          <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagens}</small>
           <div className="radio-group">
             <label>
               <input
@@ -496,7 +644,7 @@ const Teste = () => {
                 value="sim"
                 checked={fezViagem === 'sim'}
                 onChange={(e) => setFezViagem(e.target.value)}
-              /> Sim.
+              /> {textos[idiomaSelecionado]?.RespostaSim}
             </label>
             <label>
               <input
@@ -504,14 +652,14 @@ const Teste = () => {
                 value="nao"
                 checked={fezViagem === 'nao'}
                 onChange={(e) => setFezViagem(e.target.value)}
-              /> Não.
+              /> {textos[idiomaSelecionado]?.RespostaNao}
             </label>
           </div>
 
           {fezViagem === 'sim' && (
             <>
-              <label className="pergunta">Foi uma viagem internacional?</label>
-              <small className="ajuda pequeno">Selecione "Sim." se fez mais de uma viagem diferente no último mês.</small>
+              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagemInternacional}</label>
+              <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagemInternacional}</small>
               <div className="radio-group">
                 <label>
                   <input
@@ -519,7 +667,7 @@ const Teste = () => {
                     value="sim"
                     checked={viagemInternacional === 'sim'}
                     onChange={(e) => setViagemInternacional(e.target.value)}
-                  /> Sim.
+                  /> {textos[idiomaSelecionado]?.RespostaSim}
                 </label>
                 <label>
                   <input
@@ -527,11 +675,11 @@ const Teste = () => {
                     value="nao"
                     checked={viagemInternacional === 'nao'}
                     onChange={(e) => setViagemInternacional(e.target.value)}
-                  /> Não, foi uma viagem nacional.
+                  /> {textos[idiomaSelecionado]?.NaoFoiInternacional}
                 </label>
               </div>
 
-              <label className="pergunta">Qual (ou quais) veículo(s) você utilizou para viajar?</label>
+              <label className="pergunta">{textos[idiomaSelecionado]?.VeiculosQueViajou}</label>
               <div className="checkbox-group">
                 {['Carro', 'Carro elétrico', 'Moto', 'Ônibus', 'Metrô', 'Trem', 'Avião', 'Barco/cruzeiro'].map((veiculo) => (
                   <div key={veiculo} className="linha-checkbox-km">
@@ -562,16 +710,16 @@ const Teste = () => {
       ),
     },
     {
-      titulo: 'Calcular',
+      titulo: textos[idiomaSelecionado]?.TituloCalcular,
       conteudo: (
         <>
-          <p className="pergunta">Clique em calcular para ver os resultados do seu teste!</p>
+          <p className="pergunta">{textos[idiomaSelecionado]?.CliqueEmCalcular}</p>
 
         </>
       ),
     },
     {
-      titulo: 'Resultados',
+      titulo: textos[idiomaSelecionado]?.TituloResultados,
       conteudo: (
         <>
 
@@ -785,8 +933,8 @@ const Teste = () => {
     if (active && payload && payload.length) {
       const { name, value } = payload[0];
       return (
-        <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px' }}>
-          <strong>{`${name}: ${value.toFixed(2)} kgCO2`}</strong>
+        <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px', color: 'black' }}>
+          <strong className='tooltips'>{`${name}: ${value.toFixed(2)} kgCO2`}</strong>
         </div>
       );
     }
@@ -802,22 +950,134 @@ const Teste = () => {
   };
 
 
+
+    useEffect(() => {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark') {
+        setTemaEscuro(true);
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+  
+      const storedContrast = localStorage.getItem('highContrast');
+      if (storedContrast === 'true') {
+        setAltoContrasteAtivo(true);
+        document.body.classList.add('high-contrast');
+      } else {
+        document.body.classList.remove('high-contrast');
+      }
+  
+      const storedLanguage = localStorage.getItem('language');
+      if (storedLanguage) {
+        setIdiomaSelecionado(storedLanguage);
+      }
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+      document.body.classList.toggle('dark-mode', temaEscuro);
+    }, [temaEscuro]);
+  
+    useEffect(() => {
+      localStorage.setItem('highContrast', altoContrasteAtivo);
+      document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+    }, [altoContrasteAtivo]);
+  
+    useEffect(() => {
+      localStorage.setItem('language', idiomaSelecionado);
+    }, [idiomaSelecionado]);
+
+
+
+  const toggleIdiomaDropdown = () => {
+    setMostrarDropdownIdioma(!mostrarDropdownIdioma);
+  };
+
+  const handleIdiomaSelecionado = (idioma) => {
+    setIdiomaSelecionado(idioma);
+    localStorage.setItem('language', idioma); // Salva no localStorage
+    setMostrarDropdownIdioma(false);
+  };
+
+  const toggleTema = () => {
+    setTemaEscuro(!temaEscuro);
+  };
+
+  const toggleAltoContraste = () => {
+    setAltoContrasteAtivo(!altoContrasteAtivo);
+  };
+
   return (
-    <div className="rotinas-container">
+    <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-        </div>
-        <div className="header-right">
-          <div className="header-links">
-            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink" onClick={handleTestes}>Testes</span>
-          </div>
-          <button className="btn-entrar" onClick={handleLoginClick}>Entrar</button>
-        </div>
-      </header>
+              <div className="header-top">
+                <img src={logo} alt="Logo" className="logo" />
+              </div>
+      
+              <div className="header-left-controls">
+                <div className="dropdown-idioma">
+                  <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
+                    <img
+                      src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
+                      alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
+                      className="bandeira-idioma"
+                    />
+                    <span>{textos[idiomaSelecionado]?.idioma}</span>
+                    <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
+                  </div>
+                  {mostrarDropdownIdioma && (
+                    <div className="dropdown-menu-idioma show">
+                      {idiomaSelecionado !== 'pt' && (
+                        <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
+                          <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
+                          <span>Português</span>
+                        </div>
+                      )}
+                      {idiomaSelecionado !== 'en' && (
+                        <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
+                          <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
+                          <span>English</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+      
+                <div className="tema-contraste-controles">
+                  <div className="tema-controle">
+                    <span>{textos[idiomaSelecionado]?.tema}</span>
+                    <i
+                      className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
+                      onClick={toggleTema}
+                      style={{ cursor: 'pointer', fontSize: '1.5em' }}
+                    ></i>
+                  </div>
+      
+                  <div className="alto-contraste-container">
+                    <label className="switch">
+                      <input
+                        type="checkbox"
+                        checked={altoContrasteAtivo}
+                        onChange={toggleAltoContraste}
+                      />
+                      <span className="slider round"></span>
+                    </label>
+                    <span>{textos[idiomaSelecionado]?.altoContraste}</span>
+                  </div>
+                </div>
+              </div>
+      
+              <div className="header-right">
+                <div className="header-links">
+                  <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+                  <span className="navlink" onClick={handleTesteClick}>{textos[idiomaSelecionado]?.testes}</span>
+                </div>
+                <button className="btn-entrar" onClick={handleLoginClick}>{textos[idiomaSelecionado]?.entrar}</button>
+              </div>
+            </header>
 
       <main className="conteudo-rotinas">
         <div className="progresso-bolinhas">
@@ -833,18 +1093,20 @@ const Teste = () => {
         {dadosGrafico.length > 0 && etapaAtual === etapasFiltradas.length - 1 && (
           <div>
             <div style={{ width: '100%', maxWidth: '600px', margin: '40px auto' }}>
-              <BarChart width={600} height={300} data={dadosGrafico}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="categoria" />
-                <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
-                <Tooltip content={renderTooltipContent} />
-                <Bar dataKey="valor">
-                  {dadosGrafico.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </div>
+  <ResponsiveContainer width="100%" height={300}>
+    <BarChart data={dadosGrafico}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="categoria" />
+      <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
+      <Tooltip content={renderTooltipContent} />
+      <Bar dataKey="valor">
+        {dadosGrafico.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+        ))}
+      </Bar>
+    </BarChart>
+  </ResponsiveContainer>
+</div>
             <div>
               <p className="pergunta">
                 Total de emissões: {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!
@@ -855,29 +1117,29 @@ const Teste = () => {
         <div className="botoes-navegacao">
           {etapaAtual > 0 && (
             <button className="botao secundario" onClick={voltarEtapa}>
-              Voltar
+              {textos[idiomaSelecionado]?.BotaoVoltar}
             </button>
           )}
           {etapaAtual < etapasFiltradas.length - 2 && (
             <button className="botao primario" onClick={avancarEtapa}>
-              Avançar
+              {textos[idiomaSelecionado]?.BotaoAvancar}
             </button>
           )}
           {etapaAtual === etapasFiltradas.length - 2 && (
             <button className="botao primario" onClick={(handleCalcular)}>
-              Calcular
+              {textos[idiomaSelecionado]?.TituloCalcular}
             </button>
           )}
           {etapaAtual === etapasFiltradas.length - 1 && (
             <button className="botao primario" onClick={(handleLoginClick)}>
-              Cadastre-se
+              {textos[idiomaSelecionado]?.BotaoCadastreSe}
             </button>
           )}
         </div>
       </main>
 
       <footer className="footer">
-        <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+        <p>{textos[idiomaSelecionado]?.rodape}</p>
       </footer>
     </div>
   );

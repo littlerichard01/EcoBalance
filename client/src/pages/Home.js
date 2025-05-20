@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
@@ -75,7 +75,9 @@ const Home = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const images = [fotoHome01, fotoHome02, fotoHome03];
-  const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
   const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
   const [temaEscuro, setTemaEscuro] = useState(false);
   const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -117,6 +119,7 @@ const Home = () => {
     localStorage.setItem('language', idiomaSelecionado);
   }, [idiomaSelecionado]);
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -142,6 +145,7 @@ const Home = () => {
 
   const handleIdiomaSelecionado = (idioma) => {
     setIdiomaSelecionado(idioma);
+    localStorage.setItem('language', idioma); // Salva no localStorage
     setMostrarDropdownIdioma(false);
   };
 
@@ -172,7 +176,7 @@ const Home = () => {
                 className="bandeira-idioma"
               />
               <span>{textos[idiomaSelecionado]?.idioma}</span>
-              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
             </div>
             {mostrarDropdownIdioma && (
               <div className="dropdown-menu-idioma show">
@@ -185,7 +189,7 @@ const Home = () => {
                 {idiomaSelecionado !== 'en' && (
                   <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
                     <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                    <span>Inglês</span>
+                    <span>English</span>
                   </div>
                 )}
               </div>
@@ -241,7 +245,7 @@ const Home = () => {
                   <p>{textos[idiomaSelecionado]?.questionarioPersonalizado}</p>
                 </div>
                 <div className="overlay-content-btn">
-                  <button className="overlay-button">{textos[idiomaSelecionado]?.calcular}</button>
+                  <button className="overlay-button" onClick={handleTesteClick}>{textos[idiomaSelecionado]?.calcular}</button>
                 </div>
               </div>
             </div>
@@ -268,7 +272,7 @@ const Home = () => {
             <p>{textos[idiomaSelecionado]?.textoComoCalcular}</p>
 
             <div className="btn-wrapper">
-              <button className="btn-calcular">{textos[idiomaSelecionado]?.calcular}</button>
+              <button className="btn-calcular" onClick={handleTesteClick}>{textos[idiomaSelecionado]?.calcular}</button>
             </div>
           </section>
 

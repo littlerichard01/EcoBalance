@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
-import { BsPersonFill } from 'react-icons/bs';
 import { TrashFill, Plus, PencilFill } from 'react-bootstrap-icons';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
@@ -12,13 +11,50 @@ import 'react-toastify/dist/ReactToastify.css';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
+const textos = {
+    pt: {
+        paginaInicial: 'Página inicial',
+        testes: 'Testes',
+        suasRotinas: 'Suas Rotinas',
+        graficosConquistas: 'Gráficos e Conquistas',
+        sair: 'Sair',
+        deletarRotina: 'Deletar Rotina',
+        desejaDeletar: 'Deseja mesmo deletar a rotina',
+        cancelar: 'Cancelar',
+        sim: 'Sim',
+        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+        tema: 'Tema:',
+        altoContraste: 'Alto Contraste:',
+        idioma: 'Idioma',
+    },
+    en: {
+        paginaInicial: 'Homepage',
+        testes: 'Tests',
+        informacoesUsuario: 'User Information',
+        suasRotinas: 'Your Routines',
+        graficosConquistas: 'Charts and Achievements',
+        sair: 'Logout',
+        deletarRotina: 'Delete Routine',
+        desejaDeletar: 'Do you really want to delete the routine',
+        cancelar: 'Cancel',
+        sim: 'Yes',
+        rodape: '© 2025 EcoBalance — All rights reserved',
+        tema: 'Theme:',
+        altoContraste: 'High Contrast:',
+        idioma: 'Language',
+    },
+};
+
 const SuasRotinas = () => {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
     const [mostrarDropdown, setMostrarDropdown] = useState(false);
     const dropdownRef = useRef(null);
 
-    const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+    // Estados para as funcionalidades de tema e idioma
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -102,12 +138,18 @@ const SuasRotinas = () => {
         } else {
             document.body.classList.remove('high-contrast');
         }
-
-        const storedLanguage = localStorage.getItem('language');
-        if (storedLanguage) {
-            setIdiomaSelecionado(storedLanguage);
-        }
     }, []);
+
+useEffect(() => {
+  const storedLanguage = localStorage.getItem('language');
+  if (storedLanguage) {
+    setIdiomaSelecionado(storedLanguage);
+  }
+}, []);
+
+useEffect(() => {
+  localStorage.setItem('language', idiomaSelecionado);
+}, [idiomaSelecionado]);
 
     useEffect(() => {
         localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
@@ -119,18 +161,15 @@ const SuasRotinas = () => {
         document.body.classList.toggle('high-contrast', altoContrasteAtivo);
     }, [altoContrasteAtivo]);
 
-    useEffect(() => {
-        localStorage.setItem('language', idiomaSelecionado);
-    }, [idiomaSelecionado]);
-
     const toggleIdiomaDropdown = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
     };
 
     const handleIdiomaSelecionado = (idioma) => {
-        console.log("Idioma selecionado:", idioma);
         setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
         setMostrarDropdownIdioma(false);
+        console.log("Idioma selecionado:", idiomaSelecionado);
     };
 
     const toggleTema = () => {
@@ -179,19 +218,6 @@ const SuasRotinas = () => {
         };
     }, []);
 
-    useEffect(() => {
-        function handleClickOutsideIdioma(event) {
-            if (mostrarDropdownIdioma && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setMostrarDropdownIdioma(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutsideIdioma);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutsideIdioma);
-        };
-    }, [mostrarDropdownIdioma, dropdownRef]);
-
     return (
         <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
@@ -212,7 +238,7 @@ const SuasRotinas = () => {
                                 alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
                                 className="bandeira-idioma"
                             />
-                            <span>{idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}</span>
+                            <span>{textos[idiomaSelecionado]?.idioma}</span>
                             <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
                         </div>
                         {mostrarDropdownIdioma && (
@@ -235,7 +261,7 @@ const SuasRotinas = () => {
 
                     <div className="tema-contraste-controles">
                         <div className="tema-controle">
-                            <span>Tema:</span>
+                            <span>{textos[idiomaSelecionado]?.tema}</span>
                             <i
                                 className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
                                 onClick={toggleTema}
@@ -252,15 +278,15 @@ const SuasRotinas = () => {
                                 />
                                 <span className="slider round"></span>
                             </label>
-                            <span>Alto Contraste:</span>
+                            <span>{textos[idiomaSelecionado]?.altoContraste}</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="header-right">
                     <div className="header-links">
-                        <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-                        <span className="navlink" onClick={handleTestes}>Testes</span>
+                        <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+                        <span className="navlink" onClick={handleTestes}>{textos[idiomaSelecionado]?.testes}</span>
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
@@ -272,10 +298,10 @@ const SuasRotinas = () => {
                         />
                         {mostrarDropdown && (
                             <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
-                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
-                                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
-                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
-                                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
+                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
+                                <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
+                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
+                                <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
                             </div>
                         )}
                     </div>
@@ -286,7 +312,7 @@ const SuasRotinas = () => {
                 <div className="info-usuario">
                     <div className="login-box">
                         <div className="login-section-alterar-rotinas">
-                            <h2 className="login-title-rotina">Suas Rotinas</h2>
+                            <h2 className="login-title-rotina">{textos[idiomaSelecionado]?.suasRotinas}</h2>
 
                             <div className="container-rotinas">
                                 <div className="rotina-circle add" onClick={handleCadastrarRotina}>
@@ -314,13 +340,13 @@ const SuasRotinas = () => {
                                         {mostrarModal && rotinaParaDeletar === rotina._id && (
                                             <div className="custom-modal-overlay">
                                                 <div className="custom-modal-content">
-                                                    <h2 className="modal-title">Deletar Rotina</h2>
+                                                    <h2 className="modal-title">{textos[idiomaSelecionado]?.deletarRotina}</h2>
                                                     <div className="modal-form-group">
-                                                        <label>Deseja mesmo deletar a rotina {rotina.nome}</label>
+                                                        <label>{textos[idiomaSelecionado]?.desejaDeletar} {rotina.nome}</label>
                                                     </div>
                                                     <div className="modal-buttons">
-                                                        <button className="btn btn-secondary" onClick={() => setMostrarModal(false)}>Cancelar</button>
-                                                        <button className="btn btn-danger" onClick={confirmarRemocaoRotina}>Sim</button>
+                                                        <button className="btn btn-secondary" onClick={() => setMostrarModal(false)}>{textos[idiomaSelecionado]?.cancelar}</button>
+                                                        <button className="btn btn-danger" onClick={confirmarRemocaoRotina}>{textos[idiomaSelecionado]?.sim}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,7 +360,7 @@ const SuasRotinas = () => {
             </main>
 
             <footer className="footer">
-                <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+                <p>{textos[idiomaSelecionado]?.rodape}</p>
             </footer>
         </div>
     );

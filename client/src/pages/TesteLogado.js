@@ -24,9 +24,12 @@ const TesteLogado = () => {
     const [viagemInternacional, setViagemInternacional] = useState(null);
     const [veiculosViagem, setVeiculosViagem] = useState({});
     const [kmPorVeiculoViagem, setKmPorVeiculoViagem] = useState({});
+
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
-    const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
 
     const toggleDropdown = () => {
@@ -96,6 +99,7 @@ const TesteLogado = () => {
 
     const handleIdiomaSelecionado = (idioma) => {
         setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
         setMostrarDropdownIdioma(false);
     };
 

@@ -41,7 +41,9 @@ import React, { useState, useEffect } from 'react';
 
  const NovaSenha = () => {
   const navigate = useNavigate();
-  const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
   const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
   const [temaEscuro, setTemaEscuro] = useState(false);
   const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -89,6 +91,7 @@ import React, { useState, useEffect } from 'react';
 
   const handleIdiomaSelecionado = (idioma) => {
     setIdiomaSelecionado(idioma);
+    localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
     setMostrarDropdownIdioma(false);
     console.log(`Idioma selecionado: ${idioma}`);
   };

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Login.css';
-import { BsBellFill, BsPersonFill } from 'react-icons/bs';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
 import avatar from '../assets/avatar.png';
@@ -25,9 +24,15 @@ const textos = {
         conquistas: 'Conquistas',
         detalhesGraficoDia: 'Detalhes do Gráfico do dia',
         fechar: 'Fechar',
+        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
         tema: 'Tema:',
         altoContraste: 'Alto Contraste:',
         idioma: 'Idioma',
+        viagens: 'Viagens',
+        gas: 'Gás',
+        energia: 'Energia',
+        alimentos: 'Alimentos',
+        veiculos: 'Veículos',
     },
     en: {
         paginaInicial: 'Homepage',
@@ -41,9 +46,15 @@ const textos = {
         conquistas: 'Achievements',
         detalhesGraficoDia: 'Chart Details for',
         fechar: 'Close',
+        rodape: '© 2025 EcoBalance — All rights reserved',
         tema: 'Theme:',
         altoContraste: 'High Contrast:',
         idioma: 'Language',
+        viagens: 'Trips',
+        gas: 'gas',
+        energia: 'Electricity',
+        alimentos: 'Food',
+        veiculos: 'Vehicles',
     },
 };
 
@@ -55,7 +66,9 @@ const GraficosEConquistas = () => {
     const dropdownRef = useRef(null);
 
     // Estados para as funcionalidades de tema e idioma
-    const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -90,7 +103,6 @@ const GraficosEConquistas = () => {
     }
 
     const [testes, setTestes] = useState([]);
-    const [activeIndex, setActiveIndex] = useState(null);
 
     const [showModal, setShowModal] = useState(false);
     const [graficoSelecionado, setGraficoSelecionado] = useState(null);
@@ -159,6 +171,7 @@ const GraficosEConquistas = () => {
 
     const handleIdiomaSelecionado = (idioma) => {
         setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
         setMostrarDropdownIdioma(false);
     };
 
@@ -291,8 +304,8 @@ const GraficosEConquistas = () => {
                                 )}
                                 {idiomaSelecionado !== 'en' && (
                                     <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
-                                        <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                                        <span>Inglês</span>
+                                        <img src={bandeiraReinoUnido} alt="English" className="bandeira-idioma-item" />
+                                        <span>English</span>
                                     </div>
                                 )}
                             </div>
@@ -455,7 +468,7 @@ const GraficosEConquistas = () => {
             </main>
 
             <footer className="footer">
-                <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+                <p>{textos[idiomaSelecionado]?.rodape}</p>
             </footer>
         </div>
     );

@@ -7,7 +7,6 @@ import fotoHome01 from '../assets/fotoHome01.jpeg';
 import fotoHome02 from '../assets/fotoHome02.jpeg';
 import fotoHome03 from '../assets/fotoHome03.jpeg';
 import { useNavigate } from 'react-router-dom';
-import { BsBellFill } from 'react-icons/bs';
 import avatar from '../assets/avatar.png';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
@@ -80,14 +79,15 @@ const textos = {
 };
 
 const Home = () => {
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
   const navigate = useNavigate();
 
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
   // Estados para as funcionalidades
-  const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
   const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
   const [temaEscuro, setTemaEscuro] = useState(false);
   const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -164,6 +164,7 @@ const Home = () => {
 
   const handleIdiomaSelecionado = (idioma) => {
     setIdiomaSelecionado(idioma);
+    localStorage.setItem('language', idioma); // Salva no localStorage
     setMostrarDropdownIdioma(false);
     console.log(`Idioma selecionado: ${idioma}`);
     // O estado 'idiomaSelecionado' agora controla qual conjunto de textos é exibido.

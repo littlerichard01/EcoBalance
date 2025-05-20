@@ -8,6 +8,35 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+
+const textos = {
+    pt: {
+        paginaInicial: 'Página inicial',
+        testes: 'Testes',
+        informacoesUsuario: 'Informações de Usuário',
+        suasRotinas: 'Suas Rotinas',
+        graficosConquistas: 'Gráficos e Conquistas',
+        sair: 'Sair',
+        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+        tema: 'Tema:',
+        altoContraste: 'Alto Contraste:',
+        idioma: 'Idioma',
+    },
+    en: {
+        paginaInicial: 'Homepage',
+        testes: 'Tests',
+        informacoesUsuario: 'User Information',
+        suasRotinas: 'Your Routines',
+        graficosConquistas: 'Charts and Achievements',
+        sair: 'Logout',
+        rodape: '© 2025 EcoBalance — All rights reserved',
+        tema: 'Theme:',
+        altoContraste: 'High Contrast:',
+        idioma: 'Language',
+    },
+};
 
 const Rotinas = () => {
   const location = useLocation();
@@ -71,6 +100,9 @@ const Rotinas = () => {
   const [kmEletrico, setKmEletrico] = useState(rotinaCarregada?.kmEletrico || 0);
   const [transportesPublicos, setTransportesPublicos] = useState(rotinaCarregada?.transportesPublicos || []);
   const [kmTransportes, setKmTransportes] = useState(rotinaCarregada?.kmTransportes || {});
+
+      const [temaEscuro, setTemaEscuro] = useState(false);
+      const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
 
   const avancarEtapa = () => {
     if (!nomeRotina.trim()) {
@@ -581,49 +613,117 @@ const Rotinas = () => {
     };
   }, []);
 
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+      return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
+      const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+
+    const toggleIdiomaDropdown = () => {
+        setMostrarDropdownIdioma(!mostrarDropdownIdioma);
+    };
+
+    const handleIdiomaSelecionado = (idioma) => {
+        setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage
+        setMostrarDropdownIdioma(false);
+    };
+
+    const toggleTema = () => {
+        setTemaEscuro(!temaEscuro);
+    };
+
+    const toggleAltoContraste = () => {
+        setAltoContrasteAtivo(!altoContrasteAtivo);
+    };
+
   return (
-    <div className="rotinas-container">
+    <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <header className="header">
-        <div className="header-top">
-          <img src={logo} alt="Logo" className="logo" />
-        </div>
-
-        <div className="header-right">
-
-
-
-          <div className="header-links">
-            <span className="navlink" onClick={handleInicioClick}>Página inicial</span>
-            <span className="navlink" onClick={handleTestes}>Testes</span>
-          </div>
-
-
-
-          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
-            <img
-              src={avatar}
-              alt="Avatar do usuário"
-              className="icone-avatar"
-              onClick={toggleDropdown}
-              style={{ cursor: 'pointer' }}
-            />
-            {mostrarDropdown && (
-              <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
-                <button className="dropdown-item" onClick={handleUsuarioAcesso}>Informações de Usuário</button>
-                <button className="dropdown-item" onClick={handleRotinas}>Suas Rotinas</button>
-                <button className="dropdown-item" onClick={handleGráficosEConquistas}>Gráficos e Conquistas</button>
-                <button className="dropdown-item text-danger" onClick={handleLogout}>Sair</button>
-              </div>
-            )}
-          </div>
-        </div>
-
-
-      </header>
+                      <div className="header-top">
+                          <img src={logo} alt="Logo" className="logo" />
+                      </div>
+      
+                      <div className="header-left-controls">
+                          <div className="dropdown-idioma">
+                              <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
+                                  <img
+                                      src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
+                                      alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
+                                      className="bandeira-idioma"
+                                  />
+                                  <span>{textos[idiomaSelecionado]?.idioma}</span>
+                                  <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em' }}></i>
+                              </div>
+                              {mostrarDropdownIdioma && (
+                                  <div className="dropdown-menu-idioma show">
+                                      {idiomaSelecionado !== 'pt' && (
+                                          <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
+                                              <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
+                                              <span>Português</span>
+                                          </div>
+                                      )}
+                                      {idiomaSelecionado !== 'en' && (
+                                          <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
+                                              <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
+                                              <span>Inglês</span>
+                                          </div>
+                                      )}
+                                  </div>
+                              )}
+                          </div>
+      
+                          <div className="tema-contraste-controles">
+                              <div className="tema-controle">
+                                  <span>{textos[idiomaSelecionado]?.tema}</span>
+                                  <i
+                                      className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
+                                      onClick={toggleTema}
+                                      style={{ cursor: 'pointer', fontSize: '1.5em' }}
+                                  ></i>
+                              </div>
+      
+                              <div className="alto-contraste-container">
+                                  <label className="switch">
+                                      <input
+                                          type="checkbox"
+                                          checked={altoContrasteAtivo}
+                                          onChange={toggleAltoContraste}
+                                      />
+                                      <span className="slider round"></span>
+                                  </label>
+                                  <span>{textos[idiomaSelecionado]?.altoContraste}</span>
+                              </div>
+                          </div>
+                      </div>
+      
+                      <div className="header-right">
+                          <div className="header-links">
+                              <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+                              <span className="navlink" onClick={handleTestes}>{textos[idiomaSelecionado]?.testes}</span>
+                          </div>
+                          <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
+                              <img
+                                  src={avatar}
+                                  alt="Avatar do usuário"
+                                  className="icone-avatar"
+                                  onClick={toggleDropdown}
+                                  style={{ cursor: 'pointer' }}
+                              />
+                              {mostrarDropdown && (
+                                  <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
+                                      <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
+                                      <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
+                                      <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
+                                      <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
+                                  </div>
+                              )}
+                          </div>
+                      </div>
+                  </header>
 
       <main className="conteudo-rotinas">
         <div className="progresso-bolinhas">

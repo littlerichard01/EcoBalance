@@ -33,9 +33,13 @@ const textos = {
         desejoReceberNotificacoesEmail: 'Desejo receber notificações por e-mail',
         cancelar: 'Cancelar',
         salvar: 'Salvar',
+        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
         tema: 'Tema:',
         altoContraste: 'Alto Contraste:',
         idioma: 'Idioma',
+        informacoesAtualizadasSucesso: 'Informações atualizadas com sucesso.',
+        senhaAntigaIncorreta: 'Senha atual incorreta. Tente novamente.',
+        erroAtualizarInformacoes: 'Erro ao atualizar as informações.',
     },
     en: {
         paginaInicial: 'Homepage',
@@ -57,9 +61,13 @@ const textos = {
         desejoReceberNotificacoesEmail: 'I want to receive email notifications',
         cancelar: 'Cancel',
         salvar: 'Save',
+        rodape: '© 2025 EcoBalance — All rights reserved',
         tema: 'Theme:',
         altoContraste: 'High Contrast:',
         idioma: 'Language',
+        informacoesAtualizadasSucesso: 'Information updated successfully.',
+        senhaAntigaIncorreta: 'Current password is incorrect. Please try again.',
+        erroAtualizarInformacoes: 'Error updating the information.',
     },
 };
 
@@ -81,7 +89,9 @@ const InfoCadastro = () => {
     const dropdownRef = useRef(null);
 
     // Estados para as funcionalidades de tema e idioma
-    const [idiomaSelecionado, setIdiomaSelecionado] = useState('pt');
+    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -251,6 +261,7 @@ const InfoCadastro = () => {
 
     const handleIdiomaSelecionado = (idioma) => {
         setIdiomaSelecionado(idioma);
+        localStorage.setItem('language', idioma); // Salva no localStorage
         setMostrarDropdownIdioma(false);
     };
 
@@ -499,7 +510,7 @@ const InfoCadastro = () => {
             </main>
 
             <footer className="footer">
-                <p>© 2025 EcoBalance — Todos os direitos reservados</p>
+                <p>{textos[idiomaSelecionado]?.rodape}</p>
             </footer>
         </div>
     );
