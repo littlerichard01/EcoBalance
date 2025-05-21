@@ -81,7 +81,7 @@ const textos = {
 const Home = () => {
   const navigate = useNavigate();
 
-  
+
 
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
   const dropdownRef = useRef(null);
@@ -164,7 +164,7 @@ const Home = () => {
     setMostrarDropdownIdioma(!mostrarDropdownIdioma);
   };
 
-    const legends = {
+  const legends = {
     pt: [
       "Imagem 1 - Floresta vista de cima",
       "Imagem 2 - Mão simulando que está segundando vários símbolos relacionados a sustentabilidade",
@@ -180,7 +180,7 @@ const Home = () => {
 
 
 
-  
+
 
   const handleIdiomaSelecionado = (idioma) => {
     setIdiomaSelecionado(idioma);

@@ -11,129 +11,129 @@ import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
 const textos = {
-  pt: {
-    paginaInicial: 'Página inicial',
-    testes: 'Testes',
-    entrar: 'Entrar',
-    informacoesUsuario: 'Informações de Usuário',
+    pt: {
+        paginaInicial: 'Página inicial',
+        testes: 'Testes',
+        entrar: 'Entrar',
+        informacoesUsuario: 'Informações de Usuário',
         suasRotinas: 'Suas Rotinas',
         graficosConquistas: 'Gráficos e Conquistas',
         sair: 'Sair',
-    rodape: '© 2025 EcoBalance — Todos os direitos reservados',
-    tema: 'Tema:',
-    altoContraste: 'Alto Contraste:',
-    idioma: 'Idioma',
-SelecioneTresPontinhos: 'Selecione...',
-TituloGas: 'Gás de Cozinha',
-PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
-ExemploMetrosCubicos: 'Ex: 25',
-RespostaSim: 'Sim',
-RespostaNao: 'Não',
-TituloEnergiaEletrica: 'Energia elétrica',
-ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
-TituloViagens: 'Viagens',
-PerguntaViagem: 'Você fez alguma viagem no último mês?',
-DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
-PerguntaViagemInternacional: 'Foi uma viagem internacional?',
-DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
-NaoFoiInternacional: 'Não, foi uma viagem nacional.',
-VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
-TituloCalcular: 'Calcular',
-CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
-TituloResultados: 'Resultados',
-BotaoVoltar: 'Voltar',
-BotaoAvancar: 'Avançar',
-Onibus: 'Ônibus',
-Metro: 'Metrô',
-Trem: 'Trem',
-Carro: 'Carro',
-CarroEletrico: 'Carro elétrico',
-Moto: 'Moto',
-Aviao: 'Avião',
-BarcoCruzeiro: 'Barco/Cruzeiro',
-ErroOpcao: 'Por favor, selecione uma opção.',
-ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
-ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
-ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
-ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
-ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
-ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
-ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
-ErroDeConexão: 'Erro de conexão com o servidor.',
-ErroSalvarTeste: 'Erro ao salvar teste: ',
-ErroSalvar: 'Erro ao salvar teste.',
-TesteSalvo: 'Teste salvo com sucesso!',
-ErroUsuario: 'Erro ao recuperar usuário ou rotina.',
-CadastrarRotina: 'Cadastrar Rotina',
-AindaNaoTemRotinas: 'Você ainda não possui rotinas cadastradas. Deseja cadastrar agora?',
-SelecioneRotina: 'Selecione uma rotina para realizar um teste:',
-TituloRotinas: 'Selecione sua rotina',
-ErroRotina: 'Por favor, selecione uma rotina.',
-ErroConectarServidor: 'Erro ao conectar com o servidor:',
-ErroConectar: 'Erro ao conectar com o servidor.',
-ErroCarregarRotinas: 'Erro ao carregar rotinas.',
-},
-  en: {
-    paginaInicial: 'Homepage',
-    testes: 'Tests',
-    entrar: 'Login',
-    informacoesUsuario: 'User Information',
+        rodape: '© 2025 EcoBalance — Todos os direitos reservados',
+        tema: 'Tema:',
+        altoContraste: 'Alto Contraste:',
+        idioma: 'Idioma',
+        SelecioneTresPontinhos: 'Selecione...',
+        TituloGas: 'Gás de Cozinha',
+        PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
+        ExemploMetrosCubicos: 'Ex: 25',
+        RespostaSim: 'Sim',
+        RespostaNao: 'Não',
+        TituloEnergiaEletrica: 'Energia elétrica',
+        ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
+        TituloViagens: 'Viagens',
+        PerguntaViagem: 'Você fez alguma viagem no último mês?',
+        DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
+        PerguntaViagemInternacional: 'Foi uma viagem internacional?',
+        DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
+        NaoFoiInternacional: 'Não, foi uma viagem nacional.',
+        VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
+        TituloCalcular: 'Calcular',
+        CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
+        TituloResultados: 'Resultados',
+        BotaoVoltar: 'Voltar',
+        BotaoAvancar: 'Avançar',
+        Onibus: 'Ônibus',
+        Metro: 'Metrô',
+        Trem: 'Trem',
+        Carro: 'Carro',
+        CarroEletrico: 'Carro elétrico',
+        Moto: 'Moto',
+        Aviao: 'Avião',
+        BarcoCruzeiro: 'Barco/Cruzeiro',
+        ErroOpcao: 'Por favor, selecione uma opção.',
+        ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
+        ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
+        ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
+        ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
+        ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
+        ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
+        ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
+        ErroDeConexão: 'Erro de conexão com o servidor.',
+        ErroSalvarTeste: 'Erro ao salvar teste: ',
+        ErroSalvar: 'Erro ao salvar teste.',
+        TesteSalvo: 'Teste salvo com sucesso!',
+        ErroUsuario: 'Erro ao recuperar usuário ou rotina.',
+        CadastrarRotina: 'Cadastrar Rotina',
+        AindaNaoTemRotinas: 'Você ainda não possui rotinas cadastradas. Deseja cadastrar agora?',
+        SelecioneRotina: 'Selecione uma rotina para realizar um teste:',
+        TituloRotinas: 'Selecione sua rotina',
+        ErroRotina: 'Por favor, selecione uma rotina.',
+        ErroConectarServidor: 'Erro ao conectar com o servidor:',
+        ErroConectar: 'Erro ao conectar com o servidor.',
+        ErroCarregarRotinas: 'Erro ao carregar rotinas.',
+    },
+    en: {
+        paginaInicial: 'Homepage',
+        testes: 'Tests',
+        entrar: 'Login',
+        informacoesUsuario: 'User Information',
         suasRotinas: 'Your Routines',
         graficosConquistas: 'Charts and Achievements',
         sair: 'Logout',
-    rodape: '© 2025 EcoBalance — All rights reserved',
-    tema: 'Theme:',
-    altoContraste: 'High Contrast:',
-    idioma: 'Language',
-SelecioneTresPontinhos: 'Select...',
-TituloGas: 'Cooking Gas',
-PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
-ExemploMetrosCubicos: 'E.g.: 25',
-RespostaSim: 'Yes',
-RespostaNao: 'No',
-TituloEnergiaEletrica: 'Electricity',
-ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
-TituloViagens: 'Trips',
-PerguntaViagem: 'Did you take any trips last month?',
-DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
-PerguntaViagemInternacional: 'Was it an international trip?',
-DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
-NaoFoiInternacional: 'No, it was a national trip.',
-VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
-TituloCalcular: 'Calculate',
-CliqueEmCalcular: 'Click to calculate and see your test results!',
-TituloResultados: 'Results',
-BotaoVoltar: 'Back',
-BotaoAvancar: 'Next',
-Onibus: 'Bus',
-Metro: 'Subway',
-Trem: 'Train',
-Carro: 'Car',
-CarroEletrico: 'Electric car',
-Moto: 'Motorcycle',
-Aviao: 'Airplane',
-BarcoCruzeiro: 'Boat/Cruise',
-ErroOpcao: 'Please select an option.',
-ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
-ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
-ErroSelecioneViagem: 'Please select whether you took any trips last month.',
-ErroTipoViagem: 'Please select the type of trip.',
-ErroUmViagem: 'Please select at least one vehicle used during the trip.',
-ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
-ErroDeConexão: 'Connection error with the server.',
-ErroSalvarTeste: 'Error saving test:',
-ErroSalvar: 'Error saving test.',
-TesteSalvo: 'Test saved successfully!',
-ErroUsuario: 'Error retrieving user or routine.',
-CadastrarRotina: 'Register Routine',
-AindaNaoTemRotinas: 'You don’t have any routines registered yet. Would you like to register one now?',
-SelecioneRotina: 'Select a routine to take a test:',
-TituloRotinas: 'Select your routine',
-ErroRotina: 'Please select a routine.',
-ErroConectarServidor: 'Error connecting to the server:',
-ErroConectar: 'Error connecting to the server.',
-ErroCarregarRotinas: 'Error loading routines.',
-},
+        rodape: '© 2025 EcoBalance — All rights reserved',
+        tema: 'Theme:',
+        altoContraste: 'High Contrast:',
+        idioma: 'Language',
+        SelecioneTresPontinhos: 'Select...',
+        TituloGas: 'Cooking Gas',
+        PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
+        ExemploMetrosCubicos: 'E.g.: 25',
+        RespostaSim: 'Yes',
+        RespostaNao: 'No',
+        TituloEnergiaEletrica: 'Electricity',
+        ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
+        TituloViagens: 'Trips',
+        PerguntaViagem: 'Did you take any trips last month?',
+        DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
+        PerguntaViagemInternacional: 'Was it an international trip?',
+        DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
+        NaoFoiInternacional: 'No, it was a national trip.',
+        VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
+        TituloCalcular: 'Calculate',
+        CliqueEmCalcular: 'Click to calculate and see your test results!',
+        TituloResultados: 'Results',
+        BotaoVoltar: 'Back',
+        BotaoAvancar: 'Next',
+        Onibus: 'Bus',
+        Metro: 'Subway',
+        Trem: 'Train',
+        Carro: 'Car',
+        CarroEletrico: 'Electric car',
+        Moto: 'Motorcycle',
+        Aviao: 'Airplane',
+        BarcoCruzeiro: 'Boat/Cruise',
+        ErroOpcao: 'Please select an option.',
+        ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
+        ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
+        ErroSelecioneViagem: 'Please select whether you took any trips last month.',
+        ErroTipoViagem: 'Please select the type of trip.',
+        ErroUmViagem: 'Please select at least one vehicle used during the trip.',
+        ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
+        ErroDeConexão: 'Connection error with the server.',
+        ErroSalvarTeste: 'Error saving test:',
+        ErroSalvar: 'Error saving test.',
+        TesteSalvo: 'Test saved successfully!',
+        ErroUsuario: 'Error retrieving user or routine.',
+        CadastrarRotina: 'Register Routine',
+        AindaNaoTemRotinas: 'You don’t have any routines registered yet. Would you like to register one now?',
+        SelecioneRotina: 'Select a routine to take a test:',
+        TituloRotinas: 'Select your routine',
+        ErroRotina: 'Please select a routine.',
+        ErroConectarServidor: 'Error connecting to the server:',
+        ErroConectar: 'Error connecting to the server.',
+        ErroCarregarRotinas: 'Error loading routines.',
+    },
 };
 
 const TesteLogado = () => {
@@ -154,11 +154,11 @@ const TesteLogado = () => {
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
     const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-  });
+        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
 
-const toggleIdiomaDropdown = () => {
+    const toggleIdiomaDropdown = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
     };
 
@@ -177,41 +177,41 @@ const toggleIdiomaDropdown = () => {
     };
 
     useEffect(() => {
-            const storedTheme = localStorage.getItem('theme');
-            if (storedTheme === 'dark') {
-                setTemaEscuro(true);
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
-    
-            const storedContrast = localStorage.getItem('highContrast');
-            if (storedContrast === 'true') {
-                setAltoContrasteAtivo(true);
-                document.body.classList.add('high-contrast');
-            } else {
-                document.body.classList.remove('high-contrast');
-            }
-    
-            const storedLanguage = localStorage.getItem('language');
-            if (storedLanguage) {
-                setIdiomaSelecionado(storedLanguage);
-            }
-        }, []);
-    
-        useEffect(() => {
-            localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
-            document.body.classList.toggle('dark-mode', temaEscuro);
-        }, [temaEscuro]);
-    
-        useEffect(() => {
-            localStorage.setItem('highContrast', altoContrasteAtivo);
-            document.body.classList.toggle('high-contrast', altoContrasteAtivo);
-        }, [altoContrasteAtivo]);
-    
-        useEffect(() => {
-            localStorage.setItem('language', idiomaSelecionado);
-        }, [idiomaSelecionado]);
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark') {
+            setTemaEscuro(true);
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+
+        const storedContrast = localStorage.getItem('highContrast');
+        if (storedContrast === 'true') {
+            setAltoContrasteAtivo(true);
+            document.body.classList.add('high-contrast');
+        } else {
+            document.body.classList.remove('high-contrast');
+        }
+
+        const storedLanguage = localStorage.getItem('language');
+        if (storedLanguage) {
+            setIdiomaSelecionado(storedLanguage);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+        document.body.classList.toggle('dark-mode', temaEscuro);
+    }, [temaEscuro]);
+
+    useEffect(() => {
+        localStorage.setItem('highContrast', altoContrasteAtivo);
+        document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+    }, [altoContrasteAtivo]);
+
+    useEffect(() => {
+        localStorage.setItem('language', idiomaSelecionado);
+    }, [idiomaSelecionado]);
 
     const toggleDropdown = () => {
         setMostrarDropdown(!mostrarDropdown);
@@ -419,7 +419,7 @@ const toggleIdiomaDropdown = () => {
             ),
         },
         {
-      titulo: textos[idiomaSelecionado]?.TituloEnergiaEletrica,
+            titulo: textos[idiomaSelecionado]?.TituloEnergiaEletrica,
             conteudo: (
                 <>
                     <label className="pergunta">{textos[idiomaSelecionado]?.ContaDeEnergia}</label>
@@ -457,7 +457,7 @@ const toggleIdiomaDropdown = () => {
             conteudo: (
                 <>
                     <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagem}</label>
-          <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagens}</small>
+                    <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagens}</small>
                     <div className="radio-group">
                         <label>
                             <input
@@ -479,8 +479,8 @@ const toggleIdiomaDropdown = () => {
 
                     {fezViagem === 'sim' && (
                         <>
-              <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagemInternacional}</label>
-              <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagemInternacional}</small>
+                            <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaViagemInternacional}</label>
+                            <small className="ajuda pequeno">{textos[idiomaSelecionado]?.DicaViagemInternacional}</small>
                             <div className="radio-group">
                                 <label>
                                     <input
@@ -566,21 +566,21 @@ const toggleIdiomaDropdown = () => {
             const fatorKwh = 0.0385;
             const fatorGas = 1.974;
             const fatoresVeiculo = {
-[textos[idiomaSelecionado]?.Metro]: 0.0035,
-      [textos[idiomaSelecionado]?.Trem]: 0.0019,
-      [textos[idiomaSelecionado]?.Onibus]: 0.016,
-      [textos[idiomaSelecionado]?.Carro]: 0.1268,
-      [textos[idiomaSelecionado]?.Moto]: 0.0711,
-      [textos[idiomaSelecionado]?.CarroEletrico]: 0.0891,
-      [textos[idiomaSelecionado]?.BarcoCruzeiro]: 0.250,
-      [textos[idiomaSelecionado]?.Aviao]: viagemInternacional === 'sim' ? 0.1542 : 0.10974,
+                [textos[idiomaSelecionado]?.Metro]: 0.0035,
+                [textos[idiomaSelecionado]?.Trem]: 0.0019,
+                [textos[idiomaSelecionado]?.Onibus]: 0.016,
+                [textos[idiomaSelecionado]?.Carro]: 0.1268,
+                [textos[idiomaSelecionado]?.Moto]: 0.0711,
+                [textos[idiomaSelecionado]?.CarroEletrico]: 0.0891,
+                [textos[idiomaSelecionado]?.BarcoCruzeiro]: 0.250,
+                [textos[idiomaSelecionado]?.Aviao]: viagemInternacional === 'sim' ? 0.1542 : 0.10974,
             };
 
             // Cálculo de energia elétrica
-            const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1 ) ;
+            const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1);
 
             // Cálculo de gás (apenas se for encanado)
-            const emissaoGas = rotinaData?.tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1 ) : 0;
+            const emissaoGas = rotinaData?.tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1) : 0;
 
 
             // Cálculo de viagem
@@ -733,10 +733,10 @@ const toggleIdiomaDropdown = () => {
                         />
                         {mostrarDropdown && (
                             <div className="dropdown-menu show" style={{ position: 'absolute', right: 0, top: '100%', zIndex: 1000 }}>
-                                      <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
-                                      <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
-                                      <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
-                                      <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
+                                <button className="dropdown-item" onClick={handleUsuarioAcesso}>{textos[idiomaSelecionado]?.informacoesUsuario}</button>
+                                <button className="dropdown-item" onClick={handleRotinas}>{textos[idiomaSelecionado]?.suasRotinas}</button>
+                                <button className="dropdown-item" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.graficosConquistas}</button>
+                                <button className="dropdown-item text-danger" onClick={handleLogout}>{textos[idiomaSelecionado]?.sair}</button>
                             </div>
                         )}
                     </div>

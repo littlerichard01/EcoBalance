@@ -67,8 +67,8 @@ const GraficosEConquistas = () => {
 
     // Estados para as funcionalidades de tema e idioma
     const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-  });
+        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -419,7 +419,7 @@ const GraficosEConquistas = () => {
                 {showModal && graficoSelecionado && (
                     <>
                         <div className="modal fade show"
-                        style={{ display: 'block' }}
+                            style={{ display: 'block' }}
                             tabIndex="-1"
                             role="dialog"
                         >

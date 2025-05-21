@@ -28,9 +28,9 @@ const textos = {
         altoContraste: 'Alto Contraste:',
         idioma: 'Idioma',
         ErroDeletar: 'Erro ao deletar rotina.',
-DeletadaSucesso: 'Rotina deletada com sucesso!',
-ErroBuscarRotinas: 'Erro ao buscar rotina.',
-RespostaInesperada: 'Resposta inesperada ao buscar rotina.',
+        DeletadaSucesso: 'Rotina deletada com sucesso!',
+        ErroBuscarRotinas: 'Erro ao buscar rotina.',
+        RespostaInesperada: 'Resposta inesperada ao buscar rotina.',
     },
     en: {
         paginaInicial: 'Homepage',
@@ -48,9 +48,9 @@ RespostaInesperada: 'Resposta inesperada ao buscar rotina.',
         altoContraste: 'High Contrast:',
         idioma: 'Language',
         ErroDeletar: 'Error deleting routine.',
-DeletadaSucesso: 'Routine deleted successfully!',
-ErroBuscarRotinas: 'Error fetching routine.',
-RespostaInesperada: 'Unexpected response when fetching routine.',
+        DeletadaSucesso: 'Routine deleted successfully!',
+        ErroBuscarRotinas: 'Error fetching routine.',
+        RespostaInesperada: 'Unexpected response when fetching routine.',
     },
 };
 
@@ -62,8 +62,8 @@ const SuasRotinas = () => {
 
     // Estados para as funcionalidades de tema e idioma
     const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-  });
+        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -149,16 +149,16 @@ const SuasRotinas = () => {
         }
     }, []);
 
-useEffect(() => {
-  const storedLanguage = localStorage.getItem('language');
-  if (storedLanguage) {
-    setIdiomaSelecionado(storedLanguage);
-  }
-}, []);
+    useEffect(() => {
+        const storedLanguage = localStorage.getItem('language');
+        if (storedLanguage) {
+            setIdiomaSelecionado(storedLanguage);
+        }
+    }, []);
 
-useEffect(() => {
-  localStorage.setItem('language', idiomaSelecionado);
-}, [idiomaSelecionado]);
+    useEffect(() => {
+        localStorage.setItem('language', idiomaSelecionado);
+    }, [idiomaSelecionado]);
 
     useEffect(() => {
         localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');

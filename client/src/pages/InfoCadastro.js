@@ -40,6 +40,10 @@ const textos = {
         informacoesAtualizadasSucesso: 'Informações atualizadas com sucesso.',
         senhaAntigaIncorreta: 'Senha atual incorreta. Tente novamente.',
         erroAtualizarInformacoes: 'Erro ao atualizar as informações.',
+        emailInvalido: 'E-mail inválido. Por favor, insira um e-mail válido.',
+        senhaInvalida: 'A senha deve ter pelo menos 6 caracteres, com uma letra, um número e um caractere especial.',
+        nenhumaAlteracaoFeita: 'Nenhuma alteração foi feita.',
+        digiteSenhaAtualParaAlterarSenha: 'Digite sua senha atual para alterar a senha.',
     },
     en: {
         paginaInicial: 'Homepage',
@@ -68,6 +72,10 @@ const textos = {
         informacoesAtualizadasSucesso: 'Information updated successfully.',
         senhaAntigaIncorreta: 'Current password is incorrect. Please try again.',
         erroAtualizarInformacoes: 'Error updating the information.',
+        emailInvalido: 'Invalid email. Please enter a valid email address.',
+        senhaInvalida: 'The password must be at least 6 characters long and include a letter, a number, and a special character.',
+        nenhumaAlteracaoFeita: 'No changes were made.',
+        digiteSenhaAtualParaAlterarSenha: 'Enter your current password to change the password.',
     },
 };
 
@@ -90,8 +98,8 @@ const InfoCadastro = () => {
 
     // Estados para as funcionalidades de tema e idioma
     const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-  });
+        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+    });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);

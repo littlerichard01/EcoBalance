@@ -19,219 +19,219 @@ const textos = {
     altoContraste: 'Alto Contraste:',
     idioma: 'Idioma',
     TituloNome: 'Nome da Rotina',
-PerguntaNome: 'Digite o nome da sua rotina:',
-PlaceHolderNome: 'Ex: Semana Sustentável',
-TituloAlimentos: 'Alimentos',
-SelecioneDieta: 'Selecione a sua dieta:',
-TooltipDieta: 'Caso sua dieta não esteja dentro das opções, selecione Onívora.',
-SelecioneTresPontinhos: 'Selecione...',
-DietaOnivora: 'Onivora',
-DietaVegetariana: 'Vegetariana',
-DietaVegana: 'Vegana',
-DietaPescetariana: 'Pescetariana',
-DietaCarnivora: 'Carnívora',
-PorcoesConsumidas: 'Porções consumidas por semana:',
-AjudaPorcoes: 'Considere que uma porção equivale a uma refeição média do alimento selecionado.',
-TituloGas: 'Gás de Cozinha',
-PerguntaGas: 'Você utiliza gás encanado ou compra botijões?',
-SelecaoEncanado: 'Gás encanado',
-SelecaoBotijao: 'Botijão',
-PerguntaTipoBotijão: 'Qual tipo de botijão?',
-BotijaoP13: 'Comum P13',
-BotijaoP20: 'Médio P20',
-BotijaoP45: 'Grande P45',
-PerguntaDuracaoBotijao: 'Quanto tempo dura o gás que você compra?',
-MesesBotijao: 'meses',
-PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
-ExemploMetrosCubicos: 'Ex: 25',
-TitulosVeiculos: 'Veículos',
-PerguntaVeiculoSemana: 'Você utiliza algum tipo de veículo durante a semana?',
-RespostaSim: 'Sim',
-RespostaNao: 'Não',
-PerguntaVeiculoOuPublico: 'Você possui um veículo ou utiliza transporte público?',
-SelecaoVeiculoProprio: 'Veículo próprio',
-SelecaoPublico: 'Transporte público',
-PerguntaTipoCombustivel: 'Tipo de combustível:',
-SelecaoGasolina: 'Gasolina',
-SelecaoDiesel: 'Diesel',
-SelecaoEtanol: 'Etanol',
-SelecaoEletrico: 'Veículo elétrico',
-SelecaoNenhum: 'Não utiliza combustível',
-KmVeiculoEletrico: 'Km por semana com veículo elétrico:',
-LitrosPorMes: 'Litros abastecidos por mês:',
-TransportesSemana: 'Transportes usados na semana:',
-PlaceholderSemanal: 'Km semanais',
-TituloEnergiaEletrica: 'Energia elétrica',
-ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
-TituloViagens: 'Viagens',
-PerguntaViagem: 'Você fez alguma viagem no último mês?',
-DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
-PerguntaViagemInternacional: 'Foi uma viagem internacional?',
-DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
-NaoFoiInternacional: 'Não, foi uma viagem nacional.',
-VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
-TituloCalcular: 'Calcular',
-CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
-TituloResultados: 'Resultados',
-BotaoVoltar: 'Voltar',
-BotaoAvancar: 'Avançar',
-BotaoCadastreSe: 'Cadastre-se',
-CarneBovina: 'Carne bovina',
-CarneSuina: 'Carne suína',
-Frango: 'Frango',
-Peixe: 'Peixe',
-Leite: 'Leite',
-Ovos: 'Ovos',
-Leguminosas: 'Leguminosas',
-FrutasEVegetais: 'Frutas e vegetais',
-CereaisIntegrais: 'Cereais integrais',
-Onibus: 'Ônibus',
-OnibusEletrico: 'Ônibus elétrico',
-Metro: 'Metrô',
-Trem: 'Trem',
-CarroApp: 'Carro (app)',
-MotocicletaApp: 'Motocicleta (app)',
-Carro: 'Carro',
-CarroEletrico: 'Carro elétrico',
-Moto: 'Moto',
-Aviao: 'Avião',
-BarcoCruzeiro: 'Barco/Cruzeiro',
-ErroNome: 'Por favor, insira um nome para sua rotina.',
-ErroDieta: 'Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.',
-ErroOpcao: 'Por favor, selecione uma opção.',
-ErroTipoBotijao: 'Por favor, selecione um tipo de botijão de gás.',
-ErroMesGas: 'Por favor, digite quantos meses seu gás costuma durar.',
-ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
-ErroCombustivel: 'Por favor, selecione um tipo de combustível.',
-ErroLitrosCombustivel: 'Por favor, digite quantos litros de combustível você abastece por mês.',
-ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
-ErroUmVeiculo: 'Por favor, selecione pelo menos um veículo utilizado durante a semana.',
-ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
-ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
-ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
-ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
-ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
-TextoConclusao1: 'Total de emissões: ',
-TextoConclusao2: ' kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
-QuantidadePessoas: 'Quantas pessoas moram com você?',
-PessoasTooltip: 'Deixe um (1) se morar sozinho.',  
-},
+    PerguntaNome: 'Digite o nome da sua rotina:',
+    PlaceHolderNome: 'Ex: Semana Sustentável',
+    TituloAlimentos: 'Alimentos',
+    SelecioneDieta: 'Selecione a sua dieta:',
+    TooltipDieta: 'Caso sua dieta não esteja dentro das opções, selecione Onívora.',
+    SelecioneTresPontinhos: 'Selecione...',
+    DietaOnivora: 'Onivora',
+    DietaVegetariana: 'Vegetariana',
+    DietaVegana: 'Vegana',
+    DietaPescetariana: 'Pescetariana',
+    DietaCarnivora: 'Carnívora',
+    PorcoesConsumidas: 'Porções consumidas por semana:',
+    AjudaPorcoes: 'Considere que uma porção equivale a uma refeição média do alimento selecionado.',
+    TituloGas: 'Gás de Cozinha',
+    PerguntaGas: 'Você utiliza gás encanado ou compra botijões?',
+    SelecaoEncanado: 'Gás encanado',
+    SelecaoBotijao: 'Botijão',
+    PerguntaTipoBotijão: 'Qual tipo de botijão?',
+    BotijaoP13: 'Comum P13',
+    BotijaoP20: 'Médio P20',
+    BotijaoP45: 'Grande P45',
+    PerguntaDuracaoBotijao: 'Quanto tempo dura o gás que você compra?',
+    MesesBotijao: 'meses',
+    PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
+    ExemploMetrosCubicos: 'Ex: 25',
+    TitulosVeiculos: 'Veículos',
+    PerguntaVeiculoSemana: 'Você utiliza algum tipo de veículo durante a semana?',
+    RespostaSim: 'Sim',
+    RespostaNao: 'Não',
+    PerguntaVeiculoOuPublico: 'Você possui um veículo ou utiliza transporte público?',
+    SelecaoVeiculoProprio: 'Veículo próprio',
+    SelecaoPublico: 'Transporte público',
+    PerguntaTipoCombustivel: 'Tipo de combustível:',
+    SelecaoGasolina: 'Gasolina',
+    SelecaoDiesel: 'Diesel',
+    SelecaoEtanol: 'Etanol',
+    SelecaoEletrico: 'Veículo elétrico',
+    SelecaoNenhum: 'Não utiliza combustível',
+    KmVeiculoEletrico: 'Km por semana com veículo elétrico:',
+    LitrosPorMes: 'Litros abastecidos por mês:',
+    TransportesSemana: 'Transportes usados na semana:',
+    PlaceholderSemanal: 'Km semanais',
+    TituloEnergiaEletrica: 'Energia elétrica',
+    ContaDeEnergia: 'Digite o valor de KWh da sua última conta de energia elétrica:',
+    TituloViagens: 'Viagens',
+    PerguntaViagem: 'Você fez alguma viagem no último mês?',
+    DicaViagens: 'Considere viagens longas ou curtas, como viagens de carro de aplicativo, etc.',
+    PerguntaViagemInternacional: 'Foi uma viagem internacional?',
+    DicaViagemInternacional: 'Selecione "Sim." se fez mais de uma viagem diferente no último mês.',
+    NaoFoiInternacional: 'Não, foi uma viagem nacional.',
+    VeiculosQueViajou: 'Qual (ou quais) veículo(s) você utilizou para viajar?',
+    TituloCalcular: 'Calcular',
+    CliqueEmCalcular: 'Clique em calcular para ver os resultados do seu teste!',
+    TituloResultados: 'Resultados',
+    BotaoVoltar: 'Voltar',
+    BotaoAvancar: 'Avançar',
+    BotaoCadastreSe: 'Cadastre-se',
+    CarneBovina: 'Carne bovina',
+    CarneSuina: 'Carne suína',
+    Frango: 'Frango',
+    Peixe: 'Peixe',
+    Leite: 'Leite',
+    Ovos: 'Ovos',
+    Leguminosas: 'Leguminosas',
+    FrutasEVegetais: 'Frutas e vegetais',
+    CereaisIntegrais: 'Cereais integrais',
+    Onibus: 'Ônibus',
+    OnibusEletrico: 'Ônibus elétrico',
+    Metro: 'Metrô',
+    Trem: 'Trem',
+    CarroApp: 'Carro (app)',
+    MotocicletaApp: 'Motocicleta (app)',
+    Carro: 'Carro',
+    CarroEletrico: 'Carro elétrico',
+    Moto: 'Moto',
+    Aviao: 'Avião',
+    BarcoCruzeiro: 'Barco/Cruzeiro',
+    ErroNome: 'Por favor, insira um nome para sua rotina.',
+    ErroDieta: 'Por favor, selecione uma dieta e preencha quantidades de porções de alimentos consumidos.',
+    ErroOpcao: 'Por favor, selecione uma opção.',
+    ErroTipoBotijao: 'Por favor, selecione um tipo de botijão de gás.',
+    ErroMesGas: 'Por favor, digite quantos meses seu gás costuma durar.',
+    ErroValorGas: 'Por favor, digite um valor válido para o m³ da conta de gás natural.',
+    ErroCombustivel: 'Por favor, selecione um tipo de combustível.',
+    ErroLitrosCombustivel: 'Por favor, digite quantos litros de combustível você abastece por mês.',
+    ErroQuilometrosEletrico: 'Por favor, digite quantos quilômetros você percorre durante um mês com seu veículo elétrico.',
+    ErroUmVeiculo: 'Por favor, selecione pelo menos um veículo utilizado durante a semana.',
+    ErroValorKWh: 'Por favor, digite um valor válido para o KWh da conta de luz.',
+    ErroSelecioneViagem: 'Por favor, selecione se você fez alguma viagem no último mês.',
+    ErroTipoViagem: 'Por favor, selecione o tipo de viagem.',
+    ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
+    ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
+    TextoConclusao1: 'Total de emissões: ',
+    TextoConclusao2: ' kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
+    QuantidadePessoas: 'Quantas pessoas moram com você?',
+    PessoasTooltip: 'Deixe um (1) se morar sozinho.',
+  },
   en: {
     paginaInicial: 'Homepage',
     testes: 'Tests',
     entrar: 'Login',
-    
+
     rodape: '© 2025 EcoBalance — All rights reserved',
     tema: 'Theme:',
     altoContraste: 'High Contrast:',
     idioma: 'Language',
     TituloNome: 'Routine Name',
-PerguntaNome: 'Enter the name of your routine:',
-PlaceHolderNome: 'E.g.: Sustainable Week',
-TituloAlimentos: 'Food',
-SelecioneDieta: 'Select your diet:',
-TooltipDieta: 'If your diet is not listed, select Omnivore.',
-SelecioneTresPontinhos: 'Select...',
-DietaOnivora: 'Omnivore',
-DietaVegetariana: 'Vegetarian',
-DietaVegana: 'Vegan',
-DietaPescetariana: 'Pescetarian',
-DietaCarnivora: 'Carnivore',
-PorcoesConsumidas: 'Portions consumed per week:',
-AjudaPorcoes: 'Consider one portion as an average meal of the selected food.',
-TituloGas: 'Cooking Gas',
-PerguntaGas: 'Do you use piped gas or buy gas cylinders?',
-SelecaoEncanado: 'Piped gas',
-SelecaoBotijao: 'Cylinder',
-PerguntaTipoBotijão: 'What type of cylinder?',
-BotijaoP13: 'Standard P13',
-BotijaoP20: 'Medium P20',
-BotijaoP45: 'Large P45',
-PerguntaDuracaoBotijao: 'How long does your gas cylinder last?',
-MesesBotijao: 'months',
-PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
-ExemploMetrosCubicos: 'E.g.: 25',
-TitulosVeiculos: 'Vehicles',
-PerguntaVeiculoSemana: 'Do you use any type of vehicle during the week?',
-RespostaSim: 'Yes',
-RespostaNao: 'No',
-PerguntaVeiculoOuPublico: 'Do you own a vehicle or use public transport?',
-SelecaoVeiculoProprio: 'Own vehicle',
-SelecaoPublico: 'Public transport',
-PerguntaTipoCombustivel: 'Fuel type:',
-SelecaoGasolina: 'Gasoline',
-SelecaoDiesel: 'Diesel',
-SelecaoEtanol: 'Ethanol',
-SelecaoEletrico: 'Electric vehicle',
-SelecaoNenhum: 'Does not use fuel',
-KmVeiculoEletrico: 'Km per week with electric vehicle:',
-LitrosPorMes: 'Liters fueled per month:',
-TransportesSemana: 'Transports used during the week:',
-PlaceholderSemanal: 'Weekly km',
-TituloEnergiaEletrica: 'Electricity',
-ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
-TituloViagens: 'Trips',
-PerguntaViagem: 'Did you take any trips last month?',
-DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
-PerguntaViagemInternacional: 'Was it an international trip?',
-DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
-NaoFoiInternacional: 'No, it was a national trip.',
-VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
-TituloCalcular: 'Calculate',
-CliqueEmCalcular: 'Click to calculate and see your test results!',
-TituloResultados: 'Results',
-BotaoVoltar: 'Back',
-BotaoAvancar: 'Next',
-BotaoCadastreSe: 'Sign up',
-CarneBovina: 'Beef',
-CarneSuina: 'Pork',
-Frango: 'Chicken',
-Peixe: 'Fish',
-Leite: 'Milk',
-Ovos: 'Eggs',
-Leguminosas: 'Legumes',
-FrutasEVegetais: 'Fruits and vegetables',
-CereaisIntegrais: 'Whole grains',
-Onibus: 'Bus',
-OnibusEletrico: 'Electric bus',
-Metro: 'Subway',
-Trem: 'Train',
-CarroApp: 'Car (ride-hailing app)',
-MotocicletaApp: 'Motorcycle (ride-hailing app)',
-Carro: 'Car',
-CarroEletrico: 'Electric car',
-Moto: 'Motorcycle',
-Aviao: 'Airplane',
-BarcoCruzeiro: 'Boat/Cruise',
-ErroNome: 'Please enter a name for your routine.',
-ErroDieta: 'Please select a diet and fill in the quantity of consumed food portions.',
-ErroOpcao: 'Please select an option.',
-ErroTipoBotijao: 'Please select a type of gas cylinder.',
-ErroMesGas: 'Please enter how many months your gas usually lasts.',
-ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
-ErroCombustivel: 'Please select a type of fuel.',
-ErroLitrosCombustivel: 'Please enter how many liters of fuel you use per month.',
-ErroQuilometrosEletrico: 'Please enter how many kilometers you travel in a month with your electric vehicle.',
-ErroUmVeiculo: 'Please select at least one vehicle used during the week.',
-ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
-ErroSelecioneViagem: 'Please select whether you took any trips last month.',
-ErroTipoViagem: 'Please select the type of trip.',
-ErroUmViagem: 'Please select at least one vehicle used during the trip.',
-ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
-TextoConclusao1: 'Total emissions: ',
-TextoConclusao2: ' kgCO2. Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
-QuantidadePessoas: 'How many people live with you?',
-PessoasTooltip: 'Leave one (1) if you live alone.',
-},
+    PerguntaNome: 'Enter the name of your routine:',
+    PlaceHolderNome: 'E.g.: Sustainable Week',
+    TituloAlimentos: 'Food',
+    SelecioneDieta: 'Select your diet:',
+    TooltipDieta: 'If your diet is not listed, select Omnivore.',
+    SelecioneTresPontinhos: 'Select...',
+    DietaOnivora: 'Omnivore',
+    DietaVegetariana: 'Vegetarian',
+    DietaVegana: 'Vegan',
+    DietaPescetariana: 'Pescetarian',
+    DietaCarnivora: 'Carnivore',
+    PorcoesConsumidas: 'Portions consumed per week:',
+    AjudaPorcoes: 'Consider one portion as an average meal of the selected food.',
+    TituloGas: 'Cooking Gas',
+    PerguntaGas: 'Do you use piped gas or buy gas cylinders?',
+    SelecaoEncanado: 'Piped gas',
+    SelecaoBotijao: 'Cylinder',
+    PerguntaTipoBotijão: 'What type of cylinder?',
+    BotijaoP13: 'Standard P13',
+    BotijaoP20: 'Medium P20',
+    BotijaoP45: 'Large P45',
+    PerguntaDuracaoBotijao: 'How long does your gas cylinder last?',
+    MesesBotijao: 'months',
+    PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
+    ExemploMetrosCubicos: 'E.g.: 25',
+    TitulosVeiculos: 'Vehicles',
+    PerguntaVeiculoSemana: 'Do you use any type of vehicle during the week?',
+    RespostaSim: 'Yes',
+    RespostaNao: 'No',
+    PerguntaVeiculoOuPublico: 'Do you own a vehicle or use public transport?',
+    SelecaoVeiculoProprio: 'Own vehicle',
+    SelecaoPublico: 'Public transport',
+    PerguntaTipoCombustivel: 'Fuel type:',
+    SelecaoGasolina: 'Gasoline',
+    SelecaoDiesel: 'Diesel',
+    SelecaoEtanol: 'Ethanol',
+    SelecaoEletrico: 'Electric vehicle',
+    SelecaoNenhum: 'Does not use fuel',
+    KmVeiculoEletrico: 'Km per week with electric vehicle:',
+    LitrosPorMes: 'Liters fueled per month:',
+    TransportesSemana: 'Transports used during the week:',
+    PlaceholderSemanal: 'Weekly km',
+    TituloEnergiaEletrica: 'Electricity',
+    ContaDeEnergia: 'Enter the KWh value from your last electricity bill:',
+    TituloViagens: 'Trips',
+    PerguntaViagem: 'Did you take any trips last month?',
+    DicaViagens: 'Consider both long and short trips, including ride-hailing apps, etc.',
+    PerguntaViagemInternacional: 'Was it an international trip?',
+    DicaViagemInternacional: 'Select "Yes" if you made more than one different trip last month.',
+    NaoFoiInternacional: 'No, it was a national trip.',
+    VeiculosQueViajou: 'Which vehicle(s) did you use to travel?',
+    TituloCalcular: 'Calculate',
+    CliqueEmCalcular: 'Click to calculate and see your test results!',
+    TituloResultados: 'Results',
+    BotaoVoltar: 'Back',
+    BotaoAvancar: 'Next',
+    BotaoCadastreSe: 'Sign up',
+    CarneBovina: 'Beef',
+    CarneSuina: 'Pork',
+    Frango: 'Chicken',
+    Peixe: 'Fish',
+    Leite: 'Milk',
+    Ovos: 'Eggs',
+    Leguminosas: 'Legumes',
+    FrutasEVegetais: 'Fruits and vegetables',
+    CereaisIntegrais: 'Whole grains',
+    Onibus: 'Bus',
+    OnibusEletrico: 'Electric bus',
+    Metro: 'Subway',
+    Trem: 'Train',
+    CarroApp: 'Car (ride-hailing app)',
+    MotocicletaApp: 'Motorcycle (ride-hailing app)',
+    Carro: 'Car',
+    CarroEletrico: 'Electric car',
+    Moto: 'Motorcycle',
+    Aviao: 'Airplane',
+    BarcoCruzeiro: 'Boat/Cruise',
+    ErroNome: 'Please enter a name for your routine.',
+    ErroDieta: 'Please select a diet and fill in the quantity of consumed food portions.',
+    ErroOpcao: 'Please select an option.',
+    ErroTipoBotijao: 'Please select a type of gas cylinder.',
+    ErroMesGas: 'Please enter how many months your gas usually lasts.',
+    ErroValorGas: 'Please enter a valid value for the cubic meters (m³) on your gas bill.',
+    ErroCombustivel: 'Please select a type of fuel.',
+    ErroLitrosCombustivel: 'Please enter how many liters of fuel you use per month.',
+    ErroQuilometrosEletrico: 'Please enter how many kilometers you travel in a month with your electric vehicle.',
+    ErroUmVeiculo: 'Please select at least one vehicle used during the week.',
+    ErroValorKWh: 'Please enter a valid value for the KWh on your electricity bill.',
+    ErroSelecioneViagem: 'Please select whether you took any trips last month.',
+    ErroTipoViagem: 'Please select the type of trip.',
+    ErroUmViagem: 'Please select at least one vehicle used during the trip.',
+    ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
+    TextoConclusao1: 'Total emissions: ',
+    TextoConclusao2: ' kgCO2. Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
+    QuantidadePessoas: 'How many people live with you?',
+    PessoasTooltip: 'Leave one (1) if you live alone.',
+  },
 };
 
 const Teste = () => {
-    const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
-        return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
-      });
-    const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
-    const [temaEscuro, setTemaEscuro] = useState(false);
-    const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
+  const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
+    return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
+  });
+  const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+  const [temaEscuro, setTemaEscuro] = useState(false);
+  const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
 
   const navigate = useNavigate();
 
@@ -270,7 +270,7 @@ const Teste = () => {
   const [transportesPublicos, setTransportesPublicos] = useState([]);
   const [kmTransportes, setKmTransportes] = useState({});
   const [quantidadePessoas, setQuantidadePessoas] = useState(1);
-  
+
   const [dadosGrafico, setDadosGrafico] = useState([]);
 
   const avancarEtapa = () => {
@@ -493,15 +493,15 @@ const Teste = () => {
       titulo: textos[idiomaSelecionado]?.TituloGas,
       conteudo: (
         <>
-        <label className="pergunta">{textos[idiomaSelecionado]?.QuantidadePessoas}</label>
-      <input
-        type="number"
-        min={1}
-        className="input-texto"
-        value={quantidadePessoas}
-        onChange={(e) => setQuantidadePessoas(Number(e.target.value))}
-      />
-      <small className="ajuda">{textos[idiomaSelecionado]?.PessoasTooltip}</small><br></br>
+          <label className="pergunta">{textos[idiomaSelecionado]?.QuantidadePessoas}</label>
+          <input
+            type="number"
+            min={1}
+            className="input-texto"
+            value={quantidadePessoas}
+            onChange={(e) => setQuantidadePessoas(Number(e.target.value))}
+          />
+          <small className="ajuda">{textos[idiomaSelecionado]?.PessoasTooltip}</small><br></br>
           <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaGas}</label>
           <div className="radio-group">
             <label>
@@ -898,10 +898,10 @@ const Teste = () => {
     };
 
     // Cálculo de energia elétrica
-    const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (quantidadePessoas ? quantidadePessoas : 1 );
+    const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (quantidadePessoas ? quantidadePessoas : 1);
 
     // Cálculo de gás encanado
-    const emissaoGas = tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (quantidadePessoas ? quantidadePessoas : 1 ) : 0;
+    const emissaoGas = tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (quantidadePessoas ? quantidadePessoas : 1) : 0;
 
     // Cálculo de viagens
     const veiculosArray = Object.entries(veiculosViagem)
@@ -1040,42 +1040,42 @@ const Teste = () => {
 
 
 
-    useEffect(() => {
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'dark') {
-        setTemaEscuro(true);
-        document.body.classList.add('dark-mode');
-      } else {
-        document.body.classList.remove('dark-mode');
-      }
-  
-      const storedContrast = localStorage.getItem('highContrast');
-      if (storedContrast === 'true') {
-        setAltoContrasteAtivo(true);
-        document.body.classList.add('high-contrast');
-      } else {
-        document.body.classList.remove('high-contrast');
-      }
-  
-      const storedLanguage = localStorage.getItem('language');
-      if (storedLanguage) {
-        setIdiomaSelecionado(storedLanguage);
-      }
-    }, []);
-  
-    useEffect(() => {
-      localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
-      document.body.classList.toggle('dark-mode', temaEscuro);
-    }, [temaEscuro]);
-  
-    useEffect(() => {
-      localStorage.setItem('highContrast', altoContrasteAtivo);
-      document.body.classList.toggle('high-contrast', altoContrasteAtivo);
-    }, [altoContrasteAtivo]);
-  
-    useEffect(() => {
-      localStorage.setItem('language', idiomaSelecionado);
-    }, [idiomaSelecionado]);
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      setTemaEscuro(true);
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+
+    const storedContrast = localStorage.getItem('highContrast');
+    if (storedContrast === 'true') {
+      setAltoContrasteAtivo(true);
+      document.body.classList.add('high-contrast');
+    } else {
+      document.body.classList.remove('high-contrast');
+    }
+
+    const storedLanguage = localStorage.getItem('language');
+    if (storedLanguage) {
+      setIdiomaSelecionado(storedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', temaEscuro ? 'dark' : 'light');
+    document.body.classList.toggle('dark-mode', temaEscuro);
+  }, [temaEscuro]);
+
+  useEffect(() => {
+    localStorage.setItem('highContrast', altoContrasteAtivo);
+    document.body.classList.toggle('high-contrast', altoContrasteAtivo);
+  }, [altoContrasteAtivo]);
+
+  useEffect(() => {
+    localStorage.setItem('language', idiomaSelecionado);
+  }, [idiomaSelecionado]);
 
 
 
@@ -1102,71 +1102,71 @@ const Teste = () => {
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <header className="header">
-              <div className="header-top">
-                <img src={logo} alt="Logo" className="logo" />
-              </div>
-      
-              <div className="header-left-controls">
-                <div className="dropdown-idioma">
-                  <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
-                    <img
-                      src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
-                      alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
-                      className="bandeira-idioma"
-                    />
-                    <span>{textos[idiomaSelecionado]?.idioma}</span>
-                    <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
+        <div className="header-top">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+
+        <div className="header-left-controls">
+          <div className="dropdown-idioma">
+            <div className="idioma-selecionado" onClick={toggleIdiomaDropdown}>
+              <img
+                src={idiomaSelecionado === 'pt' ? bandeiraBrasil : bandeiraReinoUnido}
+                alt={idiomaSelecionado === 'pt' ? 'Português' : 'Inglês'}
+                className="bandeira-idioma"
+              />
+              <span>{textos[idiomaSelecionado]?.idioma}</span>
+              <i className="bi bi-chevron-down" style={{ marginLeft: '5px', fontSize: '0.8em', color: '#ffffff' }}></i>
+            </div>
+            {mostrarDropdownIdioma && (
+              <div className="dropdown-menu-idioma show">
+                {idiomaSelecionado !== 'pt' && (
+                  <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
+                    <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
+                    <span>Português</span>
                   </div>
-                  {mostrarDropdownIdioma && (
-                    <div className="dropdown-menu-idioma show">
-                      {idiomaSelecionado !== 'pt' && (
-                        <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('pt')}>
-                          <img src={bandeiraBrasil} alt="Português" className="bandeira-idioma-item" />
-                          <span>Português</span>
-                        </div>
-                      )}
-                      {idiomaSelecionado !== 'en' && (
-                        <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
-                          <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
-                          <span>English</span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-      
-                <div className="tema-contraste-controles">
-                  <div className="tema-controle">
-                    <span>{textos[idiomaSelecionado]?.tema}</span>
-                    <i
-                      className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
-                      onClick={toggleTema}
-                      style={{ cursor: 'pointer', fontSize: '1.5em' }}
-                    ></i>
+                )}
+                {idiomaSelecionado !== 'en' && (
+                  <div className="dropdown-item-idioma" onClick={() => handleIdiomaSelecionado('en')}>
+                    <img src={bandeiraReinoUnido} alt="Inglês" className="bandeira-idioma-item" />
+                    <span>English</span>
                   </div>
-      
-                  <div className="alto-contraste-container">
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={altoContrasteAtivo}
-                        onChange={toggleAltoContraste}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                    <span>{textos[idiomaSelecionado]?.altoContraste}</span>
-                  </div>
-                </div>
+                )}
               </div>
-      
-              <div className="header-right">
-                <div className="header-links">
-                  <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
-                  <span className="navlink" onClick={handleTesteClick}>{textos[idiomaSelecionado]?.testes}</span>
-                </div>
-                <button className="btn-entrar" onClick={handleLoginClick}>{textos[idiomaSelecionado]?.entrar}</button>
-              </div>
-            </header>
+            )}
+          </div>
+
+          <div className="tema-contraste-controles">
+            <div className="tema-controle">
+              <span>{textos[idiomaSelecionado]?.tema}</span>
+              <i
+                className={`bi ${temaEscuro ? 'bi-moon-fill' : 'bi-sun-fill'}`}
+                onClick={toggleTema}
+                style={{ cursor: 'pointer', fontSize: '1.5em' }}
+              ></i>
+            </div>
+
+            <div className="alto-contraste-container">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={altoContrasteAtivo}
+                  onChange={toggleAltoContraste}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span>{textos[idiomaSelecionado]?.altoContraste}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="header-right">
+          <div className="header-links">
+            <span className="navlink" onClick={handleInicioClick}>{textos[idiomaSelecionado]?.paginaInicial}</span>
+            <span className="navlink" onClick={handleTesteClick}>{textos[idiomaSelecionado]?.testes}</span>
+          </div>
+          <button className="btn-entrar" onClick={handleLoginClick}>{textos[idiomaSelecionado]?.entrar}</button>
+        </div>
+      </header>
 
       <main className="conteudo-rotinas">
         <div className="progresso-bolinhas">
@@ -1182,20 +1182,20 @@ const Teste = () => {
         {dadosGrafico.length > 0 && etapaAtual === etapasFiltradas.length - 1 && (
           <div>
             <div style={{ width: '100%', maxWidth: '600px', margin: '40px auto' }}>
-  <ResponsiveContainer width="100%" height={300}>
-    <BarChart data={dadosGrafico}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="categoria" />
-      <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
-      <Tooltip content={renderTooltipContent} />
-      <Bar dataKey="valor">
-        {dadosGrafico.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
-        ))}
-      </Bar>
-    </BarChart>
-  </ResponsiveContainer>
-</div>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={dadosGrafico}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="categoria" />
+                  <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip content={renderTooltipContent} />
+                  <Bar dataKey="valor">
+                    {dadosGrafico.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
             <div>
               <p className="pergunta">
                 {textos[idiomaSelecionado]?.TextoConclusao1} {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} {textos[idiomaSelecionado]?.TextoConclusao2}

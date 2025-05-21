@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
- import './Login.css';
- import 'bootstrap/dist/css/bootstrap.min.css';
- import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
- import folhaEsquerda from '../assets/folha-esquerda.png';
- import folhaDireita from '../assets/folha-direita.png';
- import logo from '../assets/logo.png';
- import { useNavigate } from 'react-router-dom';
- import { ToastContainer, toast } from 'react-toastify';
- import 'react-toastify/dist/ReactToastify.css';
- import bandeiraBrasil from '../assets/bandeira-brasil.png';
- import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import './Login.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BsFillEnvelopeFill, BsFillLockFill, BsPersonFill } from 'react-icons/bs';
+import folhaEsquerda from '../assets/folha-esquerda.png';
+import folhaDireita from '../assets/folha-direita.png';
+import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
- const textos = {
+const textos = {
   pt: {
     entrar: 'Entrar',
     idioma: 'Idioma',
@@ -29,6 +29,22 @@ import React, { useState, useEffect } from 'react';
     direitosReservados: '© 2025 EcoBalance — Todos os direitos reservados',
     paginaInicial: 'Página inicial',
     testes: 'Testes',
+    senhaMinimo: 'A senha deve ter no mínimo 6 caracteres.',
+    senhaLetras: 'A senha deve conter letras.',
+    senhaNumeros: 'A senha deve conter números.',
+    senhaSimbolos: 'A senha deve conter símbolos (@$!%*#?&).',
+    senhaValida: 'Senha válida!',
+    emailValidoTexto: 'E-mail válido!',
+    emailInvalidoTexto: 'E-mail inválido. Ex: exemplo@dominio.com',
+    erroConexao: 'Erro de conexão com o servidor.',
+    erroLogin: 'Erro ao fazer login',
+    loginSucesso: 'Login realizado com sucesso!',
+    erroCadastro: 'Erro ao cadastrar',
+    cadastroSucesso: 'Cadastro realizado com sucesso!',
+    emailInvalido: 'Por favor, insira um e-mail válido.',
+    senhaNaoCoincidem: 'As senhas não coincidem!',
+    SenhaCoincidem: 'Senhas coincidem!',
+    SenhaNaoCoincide: 'As senhas não coincidem',
   },
   en: {
     entrar: 'Login',
@@ -47,10 +63,26 @@ import React, { useState, useEffect } from 'react';
     direitosReservados: '© 2025 EcoBalance — All rights reserved',
     paginaInicial: 'Homepage',
     testes: 'Tests',
+    senhaMinimo: 'Password must be at least 6 characters long.',
+    senhaLetras: 'Password must contain letters.',
+    senhaNumeros: 'Password must contain numbers.',
+    senhaSimbolos: 'Password must contain symbols (@$!%*#?&).',
+    senhaValida: 'Valid password!',
+    emailValidoTexto: 'Valid email!',
+    emailInvalidoTexto: 'Invalid email. Ex: example@domain.com',
+    erroConexao: 'Connection error with the server.',
+    erroLogin: 'Error logging in',
+    loginSucesso: 'Login successful!',
+    erroCadastro: 'Error during registration',
+    cadastroSucesso: 'Registration successful!',
+    emailInvalido: 'Please enter a valid email.',
+    senhaNaoCoincidem: 'Passwords do not match!',
+    SenhaCoincidem: 'Passwords match!',
+    SenhaNaoCoincide: 'Passwords do not match',
   },
- };
+};
 
- const Login = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
     return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
@@ -374,17 +406,17 @@ import React, { useState, useEffect } from 'react';
                 </div>
                 <div className="form-group">
                   <BsFillEnvelopeFill className="icon" />
-                  <input type="email" placeholder={textos[idiomaSelecionado]?.email} value={emailCadastro} onChange={e => { const novoEmail = e.target.value; setEmailCadastro(novoEmail); const mensagem = validarEmailTexto(novoEmail); setMensagemEmail(mensagem); setEmailValido(mensagem === "E-mail válido!" || mensagem === "E-mail válido!"); }} />
+                  <input type="email" placeholder={textos[idiomaSelecionado]?.email} value={emailCadastro} onChange={e => { const novoEmail = e.target.value; setEmailCadastro(novoEmail); const mensagem = validarEmailTexto(novoEmail); setMensagemEmail(mensagem); setEmailValido(mensagem === "E-mail válido!" || mensagem === "Valid email!"); }} />
                 </div>
                 {mensagemEmail && (<small className={`mensagem-senha ${emailValido ? "sucesso" : "erro"}`}>  {mensagemEmail}  </small>)}
                 <div className="form-group">
                   <BsFillLockFill className="icon" />
-                  <input type="password" placeholder={textos[idiomaSelecionado]?.senha} value={senhaCadastro} onChange={e => { const novaSenha = e.target.value; setSenhaCadastro(novaSenha); const mensagem = validarSenhaTexto(novaSenha); setMensagemSenha(mensagem); setSenhaValida(mensagem === "Senha válida!"); }} />
+                  <input type="password" placeholder={textos[idiomaSelecionado]?.senha} value={senhaCadastro} onChange={e => { const novaSenha = e.target.value; setSenhaCadastro(novaSenha); const mensagem = validarSenhaTexto(novaSenha); setMensagemSenha(mensagem); setSenhaValida(mensagem === "Senha válida!" || mensagem === "Valid password!"); }} />
                 </div>
                 {mensagemSenha && (<small className={`mensagem-senha ${senhaValida ? "sucesso" : "erro"}`}>{mensagemSenha}</small>)}
                 <div className="form-group">
                   <BsFillLockFill className="icon" />
-                  <input type="password" placeholder={textos[idiomaSelecionado]?.confirmacaoSenha} value={confirmarSenha} onChange={e => { const confirmacao = e.target.value; setConfirmarSenha(confirmacao); const senhasIguais = confirmacao === senhaCadastro; setSenhasCoincidem(senhasIguais); setMensagemConfirmacao(senhasIguais ? "Senhas coincidem!" : "As senhas não coincidem"); }} />
+                  <input type="password" placeholder={textos[idiomaSelecionado]?.confirmacaoSenha} value={confirmarSenha} onChange={e => { const confirmacao = e.target.value; setConfirmarSenha(confirmacao); const senhasIguais = confirmacao === senhaCadastro; setSenhasCoincidem(senhasIguais); setMensagemConfirmacao(senhasIguais ? textos[idiomaSelecionado]?.SenhaCoincidem : textos[idiomaSelecionado]?.SenhaNaoCoincide); }} />
                 </div>
                 {mensagemConfirmacao && (<small className={`mensagem-senha ${senhasCoincidem ? "sucesso" : "erro"}`}>{mensagemConfirmacao}</small>)}
                 <div className="form-check mt-2">

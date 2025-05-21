@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
- import './Login.css';
- import { BsFillEnvelopeFill } from 'react-icons/bs';
- import folhaEsquerda from '../assets/folha-esquerda.png';
- import folhaDireita from '../assets/folha-direita.png';
- import logo from '../assets/logo.png';
- import { useNavigate } from 'react-router-dom';
- import bandeiraBrasil from '../assets/bandeira-brasil.png';
- import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import './Login.css';
+import { BsFillEnvelopeFill } from 'react-icons/bs';
+import folhaEsquerda from '../assets/folha-esquerda.png';
+import folhaDireita from '../assets/folha-direita.png';
+import logo from '../assets/logo.png';
+import { useNavigate } from 'react-router-dom';
+import bandeiraBrasil from '../assets/bandeira-brasil.png';
+import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
- const textos = {
+const textos = {
   pt: {
     entrar: 'Entrar',
     idioma: 'Idioma',
@@ -35,9 +35,9 @@ import React, { useState, useEffect } from 'react';
     paginaInicial: 'Homepage',
     testes: 'Tests',
   },
- };
+};
 
- const RedefinirSenha = () => {
+const RedefinirSenha = () => {
   const navigate = useNavigate();
   const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
     return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
