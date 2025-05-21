@@ -8,6 +8,7 @@ const rotinaSchema = new mongoose.Schema({
         type: Map,
         of: Number
     },
+    quantidadePessoas: { type: Number },
     tipoGas: { type: String }, // "encanado" ou "botijao"
     tipoBotijao: { type: String }, // "P13", "P20", "P45"
     tempoDuracaoGas: { type: Number },

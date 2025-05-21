@@ -113,7 +113,9 @@ ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.'
 ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
 TextoConclusao1: 'Total de emissões: ',
 TextoConclusao2: ' kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
-  },
+QuantidadePessoas: 'Quantas pessoas moram com você?',
+PessoasTooltip: 'Deixe um (1) se morar sozinho.',  
+},
   en: {
     paginaInicial: 'Homepage',
     testes: 'Tests',
@@ -218,7 +220,9 @@ ErroUmViagem: 'Please select at least one vehicle used during the trip.',
 ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
 TextoConclusao1: 'Total emissions: ',
 TextoConclusao2: ' kgCO2. Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
-  },
+QuantidadePessoas: 'How many people live with you?',
+PessoasTooltip: 'Leave one (1) if you live alone.',
+},
 };
 
 const Teste = () => {
@@ -265,7 +269,8 @@ const Teste = () => {
   const [kmEletrico, setKmEletrico] = useState(0);
   const [transportesPublicos, setTransportesPublicos] = useState([]);
   const [kmTransportes, setKmTransportes] = useState({});
-
+  const [quantidadePessoas, setQuantidadePessoas] = useState(1);
+  
   const [dadosGrafico, setDadosGrafico] = useState([]);
 
   const avancarEtapa = () => {
@@ -488,6 +493,15 @@ const Teste = () => {
       titulo: textos[idiomaSelecionado]?.TituloGas,
       conteudo: (
         <>
+        <label className="pergunta">{textos[idiomaSelecionado]?.QuantidadePessoas}</label>
+      <input
+        type="number"
+        min={1}
+        className="input-texto"
+        value={quantidadePessoas}
+        onChange={(e) => setQuantidadePessoas(Number(e.target.value))}
+      />
+      <small className="ajuda">{textos[idiomaSelecionado]?.PessoasTooltip}</small><br></br>
           <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaGas}</label>
           <div className="radio-group">
             <label>
@@ -847,9 +861,9 @@ const Teste = () => {
     // Calculo Gás Botijão
     let usaGasEncanado = tipoGas === 'encanado';
     let emissaoCarbonoBotijao = 0;
-    if (!usaGasEncanado && tipoBotijao && tempoDuracaoGas) {
+    if (!usaGasEncanado && tipoBotijao && tempoDuracaoGas && quantidadePessoas) {
       const fator = fatores.gas[tipoBotijao];
-      emissaoCarbonoBotijao = fator / tempoDuracaoGas;
+      emissaoCarbonoBotijao = (fator / tempoDuracaoGas) / quantidadePessoas;
     }
 
     // Calculo Veículos Rotina
@@ -884,10 +898,10 @@ const Teste = () => {
     };
 
     // Cálculo de energia elétrica
-    const emissaoEnergia = Number(kwhContaLuz) * fatorKwh;
+    const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (quantidadePessoas ? quantidadePessoas : 1 );
 
     // Cálculo de gás encanado
-    const emissaoGas = tipoGas === 'encanado' ? Number(m3GasNatural) * fatorGas : 0;
+    const emissaoGas = tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (quantidadePessoas ? quantidadePessoas : 1 ) : 0;
 
     // Cálculo de viagens
     const veiculosArray = Object.entries(veiculosViagem)
@@ -909,6 +923,7 @@ const Teste = () => {
       nome: nomeRotina,
       dieta,
       porcoes,
+      quantidadePessoas,
       tipoGas,
       tipoBotijao,
       tempoDuracaoGas: Number(tempoDuracaoGas),

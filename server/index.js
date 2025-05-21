@@ -143,6 +143,7 @@ app.post("/api/rotinas", async (req, res) => {
     nome,
     dieta,
     porcoes,
+    quantidadePessoas,
     tipoGas,
     tipoBotijao,
     tempoDuracaoGas,
@@ -170,6 +171,7 @@ app.post("/api/rotinas", async (req, res) => {
       rotinaExistente.set({
         dieta,
         porcoes,
+        quantidadePessoas,
         tipoGas,
         tipoBotijao,
         tempoDuracaoGas,
@@ -193,6 +195,7 @@ app.post("/api/rotinas", async (req, res) => {
       nome,
       dieta,
       porcoes,
+      quantidadePessoas,
       tipoGas,
       tipoBotijao,
       tempoDuracaoGas,

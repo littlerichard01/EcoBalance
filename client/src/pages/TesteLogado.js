@@ -15,7 +15,10 @@ const textos = {
     paginaInicial: 'Página inicial',
     testes: 'Testes',
     entrar: 'Entrar',
-    nomeDaRotina: '',
+    informacoesUsuario: 'Informações de Usuário',
+        suasRotinas: 'Suas Rotinas',
+        graficosConquistas: 'Gráficos e Conquistas',
+        sair: 'Sair',
     rodape: '© 2025 EcoBalance — Todos os direitos reservados',
     tema: 'Tema:',
     altoContraste: 'Alto Contraste:',
@@ -74,7 +77,10 @@ ErroCarregarRotinas: 'Erro ao carregar rotinas.',
     paginaInicial: 'Homepage',
     testes: 'Tests',
     entrar: 'Login',
-    
+    informacoesUsuario: 'User Information',
+        suasRotinas: 'Your Routines',
+        graficosConquistas: 'Charts and Achievements',
+        sair: 'Logout',
     rodape: '© 2025 EcoBalance — All rights reserved',
     tema: 'Theme:',
     altoContraste: 'High Contrast:',
@@ -571,10 +577,10 @@ const toggleIdiomaDropdown = () => {
             };
 
             // Cálculo de energia elétrica
-            const emissaoEnergia = Number(kwhContaLuz) * fatorKwh;
+            const emissaoEnergia = (Number(kwhContaLuz) * fatorKwh) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1 ) ;
 
             // Cálculo de gás (apenas se for encanado)
-            const emissaoGas = rotinaData?.tipoGas === 'encanado' ? Number(m3GasNatural) * fatorGas : 0;
+            const emissaoGas = rotinaData?.tipoGas === 'encanado' ? (Number(m3GasNatural) * fatorGas) / (rotinaData?.quantidadePessoas ? rotinaData.quantidadePessoas : 1 ) : 0;
 
 
             // Cálculo de viagem

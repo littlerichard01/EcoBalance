@@ -96,8 +96,9 @@ ErroSalvarRotinaBanco: 'Falha ao salvar rotina no banco de dados.',
 RotinaSalva: 'Rotina salva com sucesso!',
 ErroSalvarRotina: 'Erro ao salvar rotina.',
 Parabens: 'Parabéns por completar sua rotina sustentável! 🎉',
-Finalizado: 'Finalizado!'
-
+Finalizado: 'Finalizado!',
+QuantidadePessoas: 'Quantas pessoas moram com você?',
+PessoasTooltip: 'Deixe um (1) se morar sozinho.',
   },
   en: {
     paginaInicial: 'Homepage',
@@ -152,9 +153,6 @@ KmVeiculoEletrico: 'Km per week with electric vehicle:',
 LitrosPorMes: 'Liters fueled per month:',
 TransportesSemana: 'Transports used during the week:',
 PlaceholderSemanal: 'Weekly km',
-
-
-
 BotaoVoltar: 'Back',
 BotaoAvancar: 'Next',
 CarneBovina: 'Beef',
@@ -172,7 +170,6 @@ Metro: 'Subway',
 Trem: 'Train',
 CarroApp: 'Car (ride-hailing app)',
 MotocicletaApp: 'Motorcycle (ride-hailing app)',
-
 ErroNome: 'Please enter a name for your routine.',
 ErroDieta: 'Please select a diet and fill in the quantity of consumed food portions.',
 ErroOpcao: 'Please select an option.',
@@ -187,8 +184,9 @@ ErroSalvarRotinaBanco: 'Failed to save routine to the database.',
 RotinaSalva: 'Routine saved successfully!',
 ErroSalvarRotina: 'Error saving routine.',
 Parabens: 'Congratulations on completing your sustainable routine! 🎉',
-Finalizado: 'Finished!'
-
+Finalizado: 'Finished!',
+QuantidadePessoas: 'How many people live with you?',
+PessoasTooltip: 'Leave one (1) if you live alone.',
 },
 };
 
@@ -259,6 +257,7 @@ const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
   const [kmEletrico, setKmEletrico] = useState(rotinaCarregada?.kmEletrico || 0);
   const [transportesPublicos, setTransportesPublicos] = useState(rotinaCarregada?.transportesPublicos || []);
   const [kmTransportes, setKmTransportes] = useState(rotinaCarregada?.kmTransportes || {});
+  const [quantidadePessoas, setQuantidadePessoas] = useState(rotinaCarregada?.quantidadePessoas || 1);
 
       const [temaEscuro, setTemaEscuro] = useState(false);
       const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
@@ -435,6 +434,15 @@ const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
       titulo: textos[idiomaSelecionado]?.TituloGas,
       conteudo: (
         <>
+      <label className="pergunta">{textos[idiomaSelecionado]?.QuantidadePessoas}</label>
+      <input
+        type="number"
+        min={1}
+        className="input-texto"
+        value={quantidadePessoas}
+        onChange={(e) => setQuantidadePessoas(Number(e.target.value))}
+      />
+      <small className="ajuda">{textos[idiomaSelecionado]?.PessoasTooltip}</small><br></br>
           <label className="pergunta">{textos[idiomaSelecionado]?.PerguntaGas}</label>
           <div className="radio-group">
             <label>
@@ -637,6 +645,7 @@ const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
                 nome: nomeRotina,
                 dieta,
                 porcoes,
+                quantidadePessoas,
                 tipoGas,
                 tipoBotijao,
                 tempoDuracaoGas: Number(tempoDuracaoGas),
@@ -729,7 +738,7 @@ const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
     let emissaoCarbonoBotijao = 0;
     if (!usaGasEncanado && tipoBotijao && tempoDuracaoGas) {
       const fator = fatores.gas[tipoBotijao];
-      emissaoCarbonoBotijao = fator / tempoDuracaoGas;
+      emissaoCarbonoBotijao = (fator / tempoDuracaoGas) / quantidadePessoas;
     }
 
     // Veículos
