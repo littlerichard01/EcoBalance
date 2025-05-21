@@ -81,6 +81,8 @@ const textos = {
 const Home = () => {
   const navigate = useNavigate();
 
+  
+
   const [mostrarDropdown, setMostrarDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -162,6 +164,24 @@ const Home = () => {
     setMostrarDropdownIdioma(!mostrarDropdownIdioma);
   };
 
+    const legends = {
+    pt: [
+      "Imagem 1 - Floresta vista de cima",
+      "Imagem 2 - Mão simulando que está segundando vários símbolos relacionados a sustentabilidade",
+      "Imagem 3 - Mão segurando folha com formato de pegada em seu conteúdo"
+    ],
+
+    en: [
+      "Image 1 - Forest seen from above",
+      "Image 2 - Hand simulating holding various symbols related to sustainability",
+      "Image 3 - Hand holding a leaf shaped like a footprint"
+    ]
+  };
+
+
+
+  
+
   const handleIdiomaSelecionado = (idioma) => {
     setIdiomaSelecionado(idioma);
     localStorage.setItem('language', idioma); // Salva no localStorage
@@ -214,6 +234,8 @@ const Home = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
 
   return (
     <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
@@ -312,6 +334,7 @@ const Home = () => {
                 alt={`Slide ${activeIndex + 1}`}
                 className="carousel-image"
               />
+              <span className="tooltip-text">{legends[idiomaSelecionado][activeIndex]}</span> {/* Texto sobre a imagem */}
               <div className="content-overlay">
                 <div className="overlay-content-text">
                   <h1>{textos[idiomaSelecionado]?.calcularPegada}</h1>

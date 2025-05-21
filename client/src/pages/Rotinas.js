@@ -418,7 +418,7 @@ const [idiomaSelecionado, setIdiomaSelecionado] = useState(() => {
                   min="0"
                   className="spinner"
                   disabled={!permitido}
-                  value={porcoes[alimento] || 0}
+                  value={porcoes[alimento] || ''}
                   onChange={(e) =>
                     setPorcoes({ ...porcoes, [alimento]: parseInt(e.target.value) })
                   }
