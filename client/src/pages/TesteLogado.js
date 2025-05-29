@@ -9,9 +9,26 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
+import { FaFacebook, FaLinkedin, FaThreads, FaXTwitter } from "react-icons/fa6"; // FaXTwitter para o antigo Twitter (X)
 
 const textos = {
     pt: {
+        MensagemConvite: "Acesse o Eco Balance e calcule sua pegada de carbono também!",
+        MensagemCompartilhar: "Minha pegada de carbono foi de",
+        meusGraficos: 'Meus Gráficos',
+        MensagemTotalAcima: "Sua pegada de carbono total está acima da média global:",
+        MensagemTotalAbaixo: "Parabéns! Sua pegada de carbono está abaixo da média global:",
+        AcimaDe: 'acima da média global de ',
+        AbaixoDe: 'abaixo da média global de ',
+        MensagemAcima: "Sua emissão nesta categoria está acima da média global:",
+        MensagemAbaixo: "Ótima notícia! Sua emissão está abaixo da média global:",
+        TituloMediaGlobal: 'Média global de emissões:',
+        TituloAlimentos: 'Alimentos',
+        TitulosVeiculos: 'Veículos',
+        TextoConclusao1: 'Total de emissões: ',
+        TextoConclusao2: 'Gostaria de compartilhar sua pegada de carbono?',
+        TextoConclusao3: 'Média total de emissões: ',
         paginaInicial: 'Página inicial',
         testes: 'Testes',
         entrar: 'Entrar',
@@ -24,7 +41,7 @@ const textos = {
         altoContraste: 'Alto Contraste:',
         idioma: 'Idioma',
         SelecioneTresPontinhos: 'Selecione...',
-        TituloGas: 'Gás de Cozinha',
+        TituloGas: 'Gás',
         PerguntaMetrosCubicos: 'Digite o valor em metros cúbicos (m³) da sua última conta de gás natural corrigido:',
         ExemploMetrosCubicos: 'Ex: 25',
         RespostaSim: 'Sim',
@@ -74,6 +91,21 @@ const textos = {
         ErroCarregarRotinas: 'Erro ao carregar rotinas.',
     },
     en: {
+        MensagemConvite: "Visit Eco Balance and calculate your carbon footprint too!",
+        MensagemCompartilhar: "My carbon footprint was",
+        meusGraficos: 'My Charts',
+        MensagemTotalAcima: "Your total carbon footprint is above the global average:",
+        MensagemTotalAbaixo: "Congratulations! Your carbon footprint is below the global average:",
+        AcimaDe: 'above the global average of ',
+        AbaixoDe: 'below the global average of ',
+        MensagemAcima: "Your emission in this category is above the global average:",
+        MensagemAbaixo: "Great news! Your emission is below the global average:",
+        TituloMediaGlobal: 'Global average emissions:',
+        TituloAlimentos: 'Food',
+        TitulosVeiculos: 'Vehicles',
+        TextoConclusao1: 'Total emissions: ',
+        TextoConclusao3: 'Average total emissions:',
+        TextoConclusao2: 'Would you like to share your carbon footprint?',
         paginaInicial: 'Homepage',
         testes: 'Tests',
         entrar: 'Login',
@@ -86,7 +118,7 @@ const textos = {
         altoContraste: 'High Contrast:',
         idioma: 'Language',
         SelecioneTresPontinhos: 'Select...',
-        TituloGas: 'Cooking Gas',
+        TituloGas: 'Gas',
         PerguntaMetrosCubicos: 'Enter the amount in cubic meters (m³) from your last corrected piped gas bill:',
         ExemploMetrosCubicos: 'E.g.: 25',
         RespostaSim: 'Yes',
@@ -157,6 +189,9 @@ const TesteLogado = () => {
         return localStorage.getItem('language') || 'pt'; // Usa o valor salvo ou define 'pt' como padrão
     });
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
+
+    const [dadosGrafico, setDadosGrafico] = useState([]);
+    const [total, setTotal] = useState();
 
     const toggleIdiomaDropdown = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
@@ -252,6 +287,7 @@ const TesteLogado = () => {
             try {
                 const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
                 const response = await fetch(`http://localhost:3001/api/rotinas/usuario/${usuarioLogado._id}`);
+                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/rotinas/usuario/${usuarioLogado._id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setRotinasCadastradas(data);
@@ -539,6 +575,14 @@ const TesteLogado = () => {
                 </>
             ),
         },
+        {
+            titulo: textos[idiomaSelecionado]?.TituloResultados,
+            conteudo: (
+                <>
+
+                </>
+            ),
+        },
     ];
 
     // Filtra as etapas com base nas condições (rotina selecionada e tipo de gás)
@@ -551,6 +595,8 @@ const TesteLogado = () => {
 
     // Garante que o índice da etapa atual esteja dentro dos limites das etapas filtradas
     const etapaAtualFiltrada = Math.min(etapaAtual, etapasFiltradas.length - 1);
+
+    const cores = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#00C49F'];
 
     const handleFinalizarTeste = async () => {
         try {
@@ -620,6 +666,7 @@ const TesteLogado = () => {
                 emissaoTotal
             };
             const response = await fetch("http://localhost:3001/api/testes", {
+            // const response = await fetch("https://ecobalance-backend.onrender.com/api/testes", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -629,9 +676,30 @@ const TesteLogado = () => {
 
             if (response.ok) {
                 toast.success(textos[idiomaSelecionado]?.TesteSalvo);
-                setTimeout(() => {
-                    navigate('/graficos-conquistas');
-                }, 2000);
+                const dadosGraficoAtualizado = [
+                    { categoria: textos[idiomaSelecionado]?.TituloGas, valor: testeData.gasNatural?.emissao > 0 ? testeData.gasNatural.emissao : testeData.emissaoGas },
+                    { categoria: textos[idiomaSelecionado]?.TituloEnergiaEletrica, valor: testeData.energiaEletrica.emissao },
+                    { categoria: textos[idiomaSelecionado]?.TituloAlimentos, valor: testeData.emissaoAlimentos },
+                ];
+
+                if (testeData?.emissaoVeiculos > 0) {
+                    dadosGraficoAtualizado.push({
+                        categoria: textos[idiomaSelecionado]?.TitulosVeiculos,
+                        valor: testeData.emissaoVeiculos
+                    });
+                }
+
+                // Se o usuário **realmente fez uma viagem**, adiciona ao gráfico
+                if (testeData.viagem.fezViagem) {
+                    dadosGraficoAtualizado.push({
+                        categoria: textos[idiomaSelecionado]?.TituloViagens,
+                        valor: testeData.viagem.veiculos.reduce((acc, v) => acc + v.emissao, 0)
+                    });
+                }
+
+                setDadosGrafico(dadosGraficoAtualizado);
+                setTotal(emissaoTotal)
+                setEtapaAtual((prev) => prev + 1);
             } else {
                 toast.error(textos[idiomaSelecionado]?.ErroSalvar);
             }
@@ -653,6 +721,63 @@ const TesteLogado = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const renderTooltipContent = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const { value } = payload[0];
+            return (
+                <div style={{ backgroundColor: 'white', border: '1px solid #ccc', padding: '8px', color: 'black' }}>
+                    <strong className='tooltips'>{`${value.toFixed(2)} kgCO2`}</strong>
+                </div>
+            );
+        }
+        return null;
+    };
+
+    const dadosGraficoMediaGlobal = [
+        { categoria: textos[idiomaSelecionado]?.TituloGas, valor: 18.1678775 },
+        { categoria: textos[idiomaSelecionado]?.TituloEnergiaEletrica, valor: 5.8597 },
+        { categoria: textos[idiomaSelecionado]?.TituloAlimentos, valor: 139.159 },
+        { categoria: textos[idiomaSelecionado]?.TitulosVeiculos, valor: 80 },
+    ];
+
+    const gerarMensagensComparacao = () => {
+        return dadosGrafico.map((itemUsuario) => {
+            const itemMedia = dadosGraficoMediaGlobal.find((media) => media.categoria === itemUsuario.categoria);
+
+            if (!itemMedia) return null; // Se não houver correspondência na média global, ignore
+
+            const acimaDaMedia = itemUsuario.valor > itemMedia.valor;
+            return {
+                categoria: itemUsuario.categoria,
+                mensagem: acimaDaMedia
+                    ? `${textos[idiomaSelecionado]?.MensagemAcima} ${itemUsuario.valor.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AcimaDe} ${itemMedia.valor.toFixed(2)} kgCO2.`
+                    : `${textos[idiomaSelecionado]?.MensagemAbaixo} ${itemUsuario.valor.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AbaixoDe} ${itemMedia.valor.toFixed(2)} kgCO2.`
+            };
+        }).filter(Boolean); // Remove valores nulos
+    };
+
+    const gerarMensagemTotal = () => {
+        const totalUsuario = total;
+        const totalMediaGlobal = 243.19; // Valor médio global fornecido
+
+        return totalUsuario > totalMediaGlobal
+            ? `${textos[idiomaSelecionado]?.MensagemTotalAcima} ${totalUsuario.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AcimaDe} ${totalMediaGlobal.toFixed(2)} kgCO2.`
+            : `${textos[idiomaSelecionado]?.MensagemTotalAbaixo} ${totalUsuario.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AbaixoDe} ${totalMediaGlobal.toFixed(2)} kgCO2.`;
+    };
+
+    const compartilharEmissao = (rede) => {
+        const mensagem = `${textos[idiomaSelecionado]?.MensagemCompartilhar} ${total.toFixed(2)} kgCO2! 🌱💚\n\n${textos[idiomaSelecionado]?.MensagemConvite} eco-balance-online.vercel.app`;
+
+        const urls = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=https://eco-balance-online.vercel.app`,
+            linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=https://eco-balance-online.vercel.app`,
+            twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(mensagem)}`,
+            threads: `https://www.threads.net/intent/post?text=${encodeURIComponent(mensagem)}`,
+        };
+
+        window.open(urls[rede], '_blank');
+    };
 
     return (
         <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
@@ -754,19 +879,106 @@ const TesteLogado = () => {
                 </div>
                 <h2>{etapasFiltradas[etapaAtualFiltrada]?.titulo}</h2>
                 <div className="formulario">{etapasFiltradas[etapaAtualFiltrada]?.conteudo}</div>
+
+                {dadosGrafico.length > 0 && etapaAtual === etapasFiltradas.length - 1 && (
+                    <div className="graficos-container">
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart data={dadosGrafico}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="categoria" />
+                                <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
+                                <Tooltip content={renderTooltipContent} />
+                                <Bar dataKey="valor" fill="#8884d8">
+                                    {dadosGrafico.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+
+                        <div className="texto-recomendacao">
+                            <p className="pergunta">
+                                {textos[idiomaSelecionado]?.TextoConclusao1} {total.toFixed(2)} kgCO2.
+                            </p>
+                        </div>
+
+                        {/* Gráfico de Média Global */}
+                        <div className="grafico-media-global">
+                            <h5 className="titulo-grafico-global">{textos[idiomaSelecionado]?.TituloMediaGlobal}</h5>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={dadosGraficoMediaGlobal}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="categoria" />
+                                    <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
+                                    <Tooltip content={renderTooltipContent} />
+                                    <Bar dataKey="valor">
+                                        {dadosGrafico.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                                        ))}
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="texto-recomendacao">
+                            <p className="pergunta">
+                                {textos[idiomaSelecionado]?.TextoConclusao3} 243,19 kgCO2.
+                            </p>
+                        </div>
+
+                        <div className="comparacao-emissoes">
+                            {gerarMensagensComparacao().map((item, index) => (
+                                <p key={index} className="mensagem-comparacao">
+                                    <b>{item.categoria}</b>: {item.mensagem}
+                                </p>
+                            ))}
+                        </div>
+
+                        <div className="texto-recomendacao">
+                            <p className="pergunta">{gerarMensagemTotal()}</p>
+                        </div>
+
+                        {total < 243.19 && (
+                            <div className="texto-recomendacao">
+                                <p className="pergunta">{textos[idiomaSelecionado]?.TextoConclusao2}</p>
+                                <div className="compartilhar-redes">
+                                    <button className="btn-rede facebook" onClick={() => compartilharEmissao('facebook')}>
+                                        <FaFacebook />
+                                    </button>
+                                    <button className="btn-rede linkedin" onClick={() => compartilharEmissao('linkedin')}>
+                                        <FaLinkedin />
+                                    </button>
+                                    <button className="btn-rede threads" onClick={() => compartilharEmissao('threads')}>
+                                        <FaThreads />
+                                    </button>
+                                    <button className="btn-rede twitter" onClick={() => compartilharEmissao('twitter')}>
+                                        <FaXTwitter />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+
+                    </div>
+
+                )}
+
                 <div className="botoes-navegacao">
-                    {etapaAtual > 0 && (
+                    {etapaAtual > 0 && etapaAtual < etapasFiltradas.length - 2 && (
                         <button className="botao secundario" onClick={voltarEtapa}>
                             {textos[idiomaSelecionado]?.BotaoVoltar}
                         </button>
                     )}
-                    {etapaAtual < etapasFiltradas.length - 1 && (
+                    {etapaAtual < etapasFiltradas.length - 2 && (
                         <button className="botao primario" onClick={avancarEtapa}>
                             {textos[idiomaSelecionado]?.BotaoAvancar}
                         </button>
                     )}
-                    {etapaAtual === etapasFiltradas.length - 1 && (
+                    {etapaAtual === etapasFiltradas.length - 2 && (
                         <button className="botao primario" onClick={handleFinalizarTeste}>{textos[idiomaSelecionado]?.TituloCalcular}</button>
+                    )}
+                    {etapaAtual === etapasFiltradas.length - 1 && (
+                        <button className="botao primario" onClick={handleGráficosEConquistas}>{textos[idiomaSelecionado]?.meusGraficos}</button>
                     )}
                 </div>
             </main>

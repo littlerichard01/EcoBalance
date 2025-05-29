@@ -15,7 +15,82 @@ body {
 
 }
 
+.compartilhar-redes {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 15px;
+}
 
+.btn-rede {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+  /* Cantos levemente arredondados */
+  cursor: pointer;
+  font-size: 30px;
+  transition: transform 0.2s ease-in-out, opacity 0.3s;
+}
+
+/* Efeito suave ao passar o mouse */
+.btn-rede:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* Cores personalizadas para cada rede social */
+.btn-rede.facebook {
+  background-color: #1877F2;
+  color: #fff;
+}
+
+.btn-rede.linkedin {
+  background-color: #0077B5;
+  color: #fff;
+}
+
+.btn-rede.threads {
+  background-color: #000000;
+  color: #fff;
+}
+
+.btn-rede.twitter {
+  background-color: #1DA1F2;
+  color: #fff;
+}
+
+.titulo-grafico-global {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  /* Dá um espaço entre o título e o gráfico */
+}
+
+.comparacao-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+}
+
+.grafico-media-global {
+  flex: 1;
+  /* O gráfico ocupa metade do espaço */
+}
+
+.texto-recomendacao {
+  flex: 1;
+  /* O texto ocupa a outra metade */
+  padding: 20px;
+  text-align: left;
+  font-size: 1.2em;
+}
 
 .pagina-login {
   display: flex;
@@ -2756,8 +2831,5 @@ input:checked+.slider:before {
     font-size: 18px;
     text-align: center;
   }
-
-
-
 
 }

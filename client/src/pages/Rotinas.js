@@ -663,6 +663,7 @@ const Rotinas = () => {
                 }
               };
               fetch('http://localhost:3001/api/rotinas', {
+              // fetch('https://ecobalance-backend.onrender.com/api/rotinas', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

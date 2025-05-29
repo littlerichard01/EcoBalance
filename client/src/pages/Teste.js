@@ -10,6 +10,13 @@ import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 
 const textos = {
   pt: {
+    MensagemTotalAcima: "Sua pegada de carbono total está acima da média global:",
+    MensagemTotalAbaixo: "Parabéns! Sua pegada de carbono está abaixo da média global:",
+    AcimaDe: 'acima da média global de ',
+    AbaixoDe: 'abaixo da média global de ',
+    MensagemAcima: "Sua emissão nesta categoria está acima da média global:",
+    MensagemAbaixo: "Ótima notícia! Sua emissão está abaixo da média global:",
+    TituloMediaGlobal: 'Média global de emissões:',
     paginaInicial: 'Página inicial',
     testes: 'Testes',
     entrar: 'Entrar',
@@ -32,7 +39,7 @@ const textos = {
     DietaCarnivora: 'Carnívora',
     PorcoesConsumidas: 'Porções consumidas por semana:',
     AjudaPorcoes: 'Considere que uma porção equivale a uma refeição média do alimento selecionado.',
-    TituloGas: 'Gás de Cozinha',
+    TituloGas: 'Gás',
     PerguntaGas: 'Você utiliza gás encanado ou compra botijões?',
     SelecaoEncanado: 'Gás encanado',
     SelecaoBotijao: 'Botijão',
@@ -112,15 +119,22 @@ const textos = {
     ErroUmViagem: 'Por favor, selecione pelo menos um veículo utilizado na viagem.',
     ErroDistancia: 'Por favor, digite a distância percorrida para o veículo: ',
     TextoConclusao1: 'Total de emissões: ',
-    TextoConclusao2: ' kgCO2. Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
+    TextoConclusao2: 'Deseja salvar seu teste e acompanhar a evolução da sua pegada de carbono mensalmente? Cadastre-se agora gratuitamente!',
+    TextoConclusao3: 'Média total de emissões: ',
     QuantidadePessoas: 'Quantas pessoas moram com você?',
     PessoasTooltip: 'Deixe um (1) se morar sozinho.',
   },
   en: {
+    MensagemTotalAcima: "Your total carbon footprint is above the global average:",
+    MensagemTotalAbaixo: "Congratulations! Your carbon footprint is below the global average:",
+    AcimaDe: 'above the global average of ',
+    AbaixoDe: 'below the global average of ',
+    MensagemAcima: "Your emission in this category is above the global average:",
+    MensagemAbaixo: "Great news! Your emission is below the global average:",
+    TituloMediaGlobal: 'Global average emissions:',
     paginaInicial: 'Homepage',
     testes: 'Tests',
     entrar: 'Login',
-
     rodape: '© 2025 EcoBalance — All rights reserved',
     tema: 'Theme:',
     altoContraste: 'High Contrast:',
@@ -139,7 +153,7 @@ const textos = {
     DietaCarnivora: 'Carnivore',
     PorcoesConsumidas: 'Portions consumed per week:',
     AjudaPorcoes: 'Consider one portion as an average meal of the selected food.',
-    TituloGas: 'Cooking Gas',
+    TituloGas: 'Gas',
     PerguntaGas: 'Do you use piped gas or buy gas cylinders?',
     SelecaoEncanado: 'Piped gas',
     SelecaoBotijao: 'Cylinder',
@@ -219,7 +233,8 @@ const textos = {
     ErroUmViagem: 'Please select at least one vehicle used during the trip.',
     ErroDistancia: 'Please enter the distance traveled for the selected vehicle:',
     TextoConclusao1: 'Total emissions: ',
-    TextoConclusao2: ' kgCO2. Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
+    TextoConclusao3: 'Average total emissions:',
+    TextoConclusao2: 'Would you like to save your test and track your carbon footprint progress monthly? Sign up now for free!',
     QuantidadePessoas: 'How many people live with you?',
     PessoasTooltip: 'Leave one (1) if you live alone.',
   },
@@ -1097,6 +1112,38 @@ const Teste = () => {
     setAltoContrasteAtivo(!altoContrasteAtivo);
   };
 
+  const dadosGraficoMediaGlobal = [
+    { categoria: textos[idiomaSelecionado]?.TituloGas, valor: 18.1678775 },
+    { categoria: textos[idiomaSelecionado]?.TituloEnergiaEletrica, valor: 5.8597 },
+    { categoria: textos[idiomaSelecionado]?.TituloAlimentos, valor: 139.159 },
+    { categoria: textos[idiomaSelecionado]?.TitulosVeiculos, valor: 80 },
+  ];
+
+  const gerarMensagensComparacao = () => {
+    return dadosGrafico.map((itemUsuario) => {
+      const itemMedia = dadosGraficoMediaGlobal.find((media) => media.categoria === itemUsuario.categoria);
+
+      if (!itemMedia) return null; // Se não houver correspondência na média global, ignore
+
+      const acimaDaMedia = itemUsuario.valor > itemMedia.valor;
+      return {
+        categoria: itemUsuario.categoria,
+        mensagem: acimaDaMedia
+          ? `${textos[idiomaSelecionado]?.MensagemAcima} ${itemUsuario.valor.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AcimaDe} ${itemMedia.valor.toFixed(2)} kgCO2.`
+          : `${textos[idiomaSelecionado]?.MensagemAbaixo} ${itemUsuario.valor.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AbaixoDe} ${itemMedia.valor.toFixed(2)} kgCO2.`
+      };
+    }).filter(Boolean); // Remove valores nulos
+  };
+
+  const gerarMensagemTotal = () => {
+    const totalUsuario = calcularEmissoesSeparadas().testeData.emissaoTotal;
+    const totalMediaGlobal = 243.19; // Valor médio global fornecido
+
+    return totalUsuario > totalMediaGlobal
+      ? `${textos[idiomaSelecionado]?.MensagemTotalAcima} ${totalUsuario.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AcimaDe} ${totalMediaGlobal.toFixed(2)} kgCO2.`
+      : `${textos[idiomaSelecionado]?.MensagemTotalAbaixo} ${totalUsuario.toFixed(2)} kgCO2, ${textos[idiomaSelecionado]?.AbaixoDe} ${totalMediaGlobal.toFixed(2)} kgCO2.`;
+  };
+
   return (
     <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
       <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
@@ -1180,8 +1227,9 @@ const Teste = () => {
         <h2>{etapasFiltradas[etapaAtualFiltrada]?.titulo}</h2>
         <div className="formulario">{etapasFiltradas[etapaAtualFiltrada]?.conteudo}</div>
         {dadosGrafico.length > 0 && etapaAtual === etapasFiltradas.length - 1 && (
-          <div>
-            <div style={{ width: '100%', maxWidth: '600px', margin: '40px auto' }}>
+          <div className="graficos-container">
+            {/* Gráfico do usuário */}
+            <div className="grafico-usuario">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={dadosGrafico}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1196,13 +1244,58 @@ const Teste = () => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div>
+
+            <div className="texto-recomendacao">
               <p className="pergunta">
-                {textos[idiomaSelecionado]?.TextoConclusao1} {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} {textos[idiomaSelecionado]?.TextoConclusao2}
+                {textos[idiomaSelecionado]?.TextoConclusao1} {calcularEmissoesSeparadas().testeData.emissaoTotal.toFixed(2)} kgCO2.
               </p>
             </div>
+
+            {/* Gráfico de Média Global */}
+            <div className="grafico-media-global">
+              <h5 className="titulo-grafico-global">{textos[idiomaSelecionado]?.TituloMediaGlobal}</h5>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={dadosGraficoMediaGlobal}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="categoria" />
+                  <YAxis label={{ value: 'kgCO2', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip content={renderTooltipContent} />
+                  <Bar dataKey="valor">
+                    {dadosGrafico.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="texto-recomendacao">
+              <p className="pergunta">
+                {textos[idiomaSelecionado]?.TextoConclusao3} 243,19 kgCO2.
+              </p>
+            </div>
+
+            <div className="comparacao-emissoes">
+              {gerarMensagensComparacao().map((item, index) => (
+                <p key={index} className="mensagem-comparacao">
+                  <b>{item.categoria}</b>: {item.mensagem}
+                </p>
+              ))}
+            </div>
+
+            <div className="texto-recomendacao">
+              <p className="pergunta">{gerarMensagemTotal()}</p>
+            </div>
+
+            <div className="texto-recomendacao">
+              <p className="pergunta">
+                {textos[idiomaSelecionado]?.TextoConclusao2}
+              </p>
+            </div>
+
           </div>
         )}
+
         <div className="botoes-navegacao">
           {etapaAtual > 0 && (
             <button className="botao secundario" onClick={voltarEtapa}>
