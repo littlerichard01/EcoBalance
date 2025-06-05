@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import './Login.css';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
-import avatar from '../assets/avatar.png';
 import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,9 +10,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
     pt: {
+        sucessoAvatar: 'Avatar atualizado com sucesso!',
+        selecioneAvatar: 'Selecione um Avatar',
         paginaInicial: 'Página inicial',
         testes: 'Testes',
         informacoesUsuario: 'Informações de Usuário',
@@ -46,6 +51,8 @@ const textos = {
         digiteSenhaAtualParaAlterarSenha: 'Digite sua senha atual para alterar a senha.',
     },
     en: {
+        sucessoAvatar: 'Avatar updated successfully!',
+        selecioneAvatar: 'Select an avatar',
         paginaInicial: 'Homepage',
         testes: 'Tests',
         informacoesUsuario: 'User Information',
@@ -103,6 +110,45 @@ const InfoCadastro = () => {
     const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
     const [temaEscuro, setTemaEscuro] = useState(false);
     const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
+
+    const [avatarSelecionado, setAvatarSelecionado] = useState(1);
+    const [mostrarModalAvatar, setMostrarModalAvatar] = useState(false);
+
+    const handleSelecionarAvatar = async (index) => {
+        setAvatarSelecionado(index);
+
+        try {
+            const usuarioAtual = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+            const usuarioAtualizado = {
+                avatarSelecionado: usuarioAtual.avatarSelecionado !== index ? index : usuarioAtual.avatarSelecionado,
+            };
+
+            console.log(avatarSelecionado);
+            console.log(usuarioAtualizado);
+            console.log(usuarioAtual);
+
+
+            const response = await axios.put(`http://localhost:3001/api/usuarios/${usuarioAtual._id}`,
+                // `https://ecobalance-backend.onrender.com/api/usuarios/${usuarioAtual._id}`,
+                usuarioAtualizado
+            );
+
+            if (response.status === 200) {
+                // Atualiza localStorage
+                localStorage.setItem("usuarioLogado", JSON.stringify({
+                    ...usuarioAtual,
+                    avatarSelecionado: usuarioAtualizado.avatarSelecionado
+                }
+                ))
+            }
+
+            toast.success(textos[idiomaSelecionado]?.sucessoAvatar);
+            setMostrarModalAvatar(false);
+        } catch (error) {
+            toast.error("Erro ao atualizar avatar.");
+        }
+    };
 
     const toggleDropdown = () => {
         setMostrarDropdown(!mostrarDropdown);
@@ -163,7 +209,7 @@ const InfoCadastro = () => {
         const usuarioAtualizado = {
             nome: novoNome !== "" ? novoNome : usuarioAtual.nome,
             email: novoEmail !== "" ? novoEmail : usuarioAtual.email,
-            receberLembretes
+            receberLembretes,
         };
 
         // Adiciona senha e senhaAntiga se o usuário quiser atualizar a senha
@@ -319,8 +365,8 @@ const InfoCadastro = () => {
         <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
-            <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
-            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" /> {/* Adicione a folha da esquerda */}
+            <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
             <header className="header">
                 <div className="header-top">
@@ -387,7 +433,7 @@ const InfoCadastro = () => {
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
-                            src={avatar}
+                            src={`/avatars/avatar${usuario.avatarSelecionado}.png`}
                             alt="Avatar do usuário"
                             className="icone-avatar"
                             onClick={toggleDropdown}
@@ -411,12 +457,12 @@ const InfoCadastro = () => {
                         <div className="login-section-alterar-informacoes">
                             <div className="info-parte-1">
                                 <h2 className="login-title">{textos[idiomaSelecionado]?.informacoesUsuario}</h2>
-                                <img src={avatar} alt="Avatar do usuário" className="icone-avatar-info-usuario" />
+                                <img src={`/avatars/avatar${usuario.avatarSelecionado}.png`} alt="Avatar do usuário" className="icone-avatar-info-usuario" style={{ width: "50%", objectFit: "cover", borderRadius: "50%" }} />
                                 <PencilFill
                                     className="icone-editar"
                                     size={20}
                                     color={temaEscuro ? '#d4d4d4' : altoContrasteAtivo ? '#fff' : 'black'}
-                                // onClick={() => handle()}
+                                    onClick={() => setMostrarModalAvatar(true)}
                                 />
                             </div>
                             <div className="info-parte-2">
@@ -513,6 +559,30 @@ const InfoCadastro = () => {
                                     {textos[idiomaSelecionado]?.salvar}
                                 </button>
                             </div>
+                        </div>
+                    </div>
+                )}
+                {/* Modal de seleção de avatar */}
+                {mostrarModalAvatar && (
+                    <div className="custom-modal-overlay">
+                        <div className="custom-modal-content">
+                            <h2 className="modal-title">{textos[idiomaSelecionado]?.selecioneAvatar}</h2><br></br>
+                            <div className="avatar-grid">
+                                {[...Array(9)].map((_, index) => {
+                                    const avatarIndex = index + 1;
+                                    return (
+                                        <img
+                                            key={avatarIndex}
+                                            src={(`avatars/avatar${avatarIndex}.png`)}
+                                            alt={`Avatar ${avatarIndex}`}
+                                            style={{ width: "30%", objectFit: "cover", borderRadius: "50%" }}
+                                            className={`avatar-option ${avatarSelecionado === avatarIndex ? 'selected' : ''}`}
+                                            onClick={() => handleSelecionarAvatar(avatarIndex)}
+                                        />
+                                    );
+                                })}
+                            </div>
+
                         </div>
                     </div>
                 )}

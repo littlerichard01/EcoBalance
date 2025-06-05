@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Login.css';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
-import avatar from '../assets/avatar.png';
 import folhaEsquerda from '../assets/folha-esquerda.png'; // Importe a folha da esquerda
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
     pt: {
@@ -276,8 +279,8 @@ const GraficosEConquistas = () => {
         <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
-            <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
-            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" /> {/* Adicione a folha da esquerda */}
+            <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
             <header className="header">
                 <div className="header-top">
@@ -344,7 +347,7 @@ const GraficosEConquistas = () => {
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
-                            src={avatar}
+                            src={`/avatars/avatar${usuario.avatarSelecionado}.png`}
                             alt="Avatar do usuário"
                             className="icone-avatar"
                             onClick={toggleDropdown}

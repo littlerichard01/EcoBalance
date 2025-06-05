@@ -3,7 +3,6 @@ import './Login.css'; // Importando o CSS existente
 import folhaEsquerda from '../assets/folha-esquerda.png';
 import folhaDireita from '../assets/folha-direita.png';
 import logo from '../assets/logo.png';
-import avatar from '../assets/avatar.png';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +10,10 @@ import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import { FaFacebook, FaLinkedin, FaThreads, FaXTwitter } from "react-icons/fa6"; // FaXTwitter para o antigo Twitter (X)
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
     pt: {
@@ -169,6 +172,8 @@ const textos = {
 };
 
 const TesteLogado = () => {
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
     const [mostrarDropdown, setMostrarDropdown] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
@@ -666,7 +671,7 @@ const TesteLogado = () => {
                 emissaoTotal
             };
             const response = await fetch("http://localhost:3001/api/testes", {
-            // const response = await fetch("https://ecobalance-backend.onrender.com/api/testes", {
+                // const response = await fetch("https://ecobalance-backend.onrender.com/api/testes", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -783,8 +788,9 @@ const TesteLogado = () => {
         <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
-            <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
-            <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+            <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
+
             <header className="header">
                 <div className="header-top">
                     <img src={logo} alt="Logo" className="logo" />
@@ -850,7 +856,7 @@ const TesteLogado = () => {
                     </div>
                     <div ref={dropdownRef} className="dropdown-avatar-wrapper" style={{ position: 'relative' }}>
                         <img
-                            src={avatar}
+                            src={`/avatars/avatar${usuario.avatarSelecionado}.png`}
                             alt="Avatar do usuário"
                             className="icone-avatar"
                             onClick={toggleDropdown}

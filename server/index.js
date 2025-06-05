@@ -37,11 +37,15 @@ app.post("/api/register", async (req, res) => {
 
     const senhaCriptografada = await bcrypt.hash(senha, SALT_ROUNDS);
 
+    // 🎲 Gera um número aleatório de 1 a 9 para o avatar
+    const avatarSelecionado = Math.floor(Math.random() * 9) + 1;
+
     const novoUsuario = new User({
       nome,
       email,
       senha: senhaCriptografada,
-      receberLembretes: receberLembretes || false
+      receberLembretes: receberLembretes || false,
+      avatarSelecionado 
     });
 
     await novoUsuario.save();
@@ -51,7 +55,8 @@ app.post("/api/register", async (req, res) => {
       message: "Usuário cadastrado com sucesso!",
       _id: novoUsuario._id,
       nome: novoUsuario.nome,
-      email: novoUsuario.email
+      email: novoUsuario.email,
+      avatarSelecionado: novoUsuario.avatarSelecionado
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao cadastrar usuário, Preencha todos os campos." });
@@ -73,7 +78,7 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ error: "Senha incorreta" });
     }
 
-    res.status(200).json({ message: "Login realizado com sucesso!", _id: usuario._id, nome: usuario.nome, email: usuario.email });
+    res.status(200).json({ message: "Login realizado com sucesso!", _id: usuario._id, nome: usuario.nome, email: usuario.email, receberLembretes: usuario.receberLembretes, avatarSelecionado : usuario.avatarSelecionado });
   } catch (err) {
     res.status(500).json({ error: "Erro no servidor ao tentar login" });
   }
@@ -109,6 +114,10 @@ app.put("/api/usuarios/:id", async (req, res) => {
     if (typeof receberLembretes === 'boolean') {
       usuario.receberLembretes = receberLembretes;
     }
+    if (typeof req.body.avatarSelecionado === 'number') {
+  usuario.avatarSelecionado = req.body.avatarSelecionado;
+}
+
 
     // Salva as alterações no banco de dados
     await usuario.save();
