@@ -1175,11 +1175,21 @@ body {
 }
 
 .scroll-container {
-  position: relative;
+position: relative;
+  width: 100%; /* ou um valor fixo como 600px, se preferir */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 100%; /* garante que não passe do pai */
+  box-sizing: border-box;
+
+  /* position: relative; */
   margin-bottom: 2rem;
-  padding: auto;
+  padding: 0 10px;
 }
 
 .container-grafico {
@@ -1855,10 +1865,6 @@ body {
   .login-title-rotina {
     font-size: 28px;
     text-align: center;
-  }
-
-  .scroll-container {
-    padding: 0 10px;
   }
 
   .container-grafico {
@@ -2831,5 +2837,7 @@ input:checked+.slider:before {
     font-size: 18px;
     text-align: center;
   }
+
+
 
 }

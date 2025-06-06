@@ -7,6 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from 'recharts';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
   pt: {
@@ -983,6 +987,20 @@ const Teste = () => {
     localStorage.setItem('rotinaAnonima', JSON.stringify(rotinaParaSalvar));
     localStorage.setItem('testeAnonimo', JSON.stringify(testeData));
 
+    let conquistasObtidas = [];
+    // 1. Conquista obtida de primeiro teste
+    conquistasObtidas.push("primeiro_teste");
+
+    // 2. Verificar "abaixo_media_mensal"
+    const mediaGlobalMensal = 243.19; // Em quilos de CO₂ equivalente por mês
+    if (emissaoTotal < mediaGlobalMensal) {
+      conquistasObtidas.push("abaixo_media_mensal");
+    }
+
+    console.log(conquistasObtidas)
+    // Salvar conquistas anônimas no localStorage
+    localStorage.setItem("conquistasAnonimas", JSON.stringify(conquistasObtidas));
+
     return {
       rotinaParaSalvar,
       testeData
@@ -1146,8 +1164,8 @@ const Teste = () => {
 
   return (
     <div className={`rotinas-container ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
-      <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
-      <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
       <header className="header">
         <div className="header-top">
           <img src={logo} alt="Logo" className="logo" />

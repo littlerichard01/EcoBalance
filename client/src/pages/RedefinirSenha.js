@@ -7,6 +7,10 @@ import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
   pt: {
@@ -114,8 +118,8 @@ const RedefinirSenha = () => {
 
   return (
     <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
-      <img src={folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
-      <img src={folhaDireita} alt="Folha direita" className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
       <header className="header">
         <div className="header-top">

@@ -27,7 +27,39 @@ app.get("/api", (req, res) => {
 
 // Rota de cadastro
 app.post("/api/register", async (req, res) => {
-  const { nome, email, senha, receberLembretes } = req.body;
+  const { nome, email, senha, receberLembretes, conquistas: conquistasRecebidas } = req.body;
+
+  const conquistasIniciais = [
+  {
+    nome: "primeiro_teste",
+    descricao: "Você concluiu o seu primeiro teste de cálculo de pegada de carbono!",
+    ativa: false,
+    data: null
+  },
+  {
+    nome: "reducao_individual",
+    descricao: "Você diminuiu a sua pegada de carbono em relação ao seu último teste!",
+    ativa: false,
+    data: null
+  },
+  {
+    nome: 'abaixo_media_mensal',
+    descricao: "Você realizou um teste com emissão abaixo da média global por um mês.",
+    ativa: false,
+    data: null
+  }
+];
+
+// 🔄 Atualiza as conquistas iniciais com base nas que vieram do frontend
+  if (conquistasRecebidas && Array.isArray(conquistasRecebidas)) {
+    conquistasRecebidas.forEach(nomeRecebido => {
+      const conquista = conquistasIniciais.find(c => c.nome === nomeRecebido);
+      if (conquista) {
+        conquista.ativa = true;
+        conquista.data = new Date(); // você pode usar null se não quiser registrar a data
+      }
+    });
+  }
 
   try {
     const usuarioExistente = await User.findOne({ email });
@@ -45,7 +77,8 @@ app.post("/api/register", async (req, res) => {
       email,
       senha: senhaCriptografada,
       receberLembretes: receberLembretes || false,
-      avatarSelecionado 
+      avatarSelecionado,
+      conquistas: conquistasIniciais 
     });
 
     await novoUsuario.save();
@@ -56,7 +89,8 @@ app.post("/api/register", async (req, res) => {
       _id: novoUsuario._id,
       nome: novoUsuario.nome,
       email: novoUsuario.email,
-      avatarSelecionado: novoUsuario.avatarSelecionado
+      avatarSelecionado: novoUsuario.avatarSelecionado,
+      conquistas: novoUsuario.conquistas
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao cadastrar usuário, Preencha todos os campos." });
@@ -78,7 +112,7 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ error: "Senha incorreta" });
     }
 
-    res.status(200).json({ message: "Login realizado com sucesso!", _id: usuario._id, nome: usuario.nome, email: usuario.email, receberLembretes: usuario.receberLembretes, avatarSelecionado : usuario.avatarSelecionado });
+    res.status(200).json({ message: "Login realizado com sucesso!", _id: usuario._id, nome: usuario.nome, email: usuario.email, receberLembretes: usuario.receberLembretes, avatarSelecionado: usuario.avatarSelecionado, conquistas: usuario.conquistas });
   } catch (err) {
     res.status(500).json({ error: "Erro no servidor ao tentar login" });
   }
@@ -299,6 +333,48 @@ app.get('/api/testes/usuario/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar testes do usuário' });
   }
 });
+
+// Atualizar conquistas do usuário
+app.put("/api/usuarios/:id/conquistas", async (req, res) => {
+  const { conquistas } = req.body; // Ex: ["primeiro_teste", "reducao_individual"]
+
+  if (!Array.isArray(conquistas) || conquistas.length === 0) {
+    return res.status(400).json({ error: "Lista de conquistas inválida ou vazia." });
+  }
+
+  try {
+    const usuario = await User.findById(req.params.id);
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuário não encontrado." });
+    }
+
+    let conquistasAtualizadas = false;
+
+    conquistas.forEach(nomeConquista => {
+      const conquista = usuario.conquistas.find(c => c.nome === nomeConquista);
+      if (conquista && !conquista.ativa) {
+        conquista.ativa = true;
+        conquista.data = new Date();
+        conquistasAtualizadas = true;
+      }
+    });
+
+    if (conquistasAtualizadas) {
+      await usuario.save();
+    }
+
+    res.status(200).json({
+      message: conquistasAtualizadas
+        ? "Conquistas atualizadas com sucesso."
+        : "Nenhuma conquista foi modificada.",
+      conquistas: usuario.conquistas
+    });
+  } catch (err) {
+    console.error("Erro ao atualizar conquistas:", err);
+    res.status(500).json({ error: "Erro ao atualizar conquistas do usuário." });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

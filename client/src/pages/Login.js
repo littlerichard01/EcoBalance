@@ -10,6 +10,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import bandeiraBrasil from '../assets/bandeira-brasil.png';
 import bandeiraReinoUnido from '../assets/bandeira-reinounido.png';
+import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
+import folhaDireitaDark from '../assets/folha-direitadark.png';
+import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
+import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
   pt: {
@@ -186,13 +190,19 @@ const Login = () => {
       return;
     }
 
+    const conquistasSalvas = localStorage.getItem("conquistasAnonimas");
+    const conquistas = conquistasSalvas ? JSON.parse(conquistasSalvas) : [];
+    console.log(conquistas)
+
     try {
       const resposta = await fetch("http://localhost:3001/api/register", {
-      // const resposta = await fetch("https://ecobalance-backend.onrender.com/api/register", {
+        // const resposta = await fetch("https://ecobalance-backend.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes })
+        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes, conquistas })
       });
+
+                  localStorage.removeItem("conquistasAnonimas");
 
       const dados = await resposta.json();
 
@@ -219,7 +229,7 @@ const Login = () => {
 
           // Enviar rotina
           const respostaRotina = await fetch("http://localhost:3001/api/rotinas", {
-          // const respostaRotina = await fetch("https://ecobalance-backend.onrender.com/api/rotinas", {
+            // const respostaRotina = await fetch("https://ecobalance-backend.onrender.com/api/rotinas", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(rotina)
@@ -236,7 +246,7 @@ const Login = () => {
 
             // Enviar teste
             await fetch("http://localhost:3001/api/testes", {
-            // await fetch("https://ecobalance-backend.onrender.com/api/testes", {
+              // await fetch("https://ecobalance-backend.onrender.com/api/testes", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(teste)
@@ -264,7 +274,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const resposta = await fetch("http://localhost:3001/api/login", {
-      // const resposta = await fetch("https://ecobalance-backend.onrender.com/api/login", {
+        // const resposta = await fetch("https://ecobalance-backend.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ _id: idLogin, email: emailLogin, senha: senhaLogin }),
@@ -307,8 +317,8 @@ const Login = () => {
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
       {/* Folhas laterais */}
-      <img src={folhaEsquerda} alt={textos[idiomaSelecionado]?.folhaEsquerdaAlt || "Folha esquerda"} className="folha folha-esquerda" />
-      <img src={folhaDireita} alt={textos[idiomaSelecionado]?.folhaDireitaAlt || "Folha direita"} className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
+      <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
       <header className="header">
         <div className="header-top">

@@ -16,6 +16,21 @@ import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
     pt: {
+        ConquistaEm: "Conquistada em:",
+        Conquistas: {
+            primeiro_teste: {
+                titulo: "Primeiro Teste",
+                descricao: "Você completou seu primeiro teste de pegada de carbono!"
+            },
+            reducao_individual: {
+                titulo: "Redução Individual",
+                descricao: "Você conseguiu reduzir sua pegada em relação ao teste anterior."
+            },
+            abaixo_media_mensal: {
+                titulo: "Abaixo da Média Global",
+                descricao: "Sua emissão está abaixo da média mensal global."
+            }
+        },
         paginaInicial: 'Página inicial',
         testes: 'Testes',
         informacoesUsuario: 'Informações de Usuário',
@@ -38,6 +53,21 @@ const textos = {
         veiculos: 'Veículos',
     },
     en: {
+        ConquistaEm: "Conquered on:",
+        Conquistas: {
+            primeiro_teste: {
+                titulo: "First Test",
+                descricao: "You completed your first carbon footprint test!"
+            },
+            reducao_individual: {
+                titulo: "Individual Reduction",
+                descricao: "You managed to reduce your footprint compared to the previous test."
+            },
+            abaixo_media_mensal: {
+                titulo: "Below Global Average",
+                descricao: "Your emission is below the global monthly average."
+            }
+        },
         paginaInicial: 'Homepage',
         testes: 'Tests',
         informacoesUsuario: 'User Information',
@@ -110,9 +140,26 @@ const GraficosEConquistas = () => {
     const [showModal, setShowModal] = useState(false);
     const [graficoSelecionado, setGraficoSelecionado] = useState(null);
 
+    const [conquistas, setConquistas] = useState([]);
+
+    const [modalAberta, setModalAberta] = useState(false);
+    const [conquistaSelecionada, setConquistaSelecionada] = useState(null);
+
     const abrirModal = (teste) => {
         setGraficoSelecionado(teste);
         setShowModal(true);
+    };
+
+    const abrirModalConquista = (conquista) => {
+        if (conquista.ativa === true) {
+            setConquistaSelecionada(conquista);
+            setModalAberta(true);
+        }
+    };
+
+    const fecharModalConquista = () => {
+        setModalAberta(false);
+        setConquistaSelecionada(null);
     };
 
     const fecharModal = () => {
@@ -130,6 +177,17 @@ const GraficosEConquistas = () => {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     };
+
+    useEffect(() => {
+        if (usuario?.conquistas) {
+            const conquistasString = JSON.stringify(usuario.conquistas);
+            const conquistasAtualString = JSON.stringify(conquistas);
+            if (conquistasString !== conquistasAtualString) {
+                setConquistas(usuario.conquistas);
+                console.log("RENDERIZOU");
+            }
+        }
+    }, [usuario, conquistas]);
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
@@ -186,7 +244,7 @@ const GraficosEConquistas = () => {
         setAltoContrasteAtivo(!altoContrasteAtivo);
     };
 
-    useEffect((idiomaSelecionado) => {
+    useEffect(() => {
         if (!usuario) {
             navigate("/login");
             return;
@@ -195,22 +253,21 @@ const GraficosEConquistas = () => {
         const buscarRotinas = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/api/testes/usuario/${usuario._id}`);
-                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/testes/usuario/${usuario._id}`);
                 const data = await response.json();
                 if (Array.isArray(data)) {
                     setTestes(data);
                 } else {
                     console.error("Resposta inesperada ao buscar testes:", data);
-                    toast.warning(textos[idiomaSelecionado]?.RespostaInesperadaT)
+                    toast.warning(textos[idiomaSelecionado]?.RespostaInesperadaT || "Resposta inesperada.");
                 }
             } catch (err) {
                 console.error("Erro ao buscar testes:", err);
-                toast.error(textos[idiomaSelecionado]?.ErroBuscarTestes)
+                toast.error(textos[idiomaSelecionado]?.ErroBuscarTestes || "Erro ao buscar testes.");
             }
         };
 
         buscarRotinas();
-    }, [usuario, navigate]);
+    }, []);
 
     const cores = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#00C49F'];
 
@@ -410,16 +467,75 @@ const GraficosEConquistas = () => {
                             <div className="scroll-container">
                                 <button className="scroll-btn left" onClick={() => scrollContainer('conquistas', 'left')}>&lt;</button>
                                 <div className="container-grafico" id="conquistas">
-                                    <div className="grafico-circle">🏆</div>
-                                    <div className="grafico-circle">🥇</div>
-                                    <div className="grafico-circle">🎖️</div>
-                                    <div className="grafico-circle">🏅</div>
+                                    {(conquistas || []).map((conquista, index) => (
+                                        <div key={index} className="grafico-circle" onClick={() => abrirModalConquista(conquista)}>
+                                            {conquista.ativa ? (
+                                                <img
+                                                    src={`conquistas/conquista${(index % 9) + 1}.png`}
+                                                    alt="Conquista desbloqueada"
+                                                    style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+                                                />
+                                            ) : (
+                                                <span style={{ fontSize: '1.5rem' }}>🔒</span>
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
                                 <button className="scroll-btn right" onClick={() => scrollContainer('conquistas', 'right')}>&gt;</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                {modalAberta && conquistaSelecionada && (
+                    <>
+                        <div className="modal fade show"
+                            style={{ display: 'block' }}
+                            tabIndex="-1"
+                            role="dialog"
+                        >
+                            <div className="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div className="modal-content" style={{ position: 'relative' }}>
+                                    <button
+                                        type="button"
+                                        className="btn-close-custom"
+                                        onClick={fecharModalConquista}
+                                        aria-label={textos[idiomaSelecionado]?.fechar}
+                                    >
+                                        &times;
+                                    </button>
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">
+                                            {textos[idiomaSelecionado]?.Conquistas[conquistaSelecionada.nome]?.titulo}
+                                        </h5>
+                                    </div>
+                                    <div className="modal-body text-center">
+    <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
+        {textos[idiomaSelecionado]?.Conquistas[conquistaSelecionada.nome]?.descricao}
+    </p>
+
+    <img
+        src={`conquistas/conquista${(conquistas.indexOf(conquistaSelecionada) % 9) + 1}.png`}
+        alt="Imagem da Conquista"
+        style={{
+            width: '200px',
+            height: '200px',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            marginBottom: '20px'
+        }}
+    />
+
+    <p style={{ fontStyle: 'italic', color: '#555' }}>
+        {textos[idiomaSelecionado]?.ConquistaEm}{' '}
+        {new Date(conquistaSelecionada.data).toLocaleDateString(idiomaSelecionado === 'en' ? 'en-US' : 'pt-BR')}
+    </p>
+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-backdrop fade show" onClick={fecharModalConquista}></div>
+                    </>
+                )}
                 {showModal && graficoSelecionado && (
                     <>
                         <div className="modal fade show"
@@ -440,7 +556,7 @@ const GraficosEConquistas = () => {
                                     <div className="modal-header">
                                         <h5 className="modal-title">
                                             {textos[idiomaSelecionado]?.detalhesGraficoDia}{' '}
-                                            {new Date(graficoSelecionado.dataRealizacao).toLocaleDateString('pt-BR')}
+                                            {new Date(graficoSelecionado.dataRealizacao).toLocaleDateString(idiomaSelecionado === 'en' ? 'en-US' : 'pt-BR')}
                                         </h5>
                                     </div>
                                     <div className="modal-body d-flex justify-content-center">

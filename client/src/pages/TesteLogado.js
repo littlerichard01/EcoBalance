@@ -679,6 +679,62 @@ const TesteLogado = () => {
                 body: JSON.stringify(testeData),
             });
 
+            let conquistasObtidas = [];
+
+            // 1. Verificar "primeiro_teste"
+            const resTestes = await fetch(`http://localhost:3001/api/testes/usuario/${usuarioLogado._id}`);
+            // const resTestes = await fetch(`https://ecobalance-backend.onrender.com/api/testes/usuario/${usuarioLogado._id}`);
+            const testesUsuario = await resTestes.json();
+
+            if (testesUsuario.length === 1) {
+                conquistasObtidas.push("primeiro_teste");
+            }
+
+            // 2. Verificar "reducao_individual"
+            if (testesUsuario.length >= 2) {
+                const penultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 1)];
+                console.log(emissaoTotal)
+                console.log(penultimoTeste.emissaoTotal)
+                if (penultimoTeste.emissaoTotal > emissaoTotal) {
+                    conquistasObtidas.push("reducao_individual");
+                }
+            }
+
+            // 3. Verificar "abaixo_media_mensal"
+            const mediaGlobalMensal = 243.19; // Em quilos de CO₂ equivalente por mês
+            if (emissaoTotal < mediaGlobalMensal) {
+                conquistasObtidas.push("abaixo_media_mensal");
+            }
+
+            console.log(conquistasObtidas)
+            console.log(usuarioLogado)
+
+            // Se houver conquistas, atualizar no backend
+            if (conquistasObtidas.length > 0) {
+                await fetch(`http://localhost:3001/api/usuarios/${usuarioLogado._id}/conquistas`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ conquistas: conquistasObtidas }),
+                });
+
+                // Atualizar localStorage se necessário
+                if (!usuarioLogado.conquistas) usuarioLogado.conquistas = [];
+
+                conquistasObtidas.forEach(nome => {
+                    const conquistaExistente = usuarioLogado.conquistas.find(c => c.nome === nome);
+                    if (conquistaExistente && !conquistaExistente.ativa) {
+                        conquistaExistente.ativa = true;
+                        conquistaExistente.data = new Date().toISOString();
+                    }
+                });
+
+                console.log(usuarioLogado)
+                console.log("CHEGOU AQUI")
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+            }
+
             if (response.ok) {
                 toast.success(textos[idiomaSelecionado]?.TesteSalvo);
                 const dadosGraficoAtualizado = [
