@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const connectDB = require('./database');
 require('dotenv').config();
 const cors = require('cors');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
 const User = require('./models/User');
 const Rotina = require('./models/Rotina');
 const TesteDeUsuario = require('./models/TesteDeUsuario');
@@ -13,12 +16,22 @@ const app = express();
 
 const SALT_ROUNDS = 10;
 
+const recuperarSenhaRouter = require('./routes/recuperarSenha');
+const novaSenhaRouter = require('./routes/novaSenha');
+
 // Conectar ao banco
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  // origin: 'http://ecobalance-backend.onrender.com', 
+  credentials: true // se você usar cookies/autenticação no futuro
+}));
 app.use(express.json());
+
+app.use('/api/recuperar-senha', recuperarSenhaRouter);
+app.use('/api/nova-senha', novaSenhaRouter);
 
 // API de exemplo
 app.get("/api", (req, res) => {
@@ -30,27 +43,33 @@ app.post("/api/register", async (req, res) => {
   const { nome, email, senha, receberLembretes, conquistas: conquistasRecebidas } = req.body;
 
   const conquistasIniciais = [
-  {
-    nome: "primeiro_teste",
-    descricao: "Você concluiu o seu primeiro teste de cálculo de pegada de carbono!",
-    ativa: false,
-    data: null
-  },
-  {
-    nome: "reducao_individual",
-    descricao: "Você diminuiu a sua pegada de carbono em relação ao seu último teste!",
-    ativa: false,
-    data: null
-  },
-  {
-    nome: 'abaixo_media_mensal',
-    descricao: "Você realizou um teste com emissão abaixo da média global por um mês.",
-    ativa: false,
-    data: null
-  }
-];
+    {
+      nome: "primeiro_teste",
+      descricao: "Você concluiu o seu primeiro teste de cálculo de pegada de carbono!",
+      ativa: false,
+      data: null
+    },
+    {
+      nome: "reducao_individual",
+      descricao: "Você diminuiu a sua pegada de carbono em relação ao seu último teste!",
+      ativa: false,
+      data: null
+    },
+    {
+      nome: 'abaixo_media_mensal',
+      descricao: "Você realizou um teste com emissão abaixo da média global por um mês.",
+      ativa: false,
+      data: null
+    },
+    {
+      nome: 'reducao_individual_2',
+      descricao: "Você diminuiu sua pegada de carbono consecutivamente por dois testes!",
+      ativa: false,
+      data: null
+    }
+  ];
 
-// 🔄 Atualiza as conquistas iniciais com base nas que vieram do frontend
+  // 🔄 Atualiza as conquistas iniciais com base nas que vieram do frontend
   if (conquistasRecebidas && Array.isArray(conquistasRecebidas)) {
     conquistasRecebidas.forEach(nomeRecebido => {
       const conquista = conquistasIniciais.find(c => c.nome === nomeRecebido);
@@ -78,7 +97,7 @@ app.post("/api/register", async (req, res) => {
       senha: senhaCriptografada,
       receberLembretes: receberLembretes || false,
       avatarSelecionado,
-      conquistas: conquistasIniciais 
+      conquistas: conquistasIniciais
     });
 
     await novoUsuario.save();
@@ -149,8 +168,8 @@ app.put("/api/usuarios/:id", async (req, res) => {
       usuario.receberLembretes = receberLembretes;
     }
     if (typeof req.body.avatarSelecionado === 'number') {
-  usuario.avatarSelecionado = req.body.avatarSelecionado;
-}
+      usuario.avatarSelecionado = req.body.avatarSelecionado;
+    }
 
 
     // Salva as alterações no banco de dados

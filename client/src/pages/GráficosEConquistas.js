@@ -29,7 +29,11 @@ const textos = {
             abaixo_media_mensal: {
                 titulo: "Abaixo da Média Global",
                 descricao: "Sua emissão está abaixo da média mensal global."
-            }
+            },
+            reducao_individual_2: {
+                titulo: "Redução Individual II",
+                descricao: "Você diminuiu sua pegada de carbono consecutivamente por dois testes!",
+            },
         },
         paginaInicial: 'Página inicial',
         testes: 'Testes',
@@ -66,7 +70,11 @@ const textos = {
             abaixo_media_mensal: {
                 titulo: "Below Global Average",
                 descricao: "Your emission is below the global monthly average."
-            }
+            },
+            reducao_individual_2: {
+                titulo: "Individual Reduction II",
+                descricao: "You have consecutively reduced your carbon footprint for two tests!",
+            },
         },
         paginaInicial: 'Homepage',
         testes: 'Tests',
@@ -253,6 +261,7 @@ const GraficosEConquistas = () => {
         const buscarRotinas = async () => {
             try {
                 const response = await fetch(`http://localhost:3001/api/testes/usuario/${usuario._id}`);
+                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/testes/usuario/${usuario._id}`);
                 const data = await response.json();
                 if (Array.isArray(data)) {
                     setTestes(data);
@@ -473,7 +482,7 @@ const GraficosEConquistas = () => {
                                                 <img
                                                     src={`conquistas/conquista${(index % 9) + 1}.png`}
                                                     alt="Conquista desbloqueada"
-                                                    style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+                                                    style={{ width: '100%', height: '100%' }}
                                                 />
                                             ) : (
                                                 <span style={{ fontSize: '1.5rem' }}>🔒</span>
@@ -509,27 +518,26 @@ const GraficosEConquistas = () => {
                                         </h5>
                                     </div>
                                     <div className="modal-body text-center">
-    <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
-        {textos[idiomaSelecionado]?.Conquistas[conquistaSelecionada.nome]?.descricao}
-    </p>
+                                        <p style={{ fontSize: '1.2rem', marginBottom: '20px' }}>
+                                            {textos[idiomaSelecionado]?.Conquistas[conquistaSelecionada.nome]?.descricao}
+                                        </p>
 
-    <img
-        src={`conquistas/conquista${(conquistas.indexOf(conquistaSelecionada) % 9) + 1}.png`}
-        alt="Imagem da Conquista"
-        style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            objectFit: 'cover',
-            marginBottom: '20px'
-        }}
-    />
+                                        <img
+                                            src={`conquistas/conquista${(conquistas.indexOf(conquistaSelecionada) % 9) + 1}.png`}
+                                            alt="Imagem da Conquista"
+                                            style={{
+                                                width: '200px',
+                                                height: '200px',
+                                                objectFit: 'cover',
+                                                marginBottom: '20px'
+                                            }}
+                                        />
 
-    <p style={{ fontStyle: 'italic', color: '#555' }}>
-        {textos[idiomaSelecionado]?.ConquistaEm}{' '}
-        {new Date(conquistaSelecionada.data).toLocaleDateString(idiomaSelecionado === 'en' ? 'en-US' : 'pt-BR')}
-    </p>
-</div>
+                                        <p style={{ fontStyle: 'italic', color: '#555' }}>
+                                            {textos[idiomaSelecionado]?.ConquistaEm}{' '}
+                                            {new Date(conquistaSelecionada.data).toLocaleDateString(idiomaSelecionado === 'en' ? 'en-US' : 'pt-BR')}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

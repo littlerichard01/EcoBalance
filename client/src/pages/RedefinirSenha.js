@@ -11,9 +11,13 @@ import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
 import folhaDireitaDark from '../assets/folha-direitadark.png';
 import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
 import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const textos = {
   pt: {
+    emailValidoTexto: 'E-mail válido!',
+    emailInvalidoTexto: 'E-mail inválido. Ex: exemplo@dominio.com',
     entrar: 'Entrar',
     idioma: 'Idioma',
     tema: 'Tema:',
@@ -27,6 +31,8 @@ const textos = {
     testes: 'Testes',
   },
   en: {
+    emailValidoTexto: 'Valid email!',
+    emailInvalidoTexto: 'Invalid email. Ex: example@domain.com',
     entrar: 'Login',
     idioma: 'Language',
     tema: 'Theme:',
@@ -49,6 +55,31 @@ const RedefinirSenha = () => {
   const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
   const [temaEscuro, setTemaEscuro] = useState(false);
   const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [mensagemEmail, setMensagemEmail] = useState("");
+  const [emailValido, setEmailValido] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/recuperar-senha/solicitar', {
+        //  const response = await fetch('https://ecobalance-backend.onrender.com/api/recuperar-senha/solicitar', {
+
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, idioma: idiomaSelecionado })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message);
+      } else {
+        toast.error(data.error || "Erro inesperado.");
+      }
+    } catch (error) {
+      toast.error("Erro de conexão com o servidor.");
+    }
+  };
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -116,8 +147,15 @@ const RedefinirSenha = () => {
     navigate('/teste');
   };
 
+  const validarEmailTexto = (email) => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(email) ? textos[idiomaSelecionado]?.emailValidoTexto || "E-mail válido!" : textos[idiomaSelecionado]?.emailInvalidoTexto || "E-mail inválido. Ex: exemplo@dominio.com";
+  };
+
   return (
     <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
@@ -198,9 +236,15 @@ const RedefinirSenha = () => {
               </p>
               <div className="form-group">
                 <BsFillEnvelopeFill className="icon" />
-                <input type="email" placeholder={textos[idiomaSelecionado]?.email} />
-              </div>
-              <button className="btn-enviar">{textos[idiomaSelecionado]?.enviar}</button>
+                <input
+                  type="email"
+                  placeholder={textos[idiomaSelecionado]?.email}
+                  value={email}
+                  onChange={(e) => { const novoEmail = e.target.value; setEmail(novoEmail); const mensagem = validarEmailTexto(novoEmail); setMensagemEmail(mensagem); setEmailValido(mensagem === "E-mail válido!" || mensagem === "Valid email!"); }}
+                />
+              </div><br></br>
+              {mensagemEmail && (<small className={`mensagem-senha ${emailValido ? "sucesso" : "erro"}`}>  {mensagemEmail}  </small>)}
+              <button className="btn-login" onClick={handleSubmit}>{textos[idiomaSelecionado]?.enviar}</button>
             </div>
           </div>
         </div>

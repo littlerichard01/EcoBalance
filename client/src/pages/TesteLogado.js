@@ -706,12 +706,24 @@ const TesteLogado = () => {
                 conquistasObtidas.push("abaixo_media_mensal");
             }
 
+            // 4. 2 testes consecutivos
+            if (testesUsuario.length >= 3) {
+                const penultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 1)];
+                const antePenultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 2)];
+                console.log(emissaoTotal)
+                console.log(penultimoTeste.emissaoTotal)
+                if (antePenultimoTeste.emissaoTotal > penultimoTeste.emissaoTotal && penultimoTeste.emissaoTotal > emissaoTotal) {
+                    conquistasObtidas.push("reducao_individual_2");
+                }
+            }
+
             console.log(conquistasObtidas)
             console.log(usuarioLogado)
 
             // Se houver conquistas, atualizar no backend
             if (conquistasObtidas.length > 0) {
                 await fetch(`http://localhost:3001/api/usuarios/${usuarioLogado._id}/conquistas`, {
+                    // await fetch(`https://ecobalance-backend.onrender.com/api/usuarios/${usuarioLogado._id}/conquistas`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

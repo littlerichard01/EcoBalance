@@ -20,11 +20,14 @@
   },
   "homepage": "https://github.com/littlerichard01/EcoBalance#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "mongoose": "^8.13.2"
+    "mongoose": "^8.13.2",
+    "nodemailer": "^7.0.3"
   },
   "engines": {
     "node": "20.17.0"

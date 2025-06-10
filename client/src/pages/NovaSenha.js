@@ -11,9 +11,18 @@ import folhaDireitaContrast from '../assets/folha-direitacontrast.png';
 import folhaDireitaDark from '../assets/folha-direitadark.png';
 import folhaEsquerdaContrast from '../assets/folha-esquerdacontrast.png';
 import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const textos = {
   pt: {
+    senhaMinimo: 'A senha deve ter no mínimo 6 caracteres.',
+    senhaLetras: 'A senha deve conter letras.',
+    senhaNumeros: 'A senha deve conter números.',
+    senhaSimbolos: 'A senha deve conter símbolos (@$!%*#?&).',
+    senhaValida: 'Senha válida!',
+    SenhaCoincidem: 'Senhas coincidem!',
+    SenhaNaoCoincide: 'As senhas não coincidem',
     entrar: 'Entrar',
     idioma: 'Idioma',
     tema: 'Tema:',
@@ -26,8 +35,17 @@ const textos = {
     direitosReservados: '© 2025 EcoBalance — Todos os direitos reservados',
     paginaInicial: 'Página inicial',
     testes: 'Testes',
+    toastTokenInvalido: 'Token inválido ou expirado.',
+    toastErroInterno: 'Erro interno ao redefinir senha.',
   },
   en: {
+    senhaMinimo: 'Password must be at least 6 characters long.',
+    senhaLetras: 'Password must contain letters.',
+    senhaNumeros: 'Password must contain numbers.',
+    senhaSimbolos: 'Password must contain symbols (@$!%*#?&).',
+    senhaValida: 'Valid password!',
+    SenhaCoincidem: 'Passwords match!',
+    SenhaNaoCoincide: 'Passwords do not match',
     entrar: 'Login',
     idioma: 'Language',
     tema: 'Theme:',
@@ -40,6 +58,8 @@ const textos = {
     direitosReservados: '© 2025 EcoBalance — All rights reserved',
     paginaInicial: 'Homepage',
     testes: 'Tests',
+    toastTokenInvalido: "Invalid or expired token.",
+    toastErroInterno: "Internal error while resetting password.",
   },
 };
 
@@ -51,6 +71,59 @@ const NovaSenha = () => {
   const [mostrarDropdownIdioma, setMostrarDropdownIdioma] = useState(false);
   const [temaEscuro, setTemaEscuro] = useState(false);
   const [altoContrasteAtivo, setAltoContrasteAtivo] = useState(false);
+
+  const [senha, setSenha] = useState("");
+  const [confirmacao, setConfirmacao] = useState("");
+  const [senhasCoincidem, setSenhasCoincidem] = useState(false);
+  const [mensagemConfirmacao, setMensagemConfirmacao] = useState("");
+  const [mensagemSenha, setMensagemSenha] = useState("");
+  const [senhaValida, setSenhaValida] = useState(false);
+
+
+  const query = new URLSearchParams(window.location.search);
+  const token = query.get('token');
+
+  const handleRedefinir = async () => {
+    if (senha !== confirmacao) {
+      return toast.error(textos[idiomaSelecionado]?.SenhaNaoCoincide);
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/api/nova-senha/nova', {
+        //  const response = await fetch('https://ecobalance-backend.onrender.com/api/nova-senha/nova', {
+
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, novaSenha: senha })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(textos[idiomaSelecionado]?.toastSucesso);
+      } else {
+        // mapeia mensagens específicas do backend
+        if (data.error === "Token inválido ou expirado") {
+          toast.error(textos[idiomaSelecionado]?.toastTokenInvalido);
+        } else if (data.error === "Erro interno ao redefinir senha") {
+          toast.error(textos[idiomaSelecionado]?.toastErroInterno);
+        } else {
+          toast.error(data.message || data.error);
+        }
+      }
+
+    } catch (error) {
+      toast.error(textos[idiomaSelecionado]?.toastErroInterno);
+    }
+  };
+
+  const validarSenhaTexto = (senha) => {
+    if (senha.length < 6) return textos[idiomaSelecionado]?.senhaMinimo || "A senha deve ter no mínimo 6 caracteres.";
+    if (!/[A-Za-z]/.test(senha)) return textos[idiomaSelecionado]?.senhaLetras || "A senha deve conter letras.";
+    if (!/\d/.test(senha)) return textos[idiomaSelecionado]?.senhaNumeros || "A senha deve conter números.";
+    if (!/[@$!%*#?&]/.test(senha)) return textos[idiomaSelecionado]?.senhaSimbolos || "A senha deve conter símbolos (@$!%*#?&).";
+    return textos[idiomaSelecionado]?.senhaValida || "Senha válida!";
+  };
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -120,6 +193,8 @@ const NovaSenha = () => {
 
   return (
     <div className={`pagina-login ${temaEscuro ? 'dark-mode' : ''} ${altoContrasteAtivo ? 'high-contrast' : ''}`}>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+
       <img src={altoContrasteAtivo ? folhaEsquerdaContrast : temaEscuro ? folhaEsquerdaDark : folhaDireita} alt="Folha direita" className="folha folha-direita" />
       <img src={altoContrasteAtivo ? folhaDireitaContrast : temaEscuro ? folhaDireitaDark : folhaEsquerda} alt="Folha esquerda" className="folha folha-esquerda" />
 
@@ -198,14 +273,27 @@ const NovaSenha = () => {
               <p style={{ color: '#999', marginRight: '80px', marginBottom: '5px' }}>{textos[idiomaSelecionado]?.definaNovaSenha}</p>
               <div className="form-group">
                 <BsFillLockFill className="icon" />
-                <input type="password" placeholder={textos[idiomaSelecionado]?.senha} />
-              </div>
+                <input
+                  type="password"
+                  placeholder={textos[idiomaSelecionado]?.senha}
+                  value={senha}
+                  onChange={(e) => { const novaSenha = e.target.value; setSenha(novaSenha); const mensagem = validarSenhaTexto(novaSenha); setMensagemSenha(mensagem); setSenhaValida(mensagem === "Senha válida!" || mensagem === "Valid password!"); }}
+                />
+              </div><br></br>
+              {mensagemSenha && (<small className={`mensagem-senha ${senhaValida ? "sucesso" : "erro"}`}>{mensagemSenha}</small>)}
+              <br></br>
               <p style={{ color: '#999', marginRight: '60px', marginBottom: '5px' }}>{textos[idiomaSelecionado]?.confirmeNovaSenha}</p>
               <div className="form-group">
                 <BsFillLockFill className="icon" />
-                <input type="password" placeholder={textos[idiomaSelecionado]?.confirmeNovaSenha} />
-              </div>
-              <button className="btn-enviar">{textos[idiomaSelecionado]?.redefinir}</button>
+                <input
+                  type="password"
+                  placeholder={textos[idiomaSelecionado]?.confirmeNovaSenha}
+                  value={confirmacao}
+                  onChange={(e) => { const confirmacaoSenha = e.target.value; setConfirmacao(confirmacaoSenha); const senhasIguais = confirmacaoSenha === senha; setSenhasCoincidem(senhasIguais); setMensagemConfirmacao(senhasIguais ? textos[idiomaSelecionado]?.SenhaCoincidem : textos[idiomaSelecionado]?.SenhaNaoCoincide); }}
+                />
+              </div><br></br>
+              {mensagemConfirmacao && (<small className={`mensagem-senha ${senhasCoincidem ? "sucesso" : "erro"}`}>{mensagemConfirmacao}</small>)}
+              <button className="btn-login" onClick={handleRedefinir}>{textos[idiomaSelecionado]?.redefinir}</button>
             </div>
           </div>
         </div>

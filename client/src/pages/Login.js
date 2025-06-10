@@ -202,7 +202,7 @@ const Login = () => {
         body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes, conquistas })
       });
 
-                  localStorage.removeItem("conquistasAnonimas");
+      localStorage.removeItem("conquistasAnonimas");
 
       const dados = await resposta.json();
 
