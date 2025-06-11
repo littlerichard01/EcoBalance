@@ -199,7 +199,7 @@ const Login = () => {
         // const resposta = await fetch("https://ecobalance-backend.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes, conquistas })
+        body: JSON.stringify({ nome, email: emailCadastro, senha: senhaCadastro, receberLembretes, conquistas, idioma: idiomaSelecionado })
       });
 
       localStorage.removeItem("conquistasAnonimas");

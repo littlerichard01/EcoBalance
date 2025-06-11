@@ -17,6 +17,7 @@ import folhaEsquerdaDark from '../assets/folha-esquerdadark.png';
 
 const textos = {
     pt: {
+        ConquistaObtida: 'Conquista obtida!',
         MensagemConvite: "Acesse o Eco Balance e calcule sua pegada de carbono também!",
         MensagemCompartilhar: "Minha pegada de carbono foi de",
         meusGraficos: 'Meus Gráficos',
@@ -94,6 +95,7 @@ const textos = {
         ErroCarregarRotinas: 'Erro ao carregar rotinas.',
     },
     en: {
+        ConquistaObtida: 'Achievement obtained!',
         MensagemConvite: "Visit Eco Balance and calculate your carbon footprint too!",
         MensagemCompartilhar: "My carbon footprint was",
         meusGraficos: 'My Charts',
@@ -202,10 +204,31 @@ const TesteLogado = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
     };
 
-    const handleIdiomaSelecionado = (idioma) => {
+    const handleIdiomaSelecionado = async (idioma) => {
         setIdiomaSelecionado(idioma);
-        localStorage.setItem('language', idioma); // Salva no localStorage
+        localStorage.setItem('language', idioma);
         setMostrarDropdownIdioma(false);
+
+        if (usuario._id) {
+            try {
+                const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}`, {
+                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/usuarios/${usuario._id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ idioma }), // só o idioma
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro ao atualizar idioma");
+                }
+
+                console.log(`Idioma atualizado para ${idioma} no servidor`);
+            } catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     const toggleTema = () => {
@@ -686,7 +709,7 @@ const TesteLogado = () => {
             // const resTestes = await fetch(`https://ecobalance-backend.onrender.com/api/testes/usuario/${usuarioLogado._id}`);
             const testesUsuario = await resTestes.json();
 
-            if (testesUsuario.length === 1) {
+            if (testesUsuario.length >= 1) {
                 conquistasObtidas.push("primeiro_teste");
             }
 
@@ -707,14 +730,19 @@ const TesteLogado = () => {
             }
 
             // 4. 2 testes consecutivos
+            const penultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 1)];
+            const antePenultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 2)];
             if (testesUsuario.length >= 3) {
-                const penultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 1)];
-                const antePenultimoTeste = testesUsuario[testesUsuario.length - (testesUsuario.length - 2)];
                 console.log(emissaoTotal)
                 console.log(penultimoTeste.emissaoTotal)
                 if (antePenultimoTeste.emissaoTotal > penultimoTeste.emissaoTotal && penultimoTeste.emissaoTotal > emissaoTotal) {
                     conquistasObtidas.push("reducao_individual_2");
                 }
+            }
+
+            // 5. Verificar "abaixo_media_mensal" II
+            if (testesUsuario.length >= 2 && emissaoTotal < mediaGlobalMensal && penultimoTeste.emissaoTotal < mediaGlobalMensal) {
+                conquistasObtidas.push("abaixo_media_mensal_2");
             }
 
             console.log(conquistasObtidas)
@@ -739,6 +767,7 @@ const TesteLogado = () => {
                     if (conquistaExistente && !conquistaExistente.ativa) {
                         conquistaExistente.ativa = true;
                         conquistaExistente.data = new Date().toISOString();
+                        toast.success(textos[idiomaSelecionado]?.ConquistaObtida);
                     }
                 });
 

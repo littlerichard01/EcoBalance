@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
   conquistas: { type: [ConquistaSchema], default: [] },
   resetToken: { type: String },
   resetTokenExpiration: { type: Date },
+  idioma: {
+  type: String,
+  enum: ['pt', 'en'],
+  default: 'pt'
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);

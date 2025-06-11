@@ -24,15 +24,19 @@ const textos = {
             },
             reducao_individual: {
                 titulo: "Redução Individual",
-                descricao: "Você conseguiu reduzir sua pegada em relação ao teste anterior."
+                descricao: "Você conseguiu reduzir sua pegada em relação ao teste anterior!"
             },
             abaixo_media_mensal: {
                 titulo: "Abaixo da Média Global",
-                descricao: "Sua emissão está abaixo da média mensal global."
+                descricao: "Você realizou um teste com emissão abaixo da média mensal global por um mês!"
             },
             reducao_individual_2: {
                 titulo: "Redução Individual II",
                 descricao: "Você diminuiu sua pegada de carbono consecutivamente por dois testes!",
+            },
+            abaixo_media_mensal_2: {
+                titulo: "Abaixo da Média Global II",
+                descricao: "Você realizou um teste com emissão abaixo da média mensal global por dois meses consecutivos!",
             },
         },
         paginaInicial: 'Página inicial',
@@ -65,15 +69,19 @@ const textos = {
             },
             reducao_individual: {
                 titulo: "Individual Reduction",
-                descricao: "You managed to reduce your footprint compared to the previous test."
+                descricao: "You managed to reduce your footprint compared to the previous test!"
             },
             abaixo_media_mensal: {
                 titulo: "Below Global Average",
-                descricao: "Your emission is below the global monthly average."
+                descricao: "You conducted a test with emissions below the global monthly average for one month!"
             },
             reducao_individual_2: {
                 titulo: "Individual Reduction II",
                 descricao: "You have consecutively reduced your carbon footprint for two tests!",
+            },
+            abaixo_media_mensal_2: {
+                titulo: "Below Global Average II",
+                descricao: "You performed a test with emissions below the global monthly average for two consecutive months!",
             },
         },
         paginaInicial: 'Homepage',
@@ -238,10 +246,31 @@ const GraficosEConquistas = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
     };
 
-    const handleIdiomaSelecionado = (idioma) => {
+    const handleIdiomaSelecionado = async (idioma) => {
         setIdiomaSelecionado(idioma);
-        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
+        localStorage.setItem('language', idioma);
         setMostrarDropdownIdioma(false);
+
+        if (usuario._id) {
+            try {
+                const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}`, {
+                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/usuarios/${usuario._id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ idioma }), // só o idioma
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro ao atualizar idioma");
+                }
+
+                console.log(`Idioma atualizado para ${idioma} no servidor`);
+            } catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     const toggleTema = () => {

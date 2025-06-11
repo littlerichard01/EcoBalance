@@ -37,7 +37,8 @@ const textos = {
     pergunta2: 'Como reduzir minha pegada?',
     resposta2: 'Após preencher seus dados, o sistema irá oferecer sugestões personalizadas com base no seu perfil. Essas dicas vão te ajudar a repensar hábitos e a reduzir gradualmente suas emissões de CO₂.',
     pergunta3: 'Como é feito o cálculo da minha emissão de carbono?',
-    resposta3: 'Para saber como o cálculo de pegada de carbono é feito, clique aqui.',
+    resposta3: 'Para saber como o cálculo de pegada de carbono é feito, ',
+    cliqueAqui: 'clique aqui.',
     pergunta4: 'O que são as conquistas?',
     resposta4: 'As conquistas são prêmios simbólicos que acompanham a sua jornada de redução de emissões. Elas funcionam como incentivo, permitindo que você visualize seu progresso e compartilhe suas metas alcançadas. Seu histórico é salvo no sistema, para que você acompanhe a evolução da sua pegada ao longo do tempo.',
     pergunta5: 'Outras pessoas verão minhas estatísticas?',
@@ -69,7 +70,8 @@ const textos = {
     pergunta2: 'How to reduce my footprint?',
     resposta2: 'After filling in your data, the system will offer personalized suggestions based on your profile. These tips will help you rethink habits and gradually reduce your CO₂ emissions.',
     pergunta3: 'How is my carbon emission calculated?',
-    resposta3: 'To find out how the carbon footprint calculation is done, click here.',
+    resposta3: 'To find out how the carbon footprint calculation is done, ',
+    cliqueAqui: 'click here.',
     pergunta4: 'What are the achievements?',
     resposta4: 'Achievements are symbolic awards that accompany your emission reduction journey. They serve as an incentive, allowing you to visualize your progress and share your achieved goals. Your history is saved in the system so that you can track the evolution of your footprint over time.',
     pergunta5: 'Will other people see my statistics?',
@@ -182,16 +184,31 @@ const Home = () => {
     ]
   };
 
-
-
-
-
-  const handleIdiomaSelecionado = (idioma) => {
+  const handleIdiomaSelecionado = async (idioma) => {
     setIdiomaSelecionado(idioma);
-    localStorage.setItem('language', idioma); // Salva no localStorage
+    localStorage.setItem('language', idioma);
     setMostrarDropdownIdioma(false);
-    console.log(`Idioma selecionado: ${idioma}`);
-    // O estado 'idiomaSelecionado' agora controla qual conjunto de textos é exibido.
+
+    if (usuario._id) {
+      try {
+        const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}`, {
+        // const response = await fetch(`https://ecobalance-backend.onrender.com/api/usuarios/${usuario._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ idioma }), // só o idioma
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao atualizar idioma");
+        }
+
+        console.log(`Idioma atualizado para ${idioma} no servidor`);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   const toggleTema = () => {
@@ -390,8 +407,7 @@ const Home = () => {
             </details>
             <details className="faq-item">
               <summary>{textos[idiomaSelecionado]?.pergunta3}</summary>
-              <p>{textos[idiomaSelecionado]?.resposta3}</p>
-            </details>
+              <p>{textos[idiomaSelecionado]?.resposta3}<a style={{color: '#6e6e6e',}} href={idiomaSelecionado === 'pt' ? 'https://drive.google.com/file/d/1rubWWD99dvSLSSgZJd-fZ_V9fPF2X7La/view?usp=drive_link' : 'https://drive.google.com/file/d/1eb97rlsCiOJRbTIQfklXceAR8ys4IIBK/view?usp=drive_link'}>{textos[idiomaSelecionado]?.cliqueAqui}</a></p>            </details>
             <details className="faq-item">
               <summary>{textos[idiomaSelecionado]?.pergunta4}</summary>
               <p>{textos[idiomaSelecionado]?.resposta4}</p>

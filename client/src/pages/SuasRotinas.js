@@ -178,11 +178,31 @@ const SuasRotinas = () => {
         setMostrarDropdownIdioma(!mostrarDropdownIdioma);
     };
 
-    const handleIdiomaSelecionado = (idioma) => {
+    const handleIdiomaSelecionado = async (idioma) => {
         setIdiomaSelecionado(idioma);
-        localStorage.setItem('language', idioma); // Salva no localStorage imediatamente
+        localStorage.setItem('language', idioma);
         setMostrarDropdownIdioma(false);
-        console.log("Idioma selecionado:", idiomaSelecionado);
+
+        if (usuario._id) {
+            try {
+                const response = await fetch(`http://localhost:3001/api/usuarios/${usuario._id}`, {
+                // const response = await fetch(`https://ecobalance-backend.onrender.com/api/usuarios/${usuario._id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ idioma }), // só o idioma
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro ao atualizar idioma");
+                }
+
+                console.log(`Idioma atualizado para ${idioma} no servidor`);
+            } catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     const toggleTema = () => {
