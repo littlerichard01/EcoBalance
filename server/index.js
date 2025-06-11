@@ -63,7 +63,7 @@ cron.schedule('*/15 * * * *', async () => {
       <p>Olá, ${usuario.nome}!</p>
       <p>É hora de fazer um novo teste de pegada de carbono e acompanhar seu impacto ambiental.</p>
       <div style="text-align: center; margin: 30px 0;">
-        <a href="http://localhost:3000/teste-logado" style="background-color: #73CC3D; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+        <a href="https://eco-balance-online.vercel.app/teste-logado" style="background-color: #73CC3D; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
           Calcular
         </a>
       </div>
@@ -85,7 +85,7 @@ cron.schedule('*/15 * * * *', async () => {
       <p>Hello, ${usuario.nome}!</p>
       <p>It's time to take a new carbon footprint test and monitor your environmental impact.</p>
       <div style="text-align: center; margin: 30px 0;">
-        <a href="http://localhost:3000/teste-logado" style="background-color: #73CC3D; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+        <a href="https://eco-balance-online.vercel.app/teste-logado" style="background-color: #73CC3D; color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">
           Calculate
         </a>
       </div>
